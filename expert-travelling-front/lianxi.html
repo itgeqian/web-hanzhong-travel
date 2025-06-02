@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>联系我们 - 汉中旅游</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/lianxi-inline.css">
+</head>
+<body>
+    <!-- 页面头部 -->
+    <header class="header">
+        <div class="logo-container">
+            <img src="img/logo.png" alt="汉中旅游Logo" class="logo">
+            <h1 class="site-title">汉中旅游</h1>
+        </div>
+        
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="index.html" class="nav-link">首页</a></li>
+                <li class="nav-item"><a href="jingdian.html" class="nav-link">景点介绍</a></li>
+                <li class="nav-item"><a href="luxian.html" class="nav-link">旅游线路</a></li>
+                <li class="nav-item"><a href="gonglue.html" class="nav-link">旅游攻略</a></li>
+                <li class="nav-item"><a href="meishi.html" class="nav-link">美食推荐</a></li>
+                <li class="nav-item"><a href="wenhua.html" class="nav-link">汉文化活动</a></li>
+                <li class="nav-item"><a href="lianxi.html" class="nav-link active">联系我们</a></li>
+                <li class="nav-item"><a href="wenti.html" class="nav-link">常见问题</a></li>
+            </ul>
+            
+            <!-- 用户操作按钮 -->
+            <div class="user-actions">
+                <a href="register.html" class="btn btn-outline">注册</a>
+                <a href="login.html" class="btn btn-primary">登录</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 主要内容 -->
+    <main class="main-content">
+        <!-- 页面标题区域 -->
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-title">联系我们</h1>
+                <p class="page-subtitle">随时为您提供专业的旅游咨询服务</p>
+            </div>
+        </section>
+
+        <!-- 主要联系内容 -->
+        <section class="contact-main">
+            <div class="contact-container">
+                <!-- 联系信息 -->
+                <div class="contact-info">
+                    <div class="info-card">
+                        <div class="info-icon">📞</div>
+                        <h3 class="info-title">客服热线</h3>
+                        <p class="info-desc">专业客服团队，为您提供7×24小时贴心服务</p>
+                        <ul class="info-details">
+                            <li>全国免费热线：400-0916-888</li>
+                            <li>投诉建议热线：0916-2626888</li>
+                            <li>紧急救援热线：0916-2626999</li>
+                            <li>团队预订专线：0916-2626666</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon">📧</div>
+                        <h3 class="info-title">邮箱联系</h3>
+                        <p class="info-desc">通过邮件与我们联系，我们会在24小时内回复</p>
+                        <ul class="info-details">
+                            <li>客服邮箱：service@hanzhong-travel.com</li>
+                            <li>合作洽谈：business@hanzhong-travel.com</li>
+                            <li>媒体合作：media@hanzhong-travel.com</li>
+                            <li>意见反馈：feedback@hanzhong-travel.com</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon">📍</div>
+                        <h3 class="info-title">办公地址</h3>
+                        <p class="info-desc">欢迎您到我们的办公室进行面对面咨询</p>
+                        <ul class="info-details">
+                            <li>总部：陕西省汉中市汉台区天汉大道666号</li>
+                            <li>营业部：汉中市中心广场汉文化大厦8楼</li>
+                            <li>机场服务点：汉中城固机场出发厅</li>
+                            <li>高铁服务点：汉中站出站口</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon">💬</div>
+                        <h3 class="info-title">在线客服</h3>
+                        <p class="info-desc">通过即时通讯工具快速获得帮助</p>
+                        <ul class="info-details">
+                            <li>微信客服：hanzhong_travel</li>
+                            <li>QQ客服：888888888</li>
+                            <li>在线客服：www.hanzhong-travel.com</li>
+                            <li>小程序：汉中旅游助手</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 联系表单 -->
+                <div class="contact-form">
+                    <div class="form-card">
+                        <h3 class="form-title">在线咨询</h3>
+                        <form id="contactForm">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label class="form-label" for="name">姓名 *</label>
+                                        <input type="text" id="name" name="name" class="form-input" required>
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label class="form-label" for="phone">联系电话 *</label>
+                                        <input type="tel" id="phone" name="phone" class="form-input" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label class="form-label" for="email">邮箱地址</label>
+                                        <input type="email" id="email" name="email" class="form-input">
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label class="form-label" for="subject">咨询类型</label>
+                                        <select id="subject" name="subject" class="form-select">
+                                            <option value="general">一般咨询</option>
+                                            <option value="booking">预订咨询</option>
+                                            <option value="complaint">投诉建议</option>
+                                            <option value="cooperation">合作洽谈</option>
+                                            <option value="media">媒体合作</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="destination">意向目的地</label>
+                                <select id="destination" name="destination" class="form-select">
+                                    <option value="">请选择目的地</option>
+                                    <option value="wuhouci">勉县武侯祠</option>
+                                    <option value="longtoushan">南郑龙头山</option>
+                                    <option value="zhujiliyuan">朱鹮梨园</option>
+                                    <option value="shimenshandao">石门栈道</option>
+                                    <option value="hanjiang">汉江源头</option>
+                                    <option value="custom">其他/自定义</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="message">详细咨询内容 *</label>
+                                <textarea id="message" name="message" class="form-textarea" placeholder="请详细描述您的咨询内容，我们会尽快为您回复..." required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="travel-date">计划出行时间</label>
+                                <input type="date" id="travel-date" name="travel-date" class="form-input">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="travelers">出行人数</label>
+                                <select id="travelers" name="travelers" class="form-select">
+                                    <option value="1">1人</option>
+                                    <option value="2">2人</option>
+                                    <option value="3-5">3-5人</option>
+                                    <option value="6-10">6-10人</option>
+                                    <option value="10+">10人以上</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="submit-btn">提交咨询</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 快速联系 -->
+        <section class="quick-contact">
+            <div class="quick-contact-container">
+                <h2>快速联系方式</h2>
+                <p>选择最适合您的联系方式，我们随时为您服务</p>
+                
+                <div class="quick-contact-grid">
+                    <div class="quick-contact-item">
+                        <div class="quick-icon">📱</div>
+                        <h3 class="quick-title">微信客服</h3>
+                        <p class="quick-info">扫码添加微信，享受一对一专属服务</p>
+                        <button class="quick-btn">添加微信</button>
+                    </div>
+
+                    <div class="quick-contact-item">
+                        <div class="quick-icon">💬</div>
+                        <h3 class="quick-title">在线聊天</h3>
+                        <p class="quick-info">实时在线客服，即问即答</p>
+                        <button class="quick-btn">开始聊天</button>
+                    </div>
+
+                    <div class="quick-contact-item">
+                        <div class="quick-icon">📞</div>
+                        <h3 class="quick-title">电话咨询</h3>
+                        <p class="quick-info">专业客服为您提供详细解答</p>
+                        <button class="quick-btn">立即拨打</button>
+                    </div>
+
+                    <div class="quick-contact-item">
+                        <div class="quick-icon">🎯</div>
+                        <h3 class="quick-title">预约回访</h3>
+                        <p class="quick-info">留下联系方式，我们主动联系您</p>
+                        <button class="quick-btn">预约回访</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 地图位置 -->
+        <section class="map-section">
+            <div class="map-header">
+                <h2>我们的位置</h2>
+                <p>汉中市中心地段，交通便利，欢迎来访</p>
+            </div>
+            <div class="map-container">
+                <div class="map-placeholder">
+                    <h3>📍 汉中旅游网总部</h3>
+                    <p>陕西省汉中市汉台区天汉大道666号</p>
+                    <p>（地图功能需要接入第三方地图服务）</p>
+                    <button class="quick-btn" style="margin-top: 1rem;">查看详细地图</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 营业时间 -->
+        <section class="office-hours">
+            <div class="hours-container">
+                <div class="hours-info">
+                    <h2>营业时间</h2>
+                    <ul class="hours-list">
+                        <li>
+                            <span>周一至周五</span>
+                            <span>8:30 - 18:00</span>
+                        </li>
+                        <li>
+                            <span>周六</span>
+                            <span>9:00 - 17:00</span>
+                        </li>
+                        <li>
+                            <span>周日</span>
+                            <span>9:00 - 16:00</span>
+                        </li>
+                        <li>
+                            <span>节假日</span>
+                            <span>9:00 - 16:00</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="hours-emergency">
+                    <h3>24小时紧急联系</h3>
+                    <div class="emergency-phone">400-0916-999</div>
+                    <p>紧急情况下，我们的值班客服随时为您提供帮助</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>汉中旅游网</h3>
+                <p>专业的汉中旅游服务平台，为您提供最优质的旅游体验。</p>
+                <div class="social-links">
+                    <a href="#" class="social-link">微信</a>
+                    <a href="#" class="social-link">微博</a>
+                    <a href="#" class="social-link">抖音</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>热门景点</h4>
+                <ul class="footer-links">
+                    <li><a href="#">勉县武侯祠</a></li>
+                    <li><a href="#">南郑龙头山</a></li>
+                    <li><a href="#">朱鹮梨园</a></li>
+                    <li><a href="#">石门栈道</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>服务支持</h4>
+                <ul class="footer-links">
+                    <li><a href="#">在线客服</a></li>
+                    <li><a href="#">预订帮助</a></li>
+                    <li><a href="#">退改政策</a></li>
+                    <li><a href="#">常见问题</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>联系我们</h4>
+                <div class="contact-info">
+                    <p>📞 客服热线：400-0916-888</p>
+                    <p>📧 邮箱：info@hanzhong-travel.com</p>
+                    <p>📍 地址：陕西省汉中市汉台区</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2024 汉中旅游网. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/lianxi-inline.js"></script>
+</body>
+</html> 

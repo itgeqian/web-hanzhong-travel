@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旅游攻略 - 汉中旅游</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/gonglue.css">
+</head>
+<body>
+    <!-- 页面头部 -->
+    <header class="header">
+        <div class="logo-container">
+            <img src="img/logo.png" alt="汉中旅游Logo" class="logo">
+            <h1 class="site-title">汉中旅游</h1>
+        </div>
+        
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="index.html" class="nav-link">首页</a></li>
+                <li class="nav-item"><a href="jingdian.html" class="nav-link">景点介绍</a></li>
+                <li class="nav-item"><a href="luxian.html" class="nav-link">旅游线路</a></li>
+                <li class="nav-item"><a href="gonglue.html" class="nav-link active">旅游攻略</a></li>
+                <li class="nav-item"><a href="meishi.html" class="nav-link">美食推荐</a></li>
+                <li class="nav-item"><a href="wenhua.html" class="nav-link">汉文化活动</a></li>
+                <li class="nav-item"><a href="lianxi.html" class="nav-link">联系我们</a></li>
+                <li class="nav-item"><a href="wenti.html" class="nav-link">常见问题</a></li>
+            </ul>
+            
+            <!-- 用户操作按钮 -->
+            <div class="user-actions">
+                <a href="register.html" class="btn btn-outline">注册</a>
+                <a href="login.html" class="btn btn-primary">登录</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 主要内容 -->
+    <main class="main-content">
+        <!-- 页面标题区域 -->
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-title">汉中旅游攻略</h1>
+                <p class="page-subtitle">详尽实用的旅游指南，让您的汉中之旅更加完美</p>
+            </div>
+        </section>
+
+        <!-- 攻略导航 -->
+        <section class="guide-nav">
+            <div class="container">
+                <div class="nav-tabs">
+                    <button class="nav-tab active" data-tab="transport"><span>🚄 交通指南</span></button>
+                    <button class="nav-tab" data-tab="accommodation"><span>🏨 住宿推荐</span></button>
+                    <button class="nav-tab" data-tab="tips"><span>💡 注意事项</span></button>
+                    <button class="nav-tab" data-tab="season"><span>🌸 最佳时间</span></button>
+                    <button class="nav-tab" data-tab="budget"><span>💰 预算参考</span></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 攻略内容区域 -->
+        <section class="guide-content">
+            <div class="container">
+                <!-- 交通指南 -->
+                <div class="tab-content active" id="transport">
+                    <div class="content-layout">
+                        <div class="content-main">
+                            <h2>交通指南</h2>
+                            
+                            <div class="transport-section">
+                                <h3>🚄 到达汉中</h3>
+                                <div class="transport-grid">
+                                    <div class="transport-card">
+                                        <h4>飞机</h4>
+                                        <p><strong>汉中城固机场</strong></p>
+                                        <ul>
+                                            <li>北京、上海、广州、深圳等主要城市直飞</li>
+                                            <li>机场大巴：20元/人，约40分钟到市区</li>
+                                            <li>出租车：约80-100元到市区</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="transport-card">
+                                        <h4>高铁</h4>
+                                        <p><strong>汉中站</strong></p>
+                                        <ul>
+                                            <li>西安：1小时30分钟</li>
+                                            <li>成都：3小时</li>
+                                            <li>重庆：4小时</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="transport-card">
+                                        <h4>自驾</h4>
+                                        <p><strong>主要路线</strong></p>
+                                        <ul>
+                                            <li>京昆高速：北京-汉中</li>
+                                            <li>十天高速：西安-汉中</li>
+                                            <li>成汉高速：成都-汉中</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="transport-section">
+                                <h3>🚌 市内交通</h3>
+                                <div class="local-transport">
+                                    <div class="transport-item">
+                                        <h4>公交车</h4>
+                                        <p>市内公交线路完善，票价1-2元，支持移动支付</p>
+                                        <ul>
+                                            <li>1路：火车站-朱鹮梨园</li>
+                                            <li>6路：市中心-武侯祠</li>
+                                            <li>21路：汽车站-石门栈道</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="transport-item">
+                                        <h4>出租车/网约车</h4>
+                                        <p>起步价8元，市内一般20-40元</p>
+                                        <ul>
+                                            <li>滴滴出行、神州专车等平台可用</li>
+                                            <li>建议使用正规出租车或网约车</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="transport-item">
+                                        <h4>旅游专线</h4>
+                                        <p>连接主要景点的旅游巴士</p>
+                                        <ul>
+                                            <li>景区直通车：市区-各大景点</li>
+                                            <li>一日游专线：多景点连线</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="content-sidebar">
+                            <div class="tips-box">
+                                <h4>💡 交通小贴士</h4>
+                                <ul>
+                                    <li>建议提前购买高铁票</li>
+                                    <li>机场大巴发车时间与航班时间配合</li>
+                                    <li>自驾游注意山区路况</li>
+                                    <li>景区间距离较远，建议包车或跟团</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 住宿推荐 -->
+                <div class="tab-content" id="accommodation">
+                    <div class="content-layout">
+                        <div class="content-main">
+                            <h2>住宿推荐</h2>
+                            
+                            <div class="accommodation-section">
+                                <h3>🏨 酒店类型</h3>
+                                <div class="hotel-grid">
+                                    <div class="hotel-category">
+                                        <h4>豪华酒店</h4>
+                                        <div class="hotel-list">
+                                            <div class="hotel-item">
+                                                <h5>汉中智选假日酒店</h5>
+                                                <p>价格：480-680元/晚</p>
+                                                <p>位置：市中心，交通便利</p>
+                                                <p>特色：国际品牌，设施完善</p>
+                                            </div>
+                                            <div class="hotel-item">
+                                                <h5>汉唐国际酒店</h5>
+                                                <p>价格：380-520元/晚</p>
+                                                <p>位置：高铁站附近</p>
+                                                <p>特色：汉代风格装修</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="hotel-category">
+                                        <h4>经济酒店</h4>
+                                        <div class="hotel-list">
+                                            <div class="hotel-item">
+                                                <h5>如家酒店</h5>
+                                                <p>价格：180-260元/晚</p>
+                                                <p>位置：多个门店分布</p>
+                                                <p>特色：性价比高，连锁品牌</p>
+                                            </div>
+                                            <div class="hotel-item">
+                                                <h5>汉庭酒店</h5>
+                                                <p>价格：160-220元/晚</p>
+                                                <p>位置：市区多点</p>
+                                                <p>特色：干净整洁，服务好</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="hotel-category">
+                                        <h4>民宿客栈</h4>
+                                        <div class="hotel-list">
+                                            <div class="hotel-item">
+                                                <h5>汉风雅居民宿</h5>
+                                                <p>价格：120-180元/晚</p>
+                                                <p>位置：古城区</p>
+                                                <p>特色：古色古香，体验当地文化</p>
+                                            </div>
+                                            <div class="hotel-item">
+                                                <h5>朱鹮山庄</h5>
+                                                <p>价格：200-300元/晚</p>
+                                                <p>位置：朱鹮保护区附近</p>
+                                                <p>特色：生态环境，观鸟便利</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accommodation-section">
+                                <h3>🌟 推荐住宿区域</h3>
+                                <div class="area-recommendations">
+                                    <div class="area-card">
+                                        <h4>市中心区域</h4>
+                                        <p>优势：交通便利，餐饮丰富，购物方便</p>
+                                        <p>适合：商务出行，短期停留</p>
+                                    </div>
+                                    
+                                    <div class="area-card">
+                                        <h4>高铁站周边</h4>
+                                        <p>优势：交通枢纽，往返方便</p>
+                                        <p>适合：中转过夜，赶早班车</p>
+                                    </div>
+                                    
+                                    <div class="area-card">
+                                        <h4>景区附近</h4>
+                                        <p>优势：环境优美，体验性强</p>
+                                        <p>适合：度假休闲，深度体验</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="content-sidebar">
+                            <div class="tips-box">
+                                <h4>🏠 住宿小贴士</h4>
+                                <ul>
+                                    <li>旺季提前预订</li>
+                                    <li>关注酒店优惠活动</li>
+                                    <li>选择有停车场的酒店</li>
+                                    <li>民宿注意查看评价</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 注意事项 -->
+                <div class="tab-content" id="tips">
+                    <div class="content-layout">
+                        <div class="content-main">
+                            <h2>旅游注意事项</h2>
+                            
+                            <div class="tips-grid">
+                                <div class="tip-category">
+                                    <h3>🎒 行前准备</h3>
+                                    <ul class="tip-list">
+                                        <li>查看天气预报，准备合适衣物</li>
+                                        <li>携带身份证、学生证等证件</li>
+                                        <li>准备常用药品：感冒药、肠胃药等</li>
+                                        <li>下载离线地图和翻译软件</li>
+                                        <li>准备充电宝和数据线</li>
+                                        <li>购买旅游保险</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="tip-category">
+                                    <h3>🌤️ 气候穿着</h3>
+                                    <ul class="tip-list">
+                                        <li>春季：薄外套+长裤，防雨准备</li>
+                                        <li>夏季：轻薄透气衣物，防晒用品</li>
+                                        <li>秋季：保暖外套，早晚温差大</li>
+                                        <li>冬季：厚外套+保暖内衣</li>
+                                        <li>登山：运动鞋，防滑袜</li>
+                                        <li>雨具：便携雨伞或雨衣</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="tip-category">
+                                    <h3>🍽️ 饮食安全</h3>
+                                    <ul class="tip-list">
+                                        <li>选择卫生条件好的餐厅</li>
+                                        <li>避免生冷食物和自来水</li>
+                                        <li>尝试当地特色但适量</li>
+                                        <li>有过敏史要提前说明</li>
+                                        <li>携带肠胃药以防万一</li>
+                                        <li>注意饮食卫生习惯</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="tip-category">
+                                    <h3>🏃‍♂️ 活动安全</h3>
+                                    <ul class="tip-list">
+                                        <li>遵守景区规定和安全提示</li>
+                                        <li>不要独自前往偏僻区域</li>
+                                        <li>登山时量力而行</li>
+                                        <li>拍照时注意周围环境</li>
+                                        <li>保管好个人财物</li>
+                                        <li>紧急情况及时求助</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="tip-category">
+                                    <h3>💰 消费防骗</h3>
+                                    <ul class="tip-list">
+                                        <li>购物时多比较价格</li>
+                                        <li>不要轻信街头兜售</li>
+                                        <li>正规渠道购买门票</li>
+                                        <li>保留消费凭证</li>
+                                        <li>谨慎参加低价团</li>
+                                        <li>遇到纠纷及时投诉</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="tip-category">
+                                    <h3>📱 实用信息</h3>
+                                    <ul class="tip-list">
+                                        <li>旅游咨询热线：0916-2636909</li>
+                                        <li>紧急报警电话：110</li>
+                                        <li>医疗急救电话：120</li>
+                                        <li>消费者投诉：12315</li>
+                                        <li>旅游投诉：12301</li>
+                                        <li>天气查询：12121</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="content-sidebar">
+                            <div class="emergency-box">
+                                <h4>🚨 紧急联系</h4>
+                                <div class="emergency-contacts">
+                                    <div class="contact-item">
+                                        <span class="contact-type">报警电话</span>
+                                        <span class="contact-number">110</span>
+                                    </div>
+                                    <div class="contact-item">
+                                        <span class="contact-type">急救电话</span>
+                                        <span class="contact-number">120</span>
+                                    </div>
+                                    <div class="contact-item">
+                                        <span class="contact-type">火警电话</span>
+                                        <span class="contact-number">119</span>
+                                    </div>
+                                    <div class="contact-item">
+                                        <span class="contact-type">旅游投诉</span>
+                                        <span class="contact-number">12301</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 最佳时间 -->
+                <div class="tab-content" id="season">
+                    <div class="content-layout">
+                        <div class="content-main">
+                            <h2>最佳旅游时间</h2>
+                            
+                            <div class="season-overview">
+                                <h3>🌸 总体推荐</h3>
+                                <p>汉中属于亚热带湿润季风气候，四季分明，最佳旅游时间为春季（3-5月）和秋季（9-11月）。</p>
+                            </div>
+                            
+                            <div class="seasons-grid">
+                                <div class="season-card spring">
+                                    <h3>🌸 春季（3-5月）</h3>
+                                    <div class="season-info">
+                                        <p><strong>气候特点：</strong>温度适宜，降雨适中</p>
+                                        <p><strong>平均气温：</strong>15-25°C</p>
+                                        <p><strong>推荐指数：</strong>⭐⭐⭐⭐⭐</p>
+                                    </div>
+                                    <div class="season-highlights">
+                                        <h4>春季亮点</h4>
+                                        <ul>
+                                            <li>🌸 朱鹮梨园万亩梨花盛开</li>
+                                            <li>🦅 朱鹮繁殖期，观鸟最佳</li>
+                                            <li>🌱 山花烂漫，绿意盎然</li>
+                                            <li>📸 摄影创作的黄金季节</li>
+                                        </ul>
+                                    </div>
+                                    <div class="season-tips">
+                                        <p><strong>穿衣建议：</strong>薄外套+长裤，准备雨具</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="season-card summer">
+                                    <h3>☀️ 夏季（6-8月）</h3>
+                                    <div class="season-info">
+                                        <p><strong>气候特点：</strong>炎热多雨，湿度较高</p>
+                                        <p><strong>平均气温：</strong>25-35°C</p>
+                                        <p><strong>推荐指数：</strong>⭐⭐⭐☆☆</p>
+                                    </div>
+                                    <div class="season-highlights">
+                                        <h4>夏季亮点</h4>
+                                        <ul>
+                                            <li>🏞️ 山区清凉，避暑胜地</li>
+                                            <li>💧 瀑布水量充沛</li>
+                                            <li>🌿 植被茂盛，绿意满眼</li>
+                                            <li>🎋 竹海清幽，心旷神怡</li>
+                                        </ul>
+                                    </div>
+                                    <div class="season-tips">
+                                        <p><strong>穿衣建议：</strong>轻薄透气，防晒防雨</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="season-card autumn">
+                                    <h3>🍂 秋季（9-11月）</h3>
+                                    <div class="season-info">
+                                        <p><strong>气候特点：</strong>天高气爽，干燥舒适</p>
+                                        <p><strong>平均气温：</strong>15-25°C</p>
+                                        <p><strong>推荐指数：</strong>⭐⭐⭐⭐⭐</p>
+                                    </div>
+                                    <div class="season-highlights">
+                                        <h4>秋季亮点</h4>
+                                        <ul>
+                                            <li>🍁 层林尽染，色彩斑斓</li>
+                                            <li>🌾 丰收季节，果实累累</li>
+                                            <li>🌤️ 天气晴朗，能见度高</li>
+                                            <li>🥾 登山徒步的好时机</li>
+                                        </ul>
+                                    </div>
+                                    <div class="season-tips">
+                                        <p><strong>穿衣建议：</strong>保暖外套，注意早晚温差</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="season-card winter">
+                                    <h3>❄️ 冬季（12-2月）</h3>
+                                    <div class="season-info">
+                                        <p><strong>气候特点：</strong>温和干燥，偶有雨雪</p>
+                                        <p><strong>平均气温：</strong>0-15°C</p>
+                                        <p><strong>推荐指数：</strong>⭐⭐⭐☆☆</p>
+                                    </div>
+                                    <div class="season-highlights">
+                                        <h4>冬季亮点</h4>
+                                        <ul>
+                                            <li>🏛️ 室内景点游览舒适</li>
+                                            <li>🎎 体验传统年俗文化</li>
+                                            <li>🍲 品尝热腾腾的当地美食</li>
+                                            <li>💰 淡季优惠，性价比高</li>
+                                        </ul>
+                                    </div>
+                                    <div class="season-tips">
+                                        <p><strong>穿衣建议：</strong>厚外套+保暖内衣，防风保暖</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="content-sidebar">
+                            <div class="calendar-box">
+                                <h4>📅 节庆活动</h4>
+                                <ul class="festival-list">
+                                    <li><strong>3月：</strong>梨花节</li>
+                                    <li><strong>5月：</strong>朱鹮文化节</li>
+                                    <li><strong>8月：</strong>汉文化展演</li>
+                                    <li><strong>10月：</strong>秋收文化节</li>
+                                    <li><strong>春节：</strong>民俗文化庙会</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 预算参考 -->
+                <div class="tab-content" id="budget">
+                    <div class="content-layout">
+                        <div class="content-main">
+                            <h2>旅游预算参考</h2>
+                            
+                            <div class="budget-overview">
+                                <p>以下预算仅供参考，实际花费因个人消费习惯而异。按3天2晚行程计算：</p>
+                            </div>
+                            
+                            <div class="budget-categories">
+                                <div class="budget-category">
+                                    <h3>💰 经济型（人均500-800元）</h3>
+                                    <div class="budget-breakdown">
+                                        <div class="budget-item">
+                                            <span class="item-name">住宿</span>
+                                            <span class="item-price">160-220元/晚 × 2晚</span>
+                                            <span class="item-total">320-440元</span>
+                                        </div>
+                                        <div class="budget-item">
+                                            <span class="item-name">餐饮</span>
+                                            <span class="item-price">40-60元/天 × 3天</span>
+                                            <span class="item-total">120-180元</span>
+                                        </div>
+                                        <div class="budget-item">
+                                            <span class="item-name">门票</span>
+                                            <span class="item-price">2-3个景点</span>
+                                            <span class="item-total">100-150元</span>
+                                        </div>
+                                        <div class="budget-item">
+                                            <span class="item-name">交通</span>
+                                            <span class="item-price">公交+少量打车</span>
+                                            <span class="item-total">50-80元</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="budget-category">
+                                    <h3>🌟 舒适型（人均800-1500元）</h3>
+                                    <div class="budget-breakdown">
+                                        <div class="budget-item">
+                                            <span class="item-name">住宿</span>
+                                            <span class="item-price">300-450元/晚 × 2晚</span>
+                                            <span class="item-total">600-900元</span>
+                                        </div>
+                                        <div class="budget-item">
+                                            <span class="item-name">餐饮</span>
+                                            <span class="item-price">80-120元/天 × 3天</span>
+                                            <span class="item-total">240-360元</span>
+                                        </div>
+                                        <div class="budget-item">
+                                            <span class="item-name">门票</span>
+                                            <span class="item-price">4-5个景点</span>
+                                            <span class="item-total">200-300元</span>
+                                        </div>
+                                        <div class="budget-item">
+                                            <span class="item-name">交通</span>
+                                            <span class="item-price">包车或网约车</span>
+                                            <span class="item-total">150-250元</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="budget-category">
+                                    <h3>💎 豪华型（人均1500-3000元）</h3>
+                                    <div class="budget-breakdown">
+                                        <div class="budget-item">
+                                            <span class="item-name">住宿</span>
+                                            <span class="item-price">500-800元/晚 × 2晚</span>
+                                            <span class="item-total">1000-1600元</span>
+                                        </div>
+                                        <div class="budget-item">
+                                            <span class="item-name">餐饮</span>
+                                            <span class="item-price">150-250元/天 × 3天</span>
+                                            <span class="item-total">450-750元</span>
+                                        </div>
+                                        <div class="budget-item">
+                                            <span class="item-name">门票</span>
+                                            <span class="item-price">全部景点+VIP服务</span>
+                                            <span class="item-total">400-600元</span>
+                                        </div>
+                                        <div class="budget-item">
+                                            <span class="item-name">交通</span>
+                                            <span class="item-price">专车+导游服务</span>
+                                            <span class="item-total">300-500元</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="saving-tips">
+                                <h3>💡 省钱小贴士</h3>
+                                <ul class="savings-list">
+                                    <li>提前预订酒店和门票享受优惠</li>
+                                    <li>购买景点联票更划算</li>
+                                    <li>选择淡季出行，价格更便宜</li>
+                                    <li>关注官方微信获取优惠信息</li>
+                                    <li>学生、老人等群体享受门票优惠</li>
+                                    <li>选择当地特色小吃，既便宜又正宗</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="content-sidebar">
+                            <div class="calculator-box">
+                                <h4>🧮 预算计算器</h4>
+                                <form class="budget-calculator">
+                                    <div class="calc-group">
+                                        <label>出行天数</label>
+                                        <input type="number" id="days" value="3" min="1">
+                                    </div>
+                                    <div class="calc-group">
+                                        <label>出行人数</label>
+                                        <input type="number" id="people" value="2" min="1">
+                                    </div>
+                                    <div class="calc-group">
+                                        <label>预算等级</label>
+                                        <select id="budget-level">
+                                            <option value="650">经济型</option>
+                                            <option value="1150">舒适型</option>
+                                            <option value="2250">豪华型</option>
+                                        </select>
+                                    </div>
+                                    <div class="calc-result">
+                                        <p>预估总费用：<span id="total-budget">3900</span>元</p>
+                                    </div>
+                                    <button type="button" onclick="calculateBudget()"><span>🧮 重新计算</span></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页面底部 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>关于我们</h3>
+                    <p>汉中旅游官方网站，致力于推广汉中文化旅游资源</p>
+                </div>
+                <div class="footer-section">
+                    <h3>联系方式</h3>
+                    <p>电话：0916-1234567</p>
+                    <p>邮箱：info@hztravel.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>友情链接</h3>
+                    <ul>
+                        <li><a href="javascript:void(0)">陕西省旅游局</a></li>
+                        <li><a href="javascript:void(0)">汉中市政府</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 汉中旅游网站. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/guide.js"></script>
+    <script src="js/gonglue-buttons.js"></script>
+</body>
+</html> 

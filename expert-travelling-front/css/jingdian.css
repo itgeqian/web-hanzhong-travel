@@ -1,0 +1,465 @@
+/* 景点介绍页面专用样式 */
+
+/* 分类导航 */
+.category-nav {
+    padding: 40px 0;
+    background: white;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.category-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.category-item {
+    padding: 12px 24px;
+    background: #f8f9fa;
+    border: 2px solid transparent;
+    border-radius: 25px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #666;
+}
+
+.category-item:hover,
+.category-item.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+/* 景点列表区域 */
+.attractions-section {
+    padding: 60px 0;
+    background: #f8f9fa;
+}
+
+.attractions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+/* 景点卡片 */
+.attraction-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.attraction-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+}
+
+.card-image {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.attraction-card:hover .card-image img {
+    transform: scale(1.1);
+}
+
+.card-overlay {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.card-tag {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* 卡片内容 */
+.card-content {
+    padding: 30px;
+}
+
+.card-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.card-rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.stars {
+    color: #ffd700;
+    font-size: 16px;
+}
+
+.rating-text {
+    color: #666;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.card-description {
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 25px;
+    font-size: 15px;
+}
+
+/* 景点信息 */
+.card-info {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.info-item:last-child {
+    margin-bottom: 0;
+}
+
+.info-label {
+    font-weight: 500;
+    color: #333;
+    font-size: 14px;
+}
+
+.info-value {
+    color: #667eea;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+/* 卡片操作按钮 */
+.card-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.btn-primary {
+    flex: 1;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+}
+
+.btn-outline {
+    flex: 1;
+    background: transparent;
+    color: #667eea;
+    border: 2px solid #667eea;
+}
+
+.btn-outline:hover {
+    background: #667eea;
+    color: white;
+}
+
+/* 加载更多 */
+.load-more-section {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.btn-load-more {
+    padding: 15px 40px;
+    background: white;
+    color: #667eea;
+    border: 2px solid #667eea;
+    border-radius: 25px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-load-more:hover {
+    background: #667eea;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* 推荐景点区域 */
+.recommended-section {
+    padding: 80px 0;
+    background: white;
+}
+
+.recommended-list {
+    margin-top: 50px;
+}
+
+.attraction-ranking {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.ranking-item {
+    display: flex;
+    align-items: center;
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+    border-left: 5px solid transparent;
+}
+
+.ranking-item:hover {
+    background: white;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border-left-color: #667eea;
+    transform: translateX(5px);
+}
+
+.rank-number {
+    font-size: 28px;
+    font-weight: bold;
+    color: #667eea;
+    min-width: 60px;
+    text-align: center;
+    margin-right: 25px;
+}
+
+.ranking-item:nth-child(1) .rank-number {
+    color: #ffd700;
+}
+
+.ranking-item:nth-child(2) .rank-number {
+    color: #c0c0c0;
+}
+
+.ranking-item:nth-child(3) .rank-number {
+    color: #cd7f32;
+}
+
+.rank-content {
+    flex: 1;
+}
+
+.rank-content h4 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.rank-content p {
+    color: #666;
+    margin: 0;
+    font-size: 14px;
+}
+
+.rank-score {
+    font-size: 18px;
+    font-weight: bold;
+    color: #667eea;
+    background: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: 2px solid #e0e0e0;
+}
+
+/* 筛选动画 */
+.attraction-card.hidden {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+}
+
+.attraction-card.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* 响应式设计 */
+@media (max-width: 1024px) {
+    .attractions-grid {
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .category-list {
+        gap: 15px;
+    }
+    
+    .category-item {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+    
+    .attractions-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    
+    .attraction-card {
+        border-radius: 15px;
+    }
+    
+    .card-content {
+        padding: 25px;
+    }
+    
+    .card-title {
+        font-size: 20px;
+    }
+    
+    .ranking-item {
+        padding: 20px;
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .rank-number {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    
+    .rank-content {
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .category-list {
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 10px;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    
+    .category-list::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .category-item {
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+    
+    .card-image {
+        height: 200px;
+    }
+    
+    .card-content {
+        padding: 20px;
+    }
+    
+    .card-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .ranking-item {
+        padding: 15px;
+    }
+    
+    .rank-number {
+        font-size: 24px;
+    }
+    
+    .rank-content h4 {
+        font-size: 18px;
+    }
+}
+
+/* 加载动画 */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.attraction-card {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.ranking-item {
+    animation: slideInLeft 0.6s ease-out;
+}
+
+.ranking-item:nth-child(1) { animation-delay: 0.1s; }
+.ranking-item:nth-child(2) { animation-delay: 0.2s; }
+.ranking-item:nth-child(3) { animation-delay: 0.3s; }
+.ranking-item:nth-child(4) { animation-delay: 0.4s; }
+.ranking-item:nth-child(5) { animation-delay: 0.5s; }
+
+/* 悬浮效果 */
+.attraction-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 20px;
+    z-index: 1;
+}
+
+.attraction-card:hover::before {
+    opacity: 1;
+}
+
+.attraction-card > * {
+    position: relative;
+    z-index: 2;
+} 

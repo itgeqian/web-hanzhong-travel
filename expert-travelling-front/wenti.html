@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>常见问题 - 汉中旅游</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/wenti-inline.css">
+</head>
+<body>
+    <!-- 页面头部 -->
+    <header class="header">
+        <div class="logo-container">
+            <img src="img/logo.png" alt="汉中旅游Logo" class="logo">
+            <h1 class="site-title">汉中旅游</h1>
+        </div>
+        
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="index.html" class="nav-link">首页</a></li>
+                <li class="nav-item"><a href="jingdian.html" class="nav-link">景点介绍</a></li>
+                <li class="nav-item"><a href="luxian.html" class="nav-link">旅游线路</a></li>
+                <li class="nav-item"><a href="gonglue.html" class="nav-link">旅游攻略</a></li>
+                <li class="nav-item"><a href="meishi.html" class="nav-link">美食推荐</a></li>
+                <li class="nav-item"><a href="wenhua.html" class="nav-link">汉文化活动</a></li>
+                <li class="nav-item"><a href="lianxi.html" class="nav-link">联系我们</a></li>
+                <li class="nav-item"><a href="wenti.html" class="nav-link active">常见问题</a></li>
+            </ul>
+            
+            <!-- 用户操作按钮 -->
+            <div class="user-actions">
+                <a href="register.html" class="btn btn-outline">注册</a>
+                <a href="login.html" class="btn btn-primary">登录</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 主要内容 -->
+    <main class="main-content">
+        <!-- 页面标题区域 -->
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-title">常见问题</h1>
+                <p class="page-subtitle">快速找到您需要的答案，解决旅行中的疑问</p>
+            </div>
+        </section>
+
+        <!-- FAQ内容 -->
+        <section class="faq-main">
+            <div class="faq-container">
+                <!-- 搜索区域 -->
+                <div class="faq-search">
+                    <h2 class="search-title">搜索您的问题</h2>
+                    <form class="search-form" id="searchForm">
+                        <input type="text" class="search-input" placeholder="输入关键词搜索问题..." id="searchInput">
+                        <button type="submit" class="search-btn">搜索</button>
+                    </form>
+                </div>
+
+                <!-- 分类导航 -->
+                <div class="faq-categories">
+                    <button class="category-btn active" data-category="all">全部问题</button>
+                    <button class="category-btn" data-category="booking">预订相关</button>
+                    <button class="category-btn" data-category="payment">支付相关</button>
+                    <button class="category-btn" data-category="travel">行程相关</button>
+                    <button class="category-btn" data-category="service">服务相关</button>
+                    <button class="category-btn" data-category="policy">政策相关</button>
+                </div>
+
+                <!-- 预订相关问题 -->
+                <div class="faq-section" data-category="booking">
+                    <h2 class="section-title">预订相关问题</h2>
+                    <ul class="faq-list">
+                        <li class="faq-item">
+                            <button class="faq-question">
+                                <span>如何在线预订旅游产品？</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                                    <p>在线预订非常简单，请按以下步骤操作：</p>
+                                    <ul>
+                                        <li>1. 浏览我们的旅游产品，选择您感兴趣的线路或景点</li>
+                                        <li>2. 点击"立即预订"按钮</li>
+                                        <li>3. 填写出行人信息和联系方式</li>
+                                        <li>4. 选择出行日期和人数</li>
+                                        <li>5. 确认订单信息并完成支付</li>
+                                        <li>6. 收到确认短信和邮件后，预订完成</li>
+                                    </ul>
+                                    <p>如有疑问，请联系客服：400-0916-888</p>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="faq-item">
+                            <button class="faq-question">
+                                <span>预订后多久能收到确认信息？</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                                    <p>一般情况下，您会在以下时间内收到确认信息：</p>
+                                    <ul>
+                                        <li>即时确认产品：支付成功后立即发送确认信息</li>
+                                        <li>人工确认产品：1-4小时内发送确认信息</li>
+                                        <li>特殊产品：24小时内确认</li>
+                                    </ul>
+                                    <p>确认信息将通过短信和邮件发送到您预留的联系方式。</p>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="faq-item">
+                            <button class="faq-question">
+                                <span>可以为他人代订吗？</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                                    <p>当然可以！代订时需要注意：</p>
+                                    <ul>
+                                        <li>提供准确的出行人身份信息</li>
+                                        <li>确保联系方式畅通</li>
+                                        <li>部分产品可能需要出行人本人确认</li>
+                                        <li>退改政策以实际出行人为准</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="faq-item">
+                            <button class="faq-question">
+                                <span>团队预订有什么优惠吗？</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                                    <p>我们为团队客户提供优惠政策：</p>
+                                    <ul>
+                                        <li>10人以上享受团队价格</li>
+                                        <li>20人以上可定制专属行程</li>
+                                        <li>30人以上享受更大折扣</li>
+                                        <li>提供专业导游和领队服务</li>
+                                    </ul>
+                                    <p>具体优惠请联系团队专线：0916-2626666</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 支付相关问题 -->
+                <div class="faq-section" data-category="payment">
+                    <h2 class="section-title">支付相关问题</h2>
+                    <ul class="faq-list">
+                        <li class="faq-item">
+                            <button class="faq-question">
+                                <span>支持哪些支付方式？</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                                    <p>我们支持多种支付方式：</p>
+                                    <ul>
+                                        <li>微信支付</li>
+                                        <li>支付宝</li>
+                                        <li>银联在线支付</li>
+                                        <li>信用卡支付（Visa、MasterCard等）</li>
+                                        <li>银行转账</li>
+                                        <li>现金支付（到店支付）</li>
+                                    </ul>
+                                    <p>所有支付方式均采用加密技术，确保您的资金安全。</p>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="faq-item">
+                            <button class="faq-question">
+                                <span>支付失败怎么办？</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                                    <p>如果支付失败，请尝试以下解决方案：</p>
+                                    <ul>
+                                        <li>检查网络连接是否稳定</li>
+                                        <li>确认银行卡余额充足</li>
+                                        <li>检查银行卡是否开通网上支付功能</li>
+                                        <li>尝试更换支付方式</li>
+                                        <li>联系客服协助处理：400-0916-888</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="faq-item">
+                            <button class="faq-question">
+                                <span>可以开具发票吗？</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                                    <p>我们提供正规发票服务：</p>
+                                    <ul>
+                                        <li>普通发票：免费提供</li>
+                                        <li>增值税专用发票：需提供资质证明</li>
+                                        <li>电子发票：支付后自动发送</li>
+                                        <li>纸质发票：可邮寄（邮费自理）</li>
+                                    </ul>
+                                    <p>开票信息请在预订时准确填写。</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 行程相关问题 -->
+                <div class="faq-section" data-category="travel">
+                    <h2 class="section-title">行程相关问题</h2>
+                    <ul class="faq-list">
+                        <li class="faq-item">
+                            <button class="faq-question">
+                                <span>什么时候是汉中旅游的最佳季节？</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                                    <p>汉中四季皆宜旅游，但各有特色：</p>
+                                    <ul>
+                                        <li>春季（3-5月）：油菜花盛开，气候宜人</li>
+                                        <li>夏季（6-8月）：绿意盎然，避暑胜地</li>
+                                        <li>秋季（9-11月）：秋高气爽，层林尽染</li>
+                                        <li>冬季（12-2月）：雪景如画，体验不同风情</li>
+                                    </ul>
+                                    <p>建议根据个人喜好选择出行时间。</p>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="faq-item">
+                            <button class="faq-question">
+                                <span>行程中的餐食如何安排？</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                                    <p>我们提供多种餐食安排：</p>
+                                    <ul>
+                                        <li>团队餐：正宗汉中特色菜肴</li>
+                                        <li>自助餐：丰富多样的选择</li>
+                                        <li>自理餐：推荐当地特色餐厅</li>
+                                        <li>特殊饮食：可提前告知特殊需求</li>
+                                    </ul>
+                                    <p>具体安排以行程单为准。</p>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="faq-item">
+                            <button class="faq-question">
+                                <span>需要准备什么物品？</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                                    <p>建议携带以下物品：</p>
+                                    <ul>
+                                        <li>身份证件（必备）</li>
+                                        <li>舒适的运动鞋</li>
+                                        <li>适合当季的衣物</li>
+                                        <li>防晒用品（夏季）</li>
+                                        <li>雨具（雨季）</li>
+                                        <li>个人药品</li>
+                                        <li>充电器和充电宝</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 服务相关问题 -->
+                <div class="faq-section" data-category="service">
+                    <h2 class="section-title">服务相关问题</h2>
+                    <ul class="faq-list">
+                        <li class="faq-item">
+                            <button class="faq-question">
+                                <span>可以退改订单吗？</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                                    <p>我们的退改政策如下：</p>
+                                    <ul>
+                                        <li>出发前7天以上：免费退改</li>
+                                        <li>出发前3-7天：收取20%手续费</li>
+                                        <li>出发前1-3天：收取50%手续费</li>
+                                        <li>出发当日：不可退改</li>
+                                    </ul>
+                                    <p>具体以产品页面说明为准，特价产品可能有特殊规定。</p>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="faq-item">
+                            <button class="faq-question">
+                                <span>有专业导游服务吗？</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                                    <p>我们提供专业的导游服务：</p>
+                                    <ul>
+                                        <li>持证导游：具有正规导游资质</li>
+                                        <li>本地导游：熟悉当地历史文化</li>
+                                        <li>多语种服务：中英文导游可选</li>
+                                        <li>个性化讲解：根据团队需求调整</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 政策相关问题 -->
+                <div class="faq-section" data-category="policy">
+                    <h2 class="section-title">政策相关问题</h2>
+                    <ul class="faq-list">
+                        <li class="faq-item">
+                            <button class="faq-question">
+                                <span>儿童和老人有优惠吗？</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                                    <p>我们提供以下优惠政策：</p>
+                                    <ul>
+                                        <li>儿童（2-12岁）：享受儿童价</li>
+                                        <li>学生：凭学生证享受学生优惠</li>
+                                        <li>老人（60岁以上）：享受老年优惠</li>
+                                        <li>军人：凭军官证享受军人优惠</li>
+                                    </ul>
+                                    <p>具体优惠幅度以产品页面为准。</p>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="faq-item">
+                            <button class="faq-question">
+                                <span>旅游保险包含哪些内容？</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                                    <p>我们为游客提供全面的旅游保险：</p>
+                                    <ul>
+                                        <li>人身意外伤害保险</li>
+                                        <li>旅行社责任保险</li>
+                                        <li>医疗费用补偿</li>
+                                        <li>行程延误保障</li>
+                                        <li>个人财产保护</li>
+                                    </ul>
+                                    <p>建议根据行程特点选择合适的保险方案。</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 快速帮助 -->
+        <section class="quick-help">
+            <div class="quick-help-container">
+                <h2>还有其他问题？</h2>
+                <p>选择最适合您的联系方式，我们随时为您服务</p>
+                
+                <div class="help-options">
+                    <div class="help-option">
+                        <div class="help-icon">📞</div>
+                        <h3 class="help-title">电话咨询</h3>
+                        <p class="help-desc">专业客服为您提供即时解答</p>
+                        <button class="help-btn">400-0916-888</button>
+                    </div>
+
+                    <div class="help-option">
+                        <div class="help-icon">💬</div>
+                        <h3 class="help-title">在线客服</h3>
+                        <p class="help-desc">7×24小时在线服务</p>
+                        <button class="help-btn">开始聊天</button>
+                    </div>
+
+                    <div class="help-option">
+                        <div class="help-icon">📧</div>
+                        <h3 class="help-title">邮件咨询</h3>
+                        <p class="help-desc">详细问题可发送邮件</p>
+                        <button class="help-btn">发送邮件</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 统计数据 -->
+        <section class="stats-section">
+            <div class="stats-container">
+                <div class="stat-item">
+                    <h3>95%</h3>
+                    <p>客户满意度</p>
+                </div>
+                <div class="stat-item">
+                    <h3>2小时</h3>
+                    <p>平均响应时间</p>
+                </div>
+                <div class="stat-item">
+                    <h3>24/7</h3>
+                    <p>全天候服务</p>
+                </div>
+                <div class="stat-item">
+                    <h3>100000+</h3>
+                    <p>成功解决问题</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>汉中旅游网</h3>
+                <p>专业的汉中旅游服务平台，为您提供最优质的旅游体验。</p>
+                <div class="social-links">
+                    <a href="#" class="social-link">微信</a>
+                    <a href="#" class="social-link">微博</a>
+                    <a href="#" class="social-link">抖音</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>热门景点</h4>
+                <ul class="footer-links">
+                    <li><a href="#">勉县武侯祠</a></li>
+                    <li><a href="#">南郑龙头山</a></li>
+                    <li><a href="#">朱鹮梨园</a></li>
+                    <li><a href="#">石门栈道</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>服务支持</h4>
+                <ul class="footer-links">
+                    <li><a href="#">在线客服</a></li>
+                    <li><a href="#">预订帮助</a></li>
+                    <li><a href="#">退改政策</a></li>
+                    <li><a href="#">常见问题</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>联系我们</h4>
+                <div class="contact-info">
+                    <p>📞 客服热线：400-0916-888</p>
+                    <p>📧 邮箱：info@hanzhong-travel.com</p>
+                    <p>📍 地址：陕西省汉中市汉台区</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2024 汉中旅游网. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/wenti-inline.js"></script>
+</body>
+</html> 

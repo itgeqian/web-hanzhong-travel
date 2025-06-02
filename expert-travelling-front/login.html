@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户登录 - 汉中旅游</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <!-- 页面头部 -->
+    <header class="header">
+        <div class="logo-container">
+            <img src="img/logo.png" alt="汉中旅游Logo" class="logo">
+            <h1 class="site-title">汉中旅游</h1>
+        </div>
+        
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="index.html" class="nav-link">首页</a></li>
+                <li class="nav-item"><a href="jingdian.html" class="nav-link">景点介绍</a></li>
+                <li class="nav-item"><a href="luxian.html" class="nav-link">旅游线路</a></li>
+                <li class="nav-item"><a href="gonglue.html" class="nav-link">旅游攻略</a></li>
+                <li class="nav-item"><a href="meishi.html" class="nav-link">美食推荐</a></li>
+                <li class="nav-item"><a href="wenhua.html" class="nav-link">汉文化活动</a></li>
+                <li class="nav-item"><a href="lianxi.html" class="nav-link">联系我们</a></li>
+                <li class="nav-item"><a href="wenti.html" class="nav-link">常见问题</a></li>
+            </ul>
+            
+            <!-- 用户操作按钮 -->
+            <div class="user-actions">
+                <a href="register.html" class="btn btn-outline">注册</a>
+                <a href="login.html" class="btn btn-primary active">登录</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 主要内容 -->
+    <main class="main-content">
+        <div class="login-container">
+            <div class="login-box">
+                <h2 class="login-title">用户登录</h2>
+                <form id="loginForm" class="login-form">
+                    <div class="form-group">
+                        <label for="username" class="form-label">用户名</label>
+                        <input type="text" id="username" name="username" class="form-input" placeholder="请输入用户名">
+                        <span class="error-message" id="usernameError"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password" class="form-label">密码</label>
+                        <input type="password" id="password" name="password" class="form-input" placeholder="请输入密码">
+                        <span class="error-message" id="passwordError"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="form-label">邮箱</label>
+                        <input type="email" id="email" name="email" class="form-input" placeholder="请输入邮箱地址">
+                        <span class="error-message" id="emailError"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone" class="form-label">手机号码</label>
+                        <input type="tel" id="phone" name="phone" class="form-input" placeholder="请输入手机号码">
+                        <span class="error-message" id="phoneError"></span>
+                    </div>
+                    
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="remember" name="remember">
+                            <span class="checkmark"></span>
+                            记住我
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="login-btn">登录</button>
+                    </div>
+                    
+                    <div class="form-links">
+                        <a href="javascript:void(0)" class="form-link">忘记密码？</a>
+                        <a href="register.html" class="form-link">注册新账户</a>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="login-info">
+                <h3>汉中旅游会员特权</h3>
+                <ul class="privilege-list">
+                    <li>🎫 专享景点门票优惠</li>
+                    <li>🏨 酒店住宿会员价格</li>
+                    <li>📱 个性化旅游推荐</li>
+                    <li>💬 专业旅游咨询服务</li>
+                    <li>📸 旅游照片云端存储</li>
+                    <li>🎁 生日专享礼品</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页面底部 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>关于我们</h3>
+                    <p>汉中旅游官方网站，致力于推广汉中文化旅游资源</p>
+                </div>
+                <div class="footer-section">
+                    <h3>联系方式</h3>
+                    <p>电话：0916-1234567</p>
+                    <p>邮箱：info@hztravel.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>友情链接</h3>
+                    <ul>
+                        <li><a href="javascript:void(0)">陕西省旅游局</a></li>
+                        <li><a href="javascript:void(0)">汉中市政府</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 汉中旅游网站. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/form-validation.js"></script>
+</body>
+</html> 

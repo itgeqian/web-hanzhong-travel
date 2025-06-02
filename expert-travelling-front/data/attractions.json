@@ -1,0 +1,187 @@
+{
+  "attractions": [
+    {
+      "id": 1,
+      "name": "朱鹮梨园",
+      "englishName": "Crested Ibis Pear Garden",
+      "category": "自然景观",
+      "location": "洋县",
+      "rating": 4.5,
+      "price": 80,
+      "image": "img/zhuyu-liyuan.jpg",
+      "gallery": [
+        "img/zhuyu-liyuan.jpg",
+        "img/attraction1.jpg"
+      ],
+      "description": "朱鹮梨园位于汉中洋县，是世界上最大的朱鹮人工繁育基地，也是观赏梨花和朱鹮的绝佳场所。春季梨花盛开时，雪白的梨花与翩翩起舞的朱鹮形成一幅绝美的画卷。",
+      "highlights": [
+        "世界最大朱鹮繁育基地",
+        "春季梨花观赏",
+        "珍稀鸟类摄影",
+        "生态保护教育"
+      ],
+      "openTime": "08:00-18:00",
+      "bestTime": "春季3-4月梨花盛开期",
+      "duration": "2-3小时",
+      "transportation": "从汉中市区乘坐专线巴士约1小时",
+      "facilities": ["停车场", "餐厅", "纪念品店", "观鸟设施"],
+      "tips": [
+        "春季梨花期需提前预约",
+        "建议携带望远镜观鸟",
+        "请勿喧哗，保持安静"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "石门栈道",
+      "englishName": "Shimen Plank Road",
+      "category": "历史文化",
+      "location": "汉台区",
+      "rating": 4.8,
+      "price": 120,
+      "image": "img/shimen-zhandao.jpg",
+      "gallery": [
+        "img/shimen-zhandao.jpg",
+        "img/attraction2.jpg"
+      ],
+      "description": "石门栈道是世界上最早的人工交通隧道，被誉为'古代高速公路'。这里不仅有壮观的石门景观，还保留了大量珍贵的摩崖石刻，是研究古代交通和书法艺术的重要遗址。",
+      "highlights": [
+        "世界最早人工隧道",
+        "珍贵摩崖石刻",
+        "古栈道遗址",
+        "褒河风光"
+      ],
+      "openTime": "08:30-17:30",
+      "bestTime": "春秋两季",
+      "duration": "3-4小时",
+      "transportation": "从汉中市区乘车约30分钟",
+      "facilities": ["缆车", "观景台", "博物馆", "休息亭"],
+      "tips": [
+        "景区内有缆车，建议乘坐",
+        "摩崖石刻区域禁止触摸",
+        "雨天路滑，注意安全"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "勉县武侯祠",
+      "englishName": "Mianxian Wuhou Temple",
+      "category": "历史文化",
+      "location": "勉县",
+      "rating": 4.6,
+      "price": 60,
+      "image": "img/wuhou-ci.jpg",
+      "gallery": [
+        "img/wuhou-ci.jpg",
+        "img/attraction3.jpg"
+      ],
+      "description": "勉县武侯祠是为纪念蜀汉丞相诸葛亮而建的祠堂，也是诸葛亮的安葬地。祠内建筑古朴典雅，文物众多，是了解三国历史和诸葛亮生平的重要场所。",
+      "highlights": [
+        "诸葛亮安葬地",
+        "古建筑群",
+        "三国历史文化",
+        "珍贵文物展示"
+      ],
+      "openTime": "08:00-17:30",
+      "bestTime": "全年适宜",
+      "duration": "2-3小时",
+      "transportation": "从汉中市区乘车约45分钟",
+      "facilities": ["博物馆", "文物展厅", "休息区", "文创店"],
+      "tips": [
+        "可免费讲解服务",
+        "建议了解三国历史背景",
+        "祠内禁止大声喧哗"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "汉水源头",
+      "englishName": "Hanshui River Source",
+      "category": "自然景观",
+      "location": "宁强县",
+      "rating": 4.3,
+      "price": 50,
+      "image": "img/hanshui-yuan.jpg",
+      "gallery": [
+        "img/hanshui-yuan.jpg"
+      ],
+      "description": "汉水源头位于宁强县，是汉江的发源地。这里山清水秀，古木参天，是探寻汉江文明起源的绝佳之地。源头泉水清澈甘甜，四季不断。",
+      "highlights": [
+        "汉江发源地",
+        "原始森林景观",
+        "清澈山泉",
+        "生态徒步"
+      ],
+      "openTime": "08:00-18:00",
+      "bestTime": "春夏季",
+      "duration": "半天",
+      "transportation": "从汉中市区乘车约2小时",
+      "facilities": ["步道", "观景台", "休息亭"],
+      "tips": [
+        "山路较远，建议自驾",
+        "带好防蚊虫用品",
+        "注意保护水源环境"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "褒河栈道",
+      "englishName": "Baohe Plank Road",
+      "category": "历史文化",
+      "location": "汉台区",
+      "rating": 4.4,
+      "price": 80,
+      "image": "img/baohe-zhandao.jpg",
+      "gallery": [
+        "img/baohe-zhandao.jpg"
+      ],
+      "description": "褒河栈道是古代连接关中和汉中的重要通道，沿褒河而建。现在的栈道在原址基础上重建，游客可以体验古人'蜀道难'的艰辛历程。",
+      "highlights": [
+        "古代交通要道",
+        "褒河峡谷风光",
+        "栈道体验",
+        "历史文化"
+      ],
+      "openTime": "08:30-17:00",
+      "bestTime": "春秋季",
+      "duration": "2小时",
+      "transportation": "从汉中市区乘车约20分钟",
+      "facilities": ["栈道", "观景台", "停车场"],
+      "tips": [
+        "栈道有高度，恐高者慎入",
+        "雨天暂停开放",
+        "建议穿运动鞋"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "张良庙",
+      "englishName": "Zhangliang Temple",
+      "category": "历史文化",
+      "location": "留坝县",
+      "rating": 4.2,
+      "price": 70,
+      "image": "img/zhangliang-miao.jpg",
+      "gallery": [
+        "img/zhangliang-miao.jpg"
+      ],
+      "description": "张良庙是为纪念汉初三杰之一张良而建的庙宇，位于秦岭南麓。庙宇建筑精美，环境幽静，是缅怀古人、感受历史的好地方。",
+      "highlights": [
+        "汉初三杰张良纪念地",
+        "古建筑艺术",
+        "秦岭风光",
+        "历史名人文化"
+      ],
+      "openTime": "08:00-17:00",
+      "bestTime": "春秋季",
+      "duration": "2小时",
+      "transportation": "从汉中市区乘车约1.5小时",
+      "facilities": ["古建筑群", "展览厅", "休息区"],
+      "tips": [
+        "山区温差大，注意保暖",
+        "可与周边景点联游",
+        "了解张良历史背景"
+      ]
+    }
+  ]
+} 

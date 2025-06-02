@@ -1,0 +1,112 @@
+{
+  "restaurants": [
+    {
+      "id": 1,
+      "name": "汉中老字号面皮店",
+      "englishName": "Hanzhong Traditional Noodle Shop",
+      "category": "传统小吃",
+      "rating": 4.8,
+      "priceRange": "￥10-30",
+      "image": "img/restaurant1.jpg",
+      "address": "汉中市汉台区中山街128号",
+      "phone": "0916-2345678",
+      "openTime": "06:00-14:00",
+      "description": "汉中最有名的老字号面皮店，传承三代的制作工艺，每天凌晨开始制作新鲜面皮，是体验正宗汉中味道的最佳选择。",
+      "specialties": [
+        "汉中热面皮",
+        "浆水面",
+        "菜豆腐",
+        "核桃馍"
+      ],
+      "features": [
+        "传统手工制作",
+        "三代传承工艺",
+        "新鲜现做",
+        "地道汉中口味"
+      ],
+      "environment": "传统老店，环境朴实",
+      "avgCost": "20元/人",
+      "tips": [
+        "建议早上9点前到达，避免排队",
+        "面皮可打包带走",
+        "只收现金"
+      ],
+      "coordinates": {
+        "lat": 33.0689,
+        "lng": 107.0234
+      }
+    },
+    {
+      "id": 2,
+      "name": "秦岭农家菜馆",
+      "englishName": "Qinling Farm Restaurant",
+      "category": "农家菜",
+      "rating": 4.6,
+      "priceRange": "￥50-100",
+      "image": "img/restaurant2.jpg",
+      "address": "汉中市汉台区河东路56号",
+      "phone": "0916-3456789",
+      "openTime": "11:00-21:00",
+      "description": "主打秦岭山区特色农家菜，食材新鲜，口味地道，环境优雅，是品尝汉中传统菜肴的理想之地。",
+      "specialties": [
+        "汉中腊肉",
+        "野菜炒蛋",
+        "土鸡炖汤",
+        "时令山菜"
+      ],
+      "features": [
+        "食材新鲜天然",
+        "传统烹饪方法",
+        "环境清雅",
+        "服务周到"
+      ],
+      "environment": "仿古建筑，有包间",
+      "avgCost": "70元/人",
+      "tips": [
+        "建议提前预订",
+        "推荐尝试时令野菜",
+        "可以定制团餐"
+      ],
+      "coordinates": {
+        "lat": 33.0745,
+        "lng": 107.0312
+      }
+    },
+    {
+      "id": 3,
+      "name": "汉江渔家",
+      "englishName": "Hanjiang Fisherman Restaurant",
+      "category": "河鲜料理",
+      "rating": 4.5,
+      "priceRange": "￥80-150",
+      "image": "img/restaurant3.jpg",
+      "address": "汉中市南郑区汉江边",
+      "phone": "0916-4567890",
+      "openTime": "10:30-22:00",
+      "description": "位于汉江边的特色河鲜餐厅，主打汉江野生鱼类，做法多样，味道鲜美，同时可以欣赏汉江美景。",
+      "specialties": [
+        "汉江野生鱼",
+        "河虾河蟹",
+        "莲藕排骨汤",
+        "江边烧烤"
+      ],
+      "features": [
+        "江边景观",
+        "野生河鲜",
+        "做法多样",
+        "风景优美"
+      ],
+      "environment": "江边餐厅，视野开阔",
+      "avgCost": "100元/人",
+      "tips": [
+        "建议傍晚时分前往，可观江景",
+        "河鲜价格随季节变动",
+        "有室外用餐区"
+      ],
+      "coordinates": {
+        "lat": 33.0456,
+        "lng": 106.9876
+      }
+    }
+  ]
+} 

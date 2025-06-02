@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旅游线路 - 汉中旅游</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/luxian.css">
+</head>
+<body>
+    <!-- 页面头部 -->
+    <header class="header">
+        <div class="logo-container">
+            <img src="img/logo.png" alt="汉中旅游Logo" class="logo">
+            <h1 class="site-title">汉中旅游</h1>
+        </div>
+        
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="index.html" class="nav-link">首页</a></li>
+                <li class="nav-item"><a href="jingdian.html" class="nav-link">景点介绍</a></li>
+                <li class="nav-item"><a href="luxian.html" class="nav-link active">旅游线路</a></li>
+                <li class="nav-item"><a href="gonglue.html" class="nav-link">旅游攻略</a></li>
+                <li class="nav-item"><a href="meishi.html" class="nav-link">美食推荐</a></li>
+                <li class="nav-item"><a href="wenhua.html" class="nav-link">汉文化活动</a></li>
+                <li class="nav-item"><a href="lianxi.html" class="nav-link">联系我们</a></li>
+                <li class="nav-item"><a href="wenti.html" class="nav-link">常见问题</a></li>
+            </ul>
+            
+            <!-- 用户操作按钮 -->
+            <div class="user-actions">
+                <a href="register.html" class="btn btn-outline">注册</a>
+                <a href="login.html" class="btn btn-primary">登录</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 主要内容 -->
+    <main class="main-content">
+        <!-- 页面标题区域 -->
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-title">汉中精品旅游线路</h1>
+                <p class="page-subtitle">多样化线路选择，满足不同旅游需求</p>
+            </div>
+        </section>
+
+        <!-- 线路筛选 -->
+        <section class="filter-section">
+            <div class="container">
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-filter="all"><span>全部线路</span></button>
+                    <button class="filter-tab" data-filter="cultural"><span>文化之旅</span></button>
+                    <button class="filter-tab" data-filter="nature"><span>自然风光</span></button>
+                    <button class="filter-tab" data-filter="family"><span>亲子游</span></button>
+                    <button class="filter-tab" data-filter="photography"><span>摄影采风</span></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 推荐线路卡片 -->
+        <section class="routes-section">
+            <div class="container">
+                <div class="routes-grid">
+                    <!-- 经典汉中3日游 -->
+                    <div class="route-card" data-category="cultural">
+                        <div class="route-image">
+                            <img src="img/route-classic.jpg" alt="经典汉中3日游">
+                            <div class="route-tag">精品推荐</div>
+                        </div>
+                        <div class="route-content">
+                            <h3 class="route-title">经典汉中3日游</h3>
+                            <div class="route-info">
+                                <span class="route-duration">3天2晚</span>
+                                <span class="route-price">¥899/人</span>
+                            </div>
+                            <ul class="route-highlights">
+                                <li>武侯祠 - 感受三国文化</li>
+                                <li>石门栈道 - 体验古蜀道</li>
+                                <li>朱鹮梨园 - 观赏珍稀鸟类</li>
+                                <li>汉中古城 - 品味历史韵味</li>
+                            </ul>
+                            <div class="route-actions">
+                                <button class="btn btn-primary btn-ripple">
+                                    <span>🎯 立即预订</span>
+                                </button>
+                                <button class="btn btn-outline">
+                                    <span>📋 查看详情</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 汉中自然风光5日游 -->
+                    <div class="route-card" data-category="nature">
+                        <div class="route-image">
+                            <img src="img/route-nature.jpg" alt="汉中自然风光5日游">
+                            <div class="route-tag">生态游</div>
+                        </div>
+                        <div class="route-content">
+                            <h3 class="route-title">汉中自然风光5日游</h3>
+                            <div class="route-info">
+                                <span class="route-duration">5天4晚</span>
+                                <span class="route-price">¥1299/人</span>
+                            </div>
+                            <ul class="route-highlights">
+                                <li>汉水源头 - 探寻江河之源</li>
+                                <li>褒河栈道 - 山水徒步之旅</li>
+                                <li>秦岭南麓 - 原始森林探秘</li>
+                                <li>朱鹮自然保护区 - 生态观察</li>
+                            </ul>
+                            <div class="route-actions">
+                                <button class="btn btn-primary btn-ripple">
+                                    <span>🌿 立即预订</span>
+                                </button>
+                                <button class="btn btn-outline">
+                                    <span>📋 查看详情</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 汉文化深度体验2日游 -->
+                    <div class="route-card" data-category="cultural">
+                        <div class="route-image">
+                            <img src="img/route-culture.jpg" alt="汉文化深度体验2日游">
+                            <div class="route-tag">文化游</div>
+                        </div>
+                        <div class="route-content">
+                            <h3 class="route-title">汉文化深度体验2日游</h3>
+                            <div class="route-info">
+                                <span class="route-duration">2天1晚</span>
+                                <span class="route-price">¥599/人</span>
+                            </div>
+                            <ul class="route-highlights">
+                                <li>汉文化博物馆 - 了解汉朝历史</li>
+                                <li>张良庙 - 汉初三杰故事</li>
+                                <li>传统工艺体验 - 学习汉中剪纸</li>
+                                <li>汉调桄桄表演 - 非遗文化欣赏</li>
+                            </ul>
+                            <div class="route-actions">
+                                <button class="btn btn-primary btn-ripple">
+                                    <span>🏛️ 立即预订</span>
+                                </button>
+                                <button class="btn btn-outline">
+                                    <span>📋 查看详情</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 亲子欢乐游3日 -->
+                    <div class="route-card" data-category="family">
+                        <div class="route-image">
+                            <img src="img/route-family.jpg" alt="亲子欢乐游3日">
+                            <div class="route-tag">亲子游</div>
+                        </div>
+                        <div class="route-content">
+                            <h3 class="route-title">亲子欢乐游3日</h3>
+                            <div class="route-info">
+                                <span class="route-duration">3天2晚</span>
+                                <span class="route-price">¥799/人</span>
+                            </div>
+                            <ul class="route-highlights">
+                                <li>朱鹮互动体验 - 近距离观察朱鹮</li>
+                                <li>生态科普园 - 寓教于乐</li>
+                                <li>传统手工制作 - 亲子共同体验</li>
+                                <li>农家乐体验 - 田园生活乐趣</li>
+                            </ul>
+                            <div class="route-actions">
+                                <button class="btn btn-primary btn-ripple">
+                                    <span>👨‍👩‍👧‍👦 立即预订</span>
+                                </button>
+                                <button class="btn btn-outline">
+                                    <span>📋 查看详情</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 摄影采风专线4日游 -->
+                    <div class="route-card" data-category="photography">
+                        <div class="route-image">
+                            <img src="img/route-photo.jpg" alt="摄影采风专线4日游">
+                            <div class="route-tag">摄影游</div>
+                        </div>
+                        <div class="route-content">
+                            <h3 class="route-title">摄影采风专线4日游</h3>
+                            <div class="route-info">
+                                <span class="route-duration">4天3晚</span>
+                                <span class="route-price">¥1099/人</span>
+                            </div>
+                            <ul class="route-highlights">
+                                <li>日出朱鹮梨园 - 最美光影时刻</li>
+                                <li>古栈道夕阳 - 历史与自然结合</li>
+                                <li>民俗村落 - 记录真实生活</li>
+                                <li>专业摄影指导 - 提升摄影技巧</li>
+                            </ul>
+                            <div class="route-actions">
+                                <button class="btn btn-primary btn-ripple">
+                                    <span>📸 立即预订</span>
+                                </button>
+                                <button class="btn btn-outline">
+                                    <span>📋 查看详情</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 美食文化探索2日游 -->
+                    <div class="route-card" data-category="cultural">
+                        <div class="route-image">
+                            <img src="img/route-food.jpg" alt="美食文化探索2日游">
+                            <div class="route-tag">美食游</div>
+                        </div>
+                        <div class="route-content">
+                            <h3 class="route-title">美食文化探索2日游</h3>
+                            <div class="route-info">
+                                <span class="route-duration">2天1晚</span>
+                                <span class="route-price">¥499/人</span>
+                            </div>
+                            <ul class="route-highlights">
+                                <li>热面皮制作体验 - 学习传统工艺</li>
+                                <li>菜豆腐品鉴 - 汉中特色美食</li>
+                                <li>浆水面文化 - 探寻饮食历史</li>
+                                <li>农家宴体验 - 地道乡村美味</li>
+                            </ul>
+                            <div class="route-actions">
+                                <button class="btn btn-primary btn-ripple">
+                                    <span>🍜 立即预订</span>
+                                </button>
+                                <button class="btn btn-outline">
+                                    <span>📋 查看详情</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 线路对比表格 -->
+        <section class="comparison-section">
+            <div class="container">
+                <h2 class="section-title">热门线路对比</h2>
+                <div class="table-container">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>线路名称</th>
+                                <th>天数</th>
+                                <th>价格</th>
+                                <th>主要景点</th>
+                                <th>适合人群</th>
+                                <th>最佳时间</th>
+                                <th>难度等级</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="route-name">经典汉中3日游</td>
+                                <td>3天2晚</td>
+                                <td class="price">¥899</td>
+                                <td>武侯祠、石门栈道、朱鹮梨园</td>
+                                <td>所有人群</td>
+                                <td>春秋两季</td>
+                                <td><span class="difficulty easy">简单</span></td>
+                                <td><button class="btn btn-small">预订</button></td>
+                            </tr>
+                            <tr>
+                                <td class="route-name">自然风光5日游</td>
+                                <td>5天4晚</td>
+                                <td class="price">¥1299</td>
+                                <td>汉水源头、褒河栈道、秦岭</td>
+                                <td>喜爱自然</td>
+                                <td>4-10月</td>
+                                <td><span class="difficulty medium">中等</span></td>
+                                <td><button class="btn btn-small">预订</button></td>
+                            </tr>
+                            <tr>
+                                <td class="route-name">汉文化深度游</td>
+                                <td>2天1晚</td>
+                                <td class="price">¥599</td>
+                                <td>汉文化博物馆、张良庙</td>
+                                <td>文化爱好者</td>
+                                <td>全年</td>
+                                <td><span class="difficulty easy">简单</span></td>
+                                <td><button class="btn btn-small">预订</button></td>
+                            </tr>
+                            <tr>
+                                <td class="route-name">亲子欢乐游</td>
+                                <td>3天2晚</td>
+                                <td class="price">¥799</td>
+                                <td>朱鹮园、生态科普园</td>
+                                <td>家庭游客</td>
+                                <td>春夏秋季</td>
+                                <td><span class="difficulty easy">简单</span></td>
+                                <td><button class="btn btn-small">预订</button></td>
+                            </tr>
+                            <tr>
+                                <td class="route-name">摄影采风专线</td>
+                                <td>4天3晚</td>
+                                <td class="price">¥1099</td>
+                                <td>梨园、古栈道、民俗村</td>
+                                <td>摄影爱好者</td>
+                                <td>春季最佳</td>
+                                <td><span class="difficulty medium">中等</span></td>
+                                <td><button class="btn btn-small">预订</button></td>
+                            </tr>
+                            <tr>
+                                <td class="route-name">美食文化探索</td>
+                                <td>2天1晚</td>
+                                <td class="price">¥499</td>
+                                <td>传统美食体验点</td>
+                                <td>美食爱好者</td>
+                                <td>全年</td>
+                                <td><span class="difficulty easy">简单</span></td>
+                                <td><button class="btn btn-small">预订</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 定制线路 -->
+        <section class="custom-route-section">
+            <div class="container">
+                <h2 class="section-title">个性化定制</h2>
+                <div class="custom-content">
+                    <div class="custom-info">
+                        <h3>专属定制旅游线路</h3>
+                        <p>我们提供个性化的旅游线路定制服务，根据您的兴趣、时间和预算，为您量身打造独特的汉中之旅。</p>
+                        
+                        <ul class="custom-features">
+                            <li>✓ 专业旅游顾问一对一服务</li>
+                            <li>✓ 灵活的行程安排</li>
+                            <li>✓ 精选住宿和餐饮</li>
+                            <li>✓ 24小时贴心服务</li>
+                            <li>✓ 专业摄影师跟拍（可选）</li>
+                            <li>✓ 本地向导深度讲解</li>
+                        </ul>
+                        
+                        <div class="custom-actions">
+                            <button class="btn btn-primary">立即咨询</button>
+                            <button class="btn btn-outline">获取方案</button>
+                        </div>
+                    </div>
+                    
+                    <div class="custom-form">
+                        <h4>快速定制需求</h4>
+                        <form class="quick-custom-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>出行天数</label>
+                                    <select name="days">
+                                        <option value="">请选择</option>
+                                        <option value="1-2">1-2天</option>
+                                        <option value="3-4">3-4天</option>
+                                        <option value="5-7">5-7天</option>
+                                        <option value="7+">7天以上</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>预算范围</label>
+                                    <select name="budget">
+                                        <option value="">请选择</option>
+                                        <option value="500-1000">500-1000元</option>
+                                        <option value="1000-2000">1000-2000元</option>
+                                        <option value="2000+">2000元以上</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>兴趣偏好</label>
+                                <div class="checkbox-group">
+                                    <label><input type="checkbox" value="history"> 历史文化</label>
+                                    <label><input type="checkbox" value="nature"> 自然风光</label>
+                                    <label><input type="checkbox" value="food"> 美食体验</label>
+                                    <label><input type="checkbox" value="photography"> 摄影采风</label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>联系方式</label>
+                                <input type="tel" name="contact" placeholder="请输入手机号码">
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-full">提交定制需求</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页面底部 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>关于我们</h3>
+                    <p>汉中旅游官方网站，致力于推广汉中文化旅游资源</p>
+                </div>
+                <div class="footer-section">
+                    <h3>联系方式</h3>
+                    <p>电话：0916-1234567</p>
+                    <p>邮箱：info@hztravel.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>友情链接</h3>
+                    <ul>
+                        <li><a href="javascript:void(0)">陕西省旅游局</a></li>
+                        <li><a href="javascript:void(0)">汉中市政府</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 汉中旅游网站. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/luxian.js"></script>
+    <script src="js/luxian-buttons.js"></script>
+</body>
+</html> 

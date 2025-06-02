@@ -1,0 +1,759 @@
+/* 旅游攻略页面专用样式 */
+
+/* 攻略导航标签 */
+.guide-nav {
+    padding: 40px 0;
+    background: white;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.nav-tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.nav-tab {
+    padding: 15px 30px;
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    color: #666;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.nav-tab::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+}
+
+.nav-tab span {
+    position: relative;
+    z-index: 2;
+}
+
+.nav-tab:hover::before,
+.nav-tab.active::before {
+    left: 0;
+}
+
+.nav-tab:hover,
+.nav-tab.active {
+    border-color: #667eea;
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+/* 攻略内容区域 */
+.guide-content {
+    padding: 80px 0;
+    background: #f8f9fa;
+}
+
+.tab-content {
+    display: none;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* 内容布局 */
+.content-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 50px;
+    margin-bottom: 60px;
+}
+
+.content-main {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.content-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* 交通卡片 */
+.transport-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin: 30px 0;
+}
+
+.transport-card {
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 15px;
+    padding: 25px;
+    transition: all 0.3s ease;
+}
+
+.transport-card:hover {
+    border-color: #667eea;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.15);
+}
+
+.transport-card h4 {
+    color: #667eea;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.transport-section {
+    margin-bottom: 40px;
+}
+
+.transport-section h3 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #667eea;
+}
+
+/* 住宿卡片 */
+.hotel-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin: 30px 0;
+}
+
+.hotel-category {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    border: 2px solid #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+.hotel-category:hover {
+    border-color: #667eea;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.15);
+}
+
+.hotel-category h4 {
+    color: #667eea;
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.hotel-item {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 15px;
+}
+
+.hotel-item:last-child {
+    margin-bottom: 0;
+}
+
+.hotel-item h5 {
+    color: #333;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.hotel-item p {
+    color: #666;
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+/* 内容卡片 */
+.content-card {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+}
+
+.content-card h3 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 3px solid #667eea;
+}
+
+.content-card h4 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #667eea;
+    margin: 25px 0 15px;
+}
+
+.content-card p {
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 15px;
+    font-size: 15px;
+}
+
+.content-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.content-card li {
+    position: relative;
+    padding: 10px 0 10px 25px;
+    color: #666;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.content-card li:last-child {
+    border-bottom: none;
+}
+
+.content-card li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #667eea;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* 信息框 */
+.tips-box {
+    background: linear-gradient(135deg, #f8f9ff 0%, #e8f4ff 100%);
+    border: 2px solid #667eea;
+    border-radius: 15px;
+    padding: 25px;
+    margin: 25px 0;
+}
+
+.tips-box h4 {
+    color: #667eea;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.tips-box p {
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.tips-box ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tips-box li {
+    position: relative;
+    padding: 8px 0 8px 25px;
+    color: #555;
+}
+
+.tips-box li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #27ae60;
+    font-weight: bold;
+}
+
+/* 侧边栏组件 */
+.sidebar-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.sidebar-card h3,
+.sidebar-card h4 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* 天气卡片 */
+.weather-info {
+    text-align: center;
+}
+
+.weather-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.temperature {
+    font-size: 32px;
+    font-weight: bold;
+    color: #667eea;
+    margin-bottom: 10px;
+}
+
+.weather-desc {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.weather-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    text-align: center;
+}
+
+.weather-item {
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.weather-label {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 5px;
+}
+
+.weather-value {
+    font-weight: bold;
+    color: #333;
+}
+
+/* 快速链接 */
+.quick-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.quick-links li {
+    margin-bottom: 10px;
+}
+
+.quick-links a {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    color: #666;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.quick-links a:hover {
+    background: #667eea;
+    color: white;
+    transform: translateX(5px);
+}
+
+.quick-links a::before {
+    content: '→';
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+/* 预算计算器 */
+.calculator-box {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.budget-calculator {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.calc-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.calc-group label {
+    font-weight: 600;
+    color: #333;
+    font-size: 14px;
+}
+
+.calc-group input,
+.calc-group select {
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.calc-group input:focus,
+.calc-group select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.calc-result {
+    background: linear-gradient(135deg, #f8f9ff 0%, #e8f4ff 100%);
+    border: 2px solid #667eea;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+}
+
+.calc-result p {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+}
+
+#total-budget {
+    font-size: 24px;
+    font-weight: bold;
+    color: #667eea;
+}
+
+/* 计算按钮 */
+.budget-calculator button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.budget-calculator button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+    transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+}
+
+.budget-calculator button span {
+    position: relative;
+    z-index: 2;
+}
+
+.budget-calculator button:hover::before {
+    left: 0;
+}
+
+.budget-calculator button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+}
+
+.budget-calculator button:active {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+/* 预算分类 */
+.budget-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin: 40px 0;
+}
+
+.budget-category {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    border: 2px solid #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+.budget-category:hover {
+    border-color: #667eea;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.15);
+}
+
+.budget-category h3 {
+    color: #333;
+    margin-bottom: 25px;
+    text-align: center;
+    font-size: 20px;
+}
+
+.budget-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.budget-item {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    gap: 15px;
+    align-items: center;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.item-name {
+    font-weight: 600;
+    color: #333;
+}
+
+.item-price {
+    color: #666;
+    font-size: 14px;
+}
+
+.item-total {
+    font-weight: bold;
+    color: #667eea;
+    text-align: right;
+}
+
+/* 季节信息 */
+.season-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin: 30px 0;
+}
+
+.season-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    border: 2px solid #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+.season-card:hover {
+    border-color: #667eea;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.15);
+}
+
+.season-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.season-icon {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.season-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.season-rating {
+    color: #666;
+}
+
+.season-highlights {
+    margin: 20px 0;
+}
+
+.season-highlights h4 {
+    color: #667eea;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.season-highlights ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.season-highlights li {
+    padding: 8px 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.season-tips {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.season-tips p {
+    margin: 0;
+    color: #555;
+    font-size: 14px;
+}
+
+/* 响应式设计 */
+@media (max-width: 1024px) {
+    .content-layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .transport-grid,
+    .hotel-grid,
+    .budget-categories,
+    .season-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-tabs {
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 10px;
+    }
+    
+    .nav-tab {
+        white-space: nowrap;
+        flex-shrink: 0;
+        padding: 12px 20px;
+    }
+    
+    .content-main {
+        padding: 25px 20px;
+    }
+    
+    .sidebar-card {
+        padding: 20px;
+    }
+    
+    .budget-item {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .content-main {
+        padding: 20px 15px;
+    }
+    
+    .sidebar-card {
+        padding: 20px 15px;
+    }
+    
+    .transport-card,
+    .hotel-category,
+    .budget-category,
+    .season-card {
+        padding: 20px;
+    }
+    
+    .content-card h3 {
+        font-size: 20px;
+    }
+}
+
+/* 加载动画 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.content-main {
+    animation: fadeIn 0.6s ease-out;
+}
+
+.sidebar-card {
+    animation: slideInRight 0.6s ease-out;
+}
+
+.sidebar-card:nth-child(1) { animation-delay: 0.1s; }
+.sidebar-card:nth-child(2) { animation-delay: 0.2s; }
+.sidebar-card:nth-child(3) { animation-delay: 0.3s; }
+
+/* 悬停效果 */
+.content-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+.sidebar-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+/* 滚动条样式 */
+.nav-tabs::-webkit-scrollbar {
+    height: 4px;
+}
+
+.nav-tabs::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 2px;
+}
+
+.nav-tabs::-webkit-scrollbar-thumb {
+    background: #667eea;
+    border-radius: 2px;
+}
+
+.nav-tabs::-webkit-scrollbar-thumb:hover {
+    background: #764ba2;
+} 

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>汉中旅游 - 发现天汉雄风</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <!-- 页面头部 -->
+    <header class="header">
+        <!-- Logo区域 -->
+        <div class="logo-container">
+            <img src="img/logo.png" alt="汉中旅游Logo" class="logo">
+            <h1 class="site-title">汉中旅游</h1>
+        </div>
+        
+        <!-- 导航栏 -->
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="index.html" class="nav-link active">首页</a></li>
+                <li class="nav-item dropdown">
+                    <a href="jingdian.html" class="nav-link">景点介绍</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="jingdian.html#laoshan">老君山</a></li>
+                        <li><a href="jingdian.html#qinling">秦岭</a></li>
+                        <li><a href="jingdian.html#hanshui">汉水源</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a href="luxian.html" class="nav-link">旅游线路</a></li>
+                <li class="nav-item"><a href="gonglue.html" class="nav-link">旅游攻略</a></li>
+                <li class="nav-item"><a href="meishi.html" class="nav-link">美食推荐</a></li>
+                <li class="nav-item"><a href="wenhua.html" class="nav-link">汉文化活动</a></li>
+                <li class="nav-item"><a href="lianxi.html" class="nav-link">联系我们</a></li>
+                <li class="nav-item"><a href="wenti.html" class="nav-link">常见问题</a></li>
+            </ul>
+            
+            <!-- 用户操作按钮 -->
+            <div class="user-actions">
+                <a href="register.html" class="btn btn-outline">注册</a>
+                <a href="login.html" class="btn btn-primary">登录</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 主要内容区域 -->
+    <main class="main-content">
+        <!-- 轮播图区域 -->
+        <section class="hero-section">
+            <div class="carousel-container">
+                <div class="carousel-slides">
+                    <div class="slide active">
+                        <img src="img/slide1.jpg" alt="汉中风光1">
+                        <div class="slide-content">
+                            <h2>天汉雄风 魅力汉中</h2>
+                            <p>探索两汉文化发源地，感受千年历史底蕴</p>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <img src="img/slide2.jpg" alt="汉中风光2">
+                        <div class="slide-content">
+                            <h2>秀美山川 诗画汉中</h2>
+                            <p>山水之间，寻找心灵的宁静与自然的和谐</p>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <img src="img/slide3.jpg" alt="汉中风光3">
+                        <div class="slide-content">
+                            <h2>美食之乡 舌尖汉中</h2>
+                            <p>品味地道陕南美食，体验独特汉中风味</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-controls">
+                    <button class="prev-btn" onclick="changeSlide(-1)">‹</button>
+                    <button class="next-btn" onclick="changeSlide(1)">›</button>
+                </div>
+                <div class="carousel-indicators">
+                    <span class="indicator active" onclick="currentSlide(1)"></span>
+                    <span class="indicator" onclick="currentSlide(2)"></span>
+                    <span class="indicator" onclick="currentSlide(3)"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 特色介绍区域 -->
+        <section class="features-section">
+            <div class="container">
+                <h2 class="section-title">汉中旅游特色</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🏛️</div>
+                        <h3>历史文化</h3>
+                        <p>两汉文化发源地，刘邦发迹之所，历史文化底蕴深厚</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🏔️</div>
+                        <h3>自然风光</h3>
+                        <p>秦岭南麓，汉水之源，山清水秀，风景如画</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🍜</div>
+                        <h3>特色美食</h3>
+                        <p>汉中热面皮、菜豆腐、浆水面等地道美食令人垂涎</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎭</div>
+                        <h3>民俗文化</h3>
+                        <p>汉调桄桄、汉中山歌等非物质文化遗产传承至今</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 热门景点推荐 -->
+        <section class="popular-attractions">
+            <div class="container">
+                <h2 class="section-title">热门景点</h2>
+                <div class="attractions-grid">
+                    <div class="attraction-card">
+                        <img src="img/attraction1.jpg" alt="朱鹮梨园">
+                        <div class="card-content">
+                            <h3>朱鹮梨园</h3>
+                            <p>世界朱鹮之乡，万亩梨花海洋，春来花满园</p>
+                            <a href="jingdian.html" class="btn">了解更多</a>
+                        </div>
+                    </div>
+                    <div class="attraction-card">
+                        <img src="img/attraction2.jpg" alt="汉中石门栈道">
+                        <div class="card-content">
+                            <h3>石门栈道</h3>
+                            <p>古代栈道遗址，见证汉中历史变迁</p>
+                            <a href="jingdian.html" class="btn">了解更多</a>
+                        </div>
+                    </div>
+                    <div class="attraction-card">
+                        <img src="img/attraction3.jpg" alt="勉县武侯祠">
+                        <div class="card-content">
+                            <h3>武侯祠</h3>
+                            <p>纪念诸葛亮的历史名胜，三国文化圣地</p>
+                            <a href="jingdian.html" class="btn">了解更多</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 快捷入口 -->
+        <section class="quick-links">
+            <div class="container">
+                <div class="links-grid">
+                    <a href="login.html" class="quick-link">
+                        <div class="link-icon">👤</div>
+                        <span>用户登录</span>
+                    </a>
+                    <a href="luxian.html" class="quick-link">
+                        <div class="link-icon">🗺️</div>
+                        <span>精品线路</span>
+                    </a>
+                    <a href="gonglue.html" class="quick-link">
+                        <div class="link-icon">📖</div>
+                        <span>旅游攻略</span>
+                    </a>
+                    <a href="meishi.html" class="quick-link">
+                        <div class="link-icon">🍽️</div>
+                        <span>美食推荐</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页面底部 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>关于我们</h3>
+                    <p>汉中旅游官方网站，致力于推广汉中文化旅游资源</p>
+                </div>
+                <div class="footer-section">
+                    <h3>联系方式</h3>
+                    <p>电话：0916-1234567</p>
+                    <p>邮箱：info@hztravel.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>友情链接</h3>
+                    <ul>
+                        <li><a href="javascript:void(0)">陕西省旅游局</a></li>
+                        <li><a href="javascript:void(0)">汉中市政府</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 汉中旅游网站. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/carousel.js"></script>
+</body>
+</html> 

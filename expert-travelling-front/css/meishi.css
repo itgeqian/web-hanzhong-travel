@@ -1,0 +1,545 @@
+/* 美食推荐页面专用样式 */
+
+/* 美食展示区域 */
+.food-section {
+    padding: 60px 0;
+    background: #f8f9fa;
+}
+
+.food-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+/* 美食卡片 */
+.food-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.food-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+}
+
+.food-image {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+}
+
+.food-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.food-card:hover .food-image img {
+    transform: scale(1.1);
+}
+
+.food-overlay {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.food-tag {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+    color: white;
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.food-content {
+    padding: 30px;
+}
+
+.food-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.food-rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.stars {
+    color: #ffd700;
+    font-size: 16px;
+}
+
+.rating-score {
+    color: #666;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.food-description {
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 25px;
+    font-size: 15px;
+}
+
+.food-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.info-item {
+    text-align: center;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.info-label {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.info-value {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.price {
+    color: #e74c3c;
+    font-size: 18px;
+}
+
+/* 美食分类导航 */
+.category-section {
+    padding: 40px 0;
+    background: white;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.category-card {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 15px;
+    padding: 30px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.category-card:hover,
+.category-card.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+}
+
+.category-icon {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.category-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.category-count {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* 餐厅推荐区域 */
+.restaurant-section {
+    padding: 80px 0;
+    background: white;
+}
+
+.restaurant-list {
+    margin-top: 40px;
+}
+
+.restaurant-item {
+    display: flex;
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 25px;
+    transition: all 0.3s ease;
+    border-left: 5px solid transparent;
+}
+
+.restaurant-item:hover {
+    background: white;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border-left-color: #667eea;
+    transform: translateX(5px);
+}
+
+.restaurant-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-right: 25px;
+    flex-shrink: 0;
+}
+
+.restaurant-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.restaurant-info {
+    flex: 1;
+}
+
+.restaurant-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.restaurant-type {
+    color: #667eea;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.restaurant-desc {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.restaurant-details {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #666;
+}
+
+.detail-item::before {
+    margin-right: 5px;
+    font-size: 16px;
+}
+
+/* 美食文化区域 */
+.culture-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #f8f9ff 0%, #e8f4ff 100%);
+}
+
+.culture-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.culture-text {
+    padding: 40px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.culture-text h3 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 25px;
+}
+
+.culture-text p {
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.culture-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.culture-features li {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+    color: #666;
+}
+
+.culture-features li:last-child {
+    border-bottom: none;
+}
+
+.culture-features li::before {
+    content: '🍜';
+    margin-right: 15px;
+    font-size: 20px;
+}
+
+.culture-image {
+    position: relative;
+}
+
+.culture-image img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+/* 特色推荐 */
+.special-section {
+    padding: 80px 0;
+    background: white;
+}
+
+.special-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.special-card {
+    background: linear-gradient(135deg, #fff7e6 0%, #fff3d6 100%);
+    border: 2px solid #ffc107;
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.special-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(255, 193, 7, 0.3);
+}
+
+.special-icon {
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
+.special-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #856404;
+    margin-bottom: 15px;
+}
+
+.special-desc {
+    color: #856404;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+/* 响应式设计 */
+@media (max-width: 1024px) {
+    .food-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+    }
+    
+    .culture-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .category-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 20px;
+    }
+    
+    .food-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    
+    .restaurant-item {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .restaurant-image {
+        width: 100%;
+        height: 200px;
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+    
+    .restaurant-details {
+        justify-content: center;
+    }
+    
+    .special-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .food-content {
+        padding: 25px 20px;
+    }
+    
+    .food-title {
+        font-size: 20px;
+    }
+    
+    .food-info {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .category-card {
+        padding: 25px 15px;
+    }
+    
+    .category-icon {
+        font-size: 32px;
+    }
+    
+    .restaurant-item {
+        padding: 20px 15px;
+    }
+    
+    .culture-text {
+        padding: 25px 20px;
+    }
+    
+    .special-card {
+        padding: 25px 20px;
+    }
+}
+
+/* 动画效果 */
+@keyframes bounceIn {
+    from {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.food-card {
+    animation: slideInUp 0.6s ease-out;
+}
+
+.category-card {
+    animation: bounceIn 0.6s ease-out;
+}
+
+.restaurant-item {
+    animation: slideInUp 0.6s ease-out;
+}
+
+.special-card {
+    animation: bounceIn 0.6s ease-out;
+}
+
+/* 延迟动画 */
+.food-card:nth-child(1) { animation-delay: 0.1s; }
+.food-card:nth-child(2) { animation-delay: 0.2s; }
+.food-card:nth-child(3) { animation-delay: 0.3s; }
+.food-card:nth-child(4) { animation-delay: 0.4s; }
+
+.category-card:nth-child(1) { animation-delay: 0.1s; }
+.category-card:nth-child(2) { animation-delay: 0.2s; }
+.category-card:nth-child(3) { animation-delay: 0.3s; }
+.category-card:nth-child(4) { animation-delay: 0.4s; }
+
+.restaurant-item:nth-child(1) { animation-delay: 0.1s; }
+.restaurant-item:nth-child(2) { animation-delay: 0.2s; }
+.restaurant-item:nth-child(3) { animation-delay: 0.3s; }
+
+.special-card:nth-child(1) { animation-delay: 0.1s; }
+.special-card:nth-child(2) { animation-delay: 0.2s; }
+.special-card:nth-child(3) { animation-delay: 0.3s; }
+
+/* 悬浮效果增强 */
+.food-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 107, 107, 0.05) 0%, rgba(238, 90, 82, 0.05) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 20px;
+    z-index: 1;
+}
+
+.food-card:hover::before {
+    opacity: 1;
+}
+
+.food-card > * {
+    position: relative;
+    z-index: 2;
+} 

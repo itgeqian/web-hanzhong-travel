@@ -1,0 +1,416 @@
+/* 首页专用样式 */
+
+/* 轮播图区域 */
+.hero-section {
+    position: relative;
+    height: 70vh;
+    min-height: 500px;
+    overflow: hidden;
+    background: #000;
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.carousel-slides {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slide-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    z-index: 10;
+    padding: 0 20px;
+}
+
+.slide-content h2 {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slideInUp 1s ease-out 0.5s forwards;
+}
+
+.slide-content p {
+    font-size: 20px;
+    opacity: 0.9;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slideInUp 1s ease-out 0.8s forwards;
+}
+
+/* 轮播控制按钮 */
+.carousel-controls {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 20;
+}
+
+.prev-btn,
+.next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.2);
+    color: white;
+    border: 2px solid rgba(255,255,255,0.5);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.prev-btn {
+    left: 30px;
+}
+
+.next-btn {
+    right: 30px;
+}
+
+.prev-btn:hover,
+.next-btn:hover {
+    background: rgba(255,255,255,0.3);
+    border-color: white;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.prev-btn:active,
+.next-btn:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+/* 轮播指示器 */
+.carousel-indicators {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+    z-index: 20;
+}
+
+.indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.indicator.active {
+    background: white;
+    transform: scale(1.3);
+}
+
+.indicator:hover {
+    background: rgba(255,255,255,0.8);
+    transform: scale(1.2);
+}
+
+/* 特色介绍区域 */
+.features-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-top: 50px;
+}
+
+.feature-card {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.feature-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.feature-card h3 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.feature-card p {
+    color: #666;
+    line-height: 1.8;
+}
+
+/* 热门景点推荐 */
+.popular-attractions {
+    padding: 80px 0;
+    background: white;
+}
+
+.attractions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+    margin-top: 50px;
+}
+
+.attraction-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.attraction-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.attraction-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.attraction-card:hover img {
+    transform: scale(1.05);
+}
+
+.card-content {
+    padding: 25px;
+}
+
+.card-content h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.card-content p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.card-content .btn {
+    padding: 10px 20px;
+    font-size: 14px;
+}
+
+/* 快捷入口 */
+.quick-links {
+    padding: 60px 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+}
+
+.quick-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 20px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.quick-link:hover {
+    background: rgba(255,255,255,0.2);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.link-icon {
+    font-size: 36px;
+    margin-bottom: 15px;
+}
+
+.quick-link span {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* 动画效果 */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.feature-card {
+    animation: fadeInScale 0.6s ease-out;
+}
+
+.attraction-card {
+    animation: slideInUp 0.6s ease-out;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .hero-section {
+        height: 60vh;
+        min-height: 400px;
+    }
+    
+    .slide-content h2 {
+        font-size: 32px;
+    }
+    
+    .slide-content p {
+        font-size: 16px;
+    }
+    
+    .prev-btn,
+    .next-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+    
+    .prev-btn {
+        left: 20px;
+    }
+    
+    .next-btn {
+        right: 20px;
+    }
+    
+    .features-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 30px;
+    }
+    
+    .feature-card {
+        padding: 30px 20px;
+    }
+    
+    .attractions-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .links-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .slide-content h2 {
+        font-size: 24px;
+    }
+    
+    .slide-content p {
+        font-size: 14px;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .links-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .quick-link {
+        padding: 25px 15px;
+    }
+} 

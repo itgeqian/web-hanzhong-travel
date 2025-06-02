@@ -1,0 +1,388 @@
+/* 登录页面专用样式 */
+
+/* 登录容器 */
+.login-container {
+    min-height: calc(100vh - 200px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.login-box {
+    background: white;
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 450px;
+    margin-right: 40px;
+}
+
+.login-title {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #333;
+    position: relative;
+}
+
+.login-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 2px;
+}
+
+/* 表单样式 */
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+    font-size: 14px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 15px 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background: #fafafa;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #667eea;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-input::placeholder {
+    color: #999;
+}
+
+.error-message {
+    color: #e74c3c;
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.error-message.show {
+    opacity: 1;
+}
+
+/* 复选框组 */
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    color: #666;
+    position: relative;
+}
+
+.checkbox-label input[type="checkbox"] {
+    display: none;
+}
+
+.checkmark {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    background: #f0f0f0;
+    border: 2px solid #e0e0e0;
+    border-radius: 4px;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+}
+
+.checkmark::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkmark {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-color: #667eea;
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkmark::after {
+    opacity: 1;
+}
+
+/* 登录按钮 */
+.login-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+}
+
+.login-btn:active {
+    transform: translateY(0);
+}
+
+/* 表单链接 */
+.form-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-link {
+    color: #667eea;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.form-link:hover {
+    color: #764ba2;
+    text-decoration: underline;
+}
+
+/* 会员特权信息 */
+.login-info {
+    background: white;
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-info h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #333;
+    text-align: center;
+}
+
+.privilege-list {
+    list-style: none;
+    padding: 0;
+}
+
+.privilege-list li {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 16px;
+    color: #666;
+    transition: all 0.3s ease;
+}
+
+.privilege-list li:last-child {
+    border-bottom: none;
+}
+
+.privilege-list li:hover {
+    color: #667eea;
+    transform: translateX(5px);
+}
+
+.privilege-list li::before {
+    margin-right: 12px;
+    font-size: 20px;
+}
+
+/* 表单验证状态 */
+.form-input.error {
+    border-color: #e74c3c;
+    background: #fff5f5;
+}
+
+.form-input.success {
+    border-color: #27ae60;
+    background: #f8fff8;
+}
+
+/* 加载状态 */
+.login-btn.loading {
+    position: relative;
+    color: transparent;
+}
+
+.login-btn.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* 响应式设计 */
+@media (max-width: 968px) {
+    .login-container {
+        flex-direction: column;
+        gap: 40px;
+    }
+    
+    .login-box {
+        margin-right: 0;
+        max-width: 500px;
+    }
+    
+    .login-info {
+        max-width: 500px;
+    }
+}
+
+@media (max-width: 768px) {
+    .login-container {
+        padding: 40px 20px;
+    }
+    
+    .login-box,
+    .login-info {
+        padding: 30px;
+    }
+    
+    .login-title {
+        font-size: 24px;
+    }
+    
+    .login-info h3 {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-container {
+        padding: 20px 15px;
+    }
+    
+    .login-box,
+    .login-info {
+        padding: 25px 20px;
+    }
+    
+    .form-input {
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+    
+    .login-btn {
+        padding: 12px;
+        font-size: 14px;
+    }
+    
+    .privilege-list li {
+        font-size: 14px;
+        padding: 12px 0;
+    }
+}
+
+/* 动画效果 */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.login-box {
+    animation: fadeInLeft 0.6s ease-out;
+}
+
+.login-info {
+    animation: fadeInRight 0.6s ease-out;
+}
+
+.privilege-list li {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.privilege-list li:nth-child(1) { animation-delay: 0.1s; }
+.privilege-list li:nth-child(2) { animation-delay: 0.2s; }
+.privilege-list li:nth-child(3) { animation-delay: 0.3s; }
+.privilege-list li:nth-child(4) { animation-delay: 0.4s; }
+.privilege-list li:nth-child(5) { animation-delay: 0.5s; }
+.privilege-list li:nth-child(6) { animation-delay: 0.6s; } 

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户注册 - 汉中旅游</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/register.css">
+</head>
+<body>
+    <!-- 页面头部 -->
+    <header class="header">
+        <div class="logo-container">
+            <img src="img/logo.png" alt="汉中旅游Logo" class="logo">
+            <h1 class="site-title">汉中旅游</h1>
+        </div>
+        
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="index.html" class="nav-link">首页</a></li>
+                <li class="nav-item"><a href="jingdian.html" class="nav-link">景点介绍</a></li>
+                <li class="nav-item"><a href="luxian.html" class="nav-link">旅游线路</a></li>
+                <li class="nav-item"><a href="gonglue.html" class="nav-link">旅游攻略</a></li>
+                <li class="nav-item"><a href="meishi.html" class="nav-link">美食推荐</a></li>
+                <li class="nav-item"><a href="wenhua.html" class="nav-link">汉文化活动</a></li>
+                <li class="nav-item"><a href="lianxi.html" class="nav-link">联系我们</a></li>
+                <li class="nav-item"><a href="wenti.html" class="nav-link">常见问题</a></li>
+            </ul>
+            
+            <!-- 用户操作按钮 -->
+            <div class="user-actions">
+                <a href="register.html" class="btn btn-outline active">注册</a>
+                <a href="login.html" class="btn btn-primary">登录</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 主要内容 -->
+    <main class="main-content">
+        <div class="register-container">
+            <div class="register-box">
+                <h2 class="register-title">用户注册</h2>
+                <p class="register-subtitle">加入汉中旅游，开启您的专属旅程</p>
+                
+                <form id="registerForm" class="register-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="username" class="form-label">
+                                <i class="icon">👤</i>用户名
+                            </label>
+                            <input type="text" id="username" name="username" class="form-input" 
+                                   placeholder="请输入用户名（3-20个字符）" required>
+                            <span class="error-message" id="usernameError"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="realname" class="form-label">
+                                <i class="icon">📝</i>真实姓名
+                            </label>
+                            <input type="text" id="realname" name="realname" class="form-input" 
+                                   placeholder="请输入真实姓名" required>
+                            <span class="error-message" id="realnameError"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="password" class="form-label">
+                                <i class="icon">🔒</i>密码
+                            </label>
+                            <input type="password" id="password" name="password" class="form-input" 
+                                   placeholder="请输入密码（6-20个字符）" required>
+                            <span class="error-message" id="passwordError"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="confirmPassword" class="form-label">
+                                <i class="icon">🔐</i>确认密码
+                            </label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" 
+                                   placeholder="请再次输入密码" required>
+                            <span class="error-message" id="confirmPasswordError"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email" class="form-label">
+                                <i class="icon">📧</i>邮箱地址
+                            </label>
+                            <input type="email" id="email" name="email" class="form-input" 
+                                   placeholder="请输入邮箱地址" required>
+                            <span class="error-message" id="emailError"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone" class="form-label">
+                                <i class="icon">📱</i>手机号码
+                            </label>
+                            <input type="tel" id="phone" name="phone" class="form-input" 
+                                   placeholder="请输入手机号码" required>
+                            <span class="error-message" id="phoneError"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="gender" class="form-label">
+                                <i class="icon">👥</i>性别
+                            </label>
+                            <select id="gender" name="gender" class="form-input" required>
+                                <option value="">请选择性别</option>
+                                <option value="male">男</option>
+                                <option value="female">女</option>
+                                <option value="other">其他</option>
+                            </select>
+                            <span class="error-message" id="genderError"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="birthday" class="form-label">
+                                <i class="icon">🎂</i>出生日期
+                            </label>
+                            <input type="date" id="birthday" name="birthday" class="form-input">
+                            <span class="error-message" id="birthdayError"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address" class="form-label">
+                            <i class="icon">📍</i>所在地区
+                        </label>
+                        <input type="text" id="address" name="address" class="form-input" 
+                               placeholder="请输入所在省市（可选）">
+                        <span class="error-message" id="addressError"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="interests" class="form-label">
+                            <i class="icon">❤️</i>旅游兴趣
+                        </label>
+                        <div class="checkbox-grid">
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="interests" value="history">
+                                <span class="checkmark"></span>
+                                历史文化
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="interests" value="nature">
+                                <span class="checkmark"></span>
+                                自然风光
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="interests" value="food">
+                                <span class="checkmark"></span>
+                                美食体验
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="interests" value="photography">
+                                <span class="checkmark"></span>
+                                摄影创作
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="interests" value="adventure">
+                                <span class="checkmark"></span>
+                                户外探险
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="interests" value="culture">
+                                <span class="checkmark"></span>
+                                民俗文化
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group agreement-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="agreement" name="agreement" required>
+                            <span class="checkmark"></span>
+                            我已阅读并同意
+                            <a href="javascript:void(0)" class="agreement-link">《用户服务协议》</a>
+                            和
+                            <a href="javascript:void(0)" class="agreement-link">《隐私政策》</a>
+                        </label>
+                        <span class="error-message" id="agreementError"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="register-btn">
+                            <span class="btn-text">立即注册</span>
+                            <span class="btn-loading">注册中...</span>
+                        </button>
+                    </div>
+                    
+                    <div class="form-links">
+                        <span class="login-tip">已有账户？</span>
+                        <a href="login.html" class="form-link">立即登录</a>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="register-info">
+                <h3>加入汉中旅游的理由</h3>
+                <div class="benefits-list">
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🎫</div>
+                        <div class="benefit-content">
+                            <h4>专享优惠</h4>
+                            <p>会员专享景点门票、酒店住宿等多种优惠价格</p>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-icon">📱</div>
+                        <div class="benefit-content">
+                            <h4>个性推荐</h4>
+                            <p>基于您的兴趣偏好，为您推荐最适合的旅游路线</p>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-icon">💬</div>
+                        <div class="benefit-content">
+                            <h4>专业服务</h4>
+                            <p>24小时在线客服，专业旅游顾问为您答疑解惑</p>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-icon">📸</div>
+                        <div class="benefit-content">
+                            <h4>云端相册</h4>
+                            <p>旅游照片云端存储，随时随地回味美好旅程</p>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🎁</div>
+                        <div class="benefit-content">
+                            <h4>生日礼品</h4>
+                            <p>生日月享受专属礼品和特别优惠活动</p>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🌟</div>
+                        <div class="benefit-content">
+                            <h4>积分奖励</h4>
+                            <p>消费即可获得积分，积分可兑换精美礼品</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="register-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">50000+</div>
+                        <div class="stat-label">注册用户</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">满意度</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">在线服务</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页面底部 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>关于我们</h3>
+                    <p>汉中旅游官方网站，致力于推广汉中文化旅游资源</p>
+                </div>
+                <div class="footer-section">
+                    <h3>联系方式</h3>
+                    <p>电话：0916-1234567</p>
+                    <p>邮箱：info@hztravel.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>友情链接</h3>
+                    <ul>
+                        <li><a href="javascript:void(0)">陕西省旅游局</a></li>
+                        <li><a href="javascript:void(0)">汉中市政府</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 汉中旅游网站. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/register-validation.js"></script>
+</body>
+</html> 

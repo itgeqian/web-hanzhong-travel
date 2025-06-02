@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>景点介绍 - 汉中旅游</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/jingdian.css">
+</head>
+<body>
+    <!-- 页面头部 -->
+    <header class="header">
+        <div class="logo-container">
+            <img src="img/logo.png" alt="汉中旅游Logo" class="logo">
+            <h1 class="site-title">汉中旅游</h1>
+        </div>
+        
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="index.html" class="nav-link">首页</a></li>
+                <li class="nav-item"><a href="jingdian.html" class="nav-link active">景点介绍</a></li>
+                <li class="nav-item"><a href="luxian.html" class="nav-link">旅游线路</a></li>
+                <li class="nav-item"><a href="gonglue.html" class="nav-link">旅游攻略</a></li>
+                <li class="nav-item"><a href="meishi.html" class="nav-link">美食推荐</a></li>
+                <li class="nav-item"><a href="wenhua.html" class="nav-link">汉文化活动</a></li>
+                <li class="nav-item"><a href="lianxi.html" class="nav-link">联系我们</a></li>
+                <li class="nav-item"><a href="wenti.html" class="nav-link">常见问题</a></li>
+            </ul>
+            
+            <!-- 用户操作按钮 -->
+            <div class="user-actions">
+                <a href="register.html" class="btn btn-outline">注册</a>
+                <a href="login.html" class="btn btn-primary">登录</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 主要内容 -->
+    <main class="main-content">
+        <!-- 页面标题区域 -->
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-title">汉中景点介绍</h1>
+                <p class="page-subtitle">探索天汉雄风，感受千年文化</p>
+            </div>
+        </section>
+
+        <!-- 景点分类导航 -->
+        <section class="category-nav">
+            <div class="container">
+                <ul class="category-list">
+                    <li class="category-item active" data-category="all">全部景点</li>
+                    <li class="category-item" data-category="history">历史文化</li>
+                    <li class="category-item" data-category="nature">自然风光</li>
+                    <li class="category-item" data-category="mountain">山岳景观</li>
+                    <li class="category-item" data-category="water">水景名胜</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 景点列表 -->
+        <section class="attractions-section">
+            <div class="container">
+                <div class="attractions-grid">
+                    <!-- 朱鹮梨园 -->
+                    <div class="attraction-card" data-category="nature" id="laoshan">
+                        <div class="card-image">
+                            <img src="img/zhuyu-liyuan.jpg" alt="朱鹮梨园">
+                            <div class="card-overlay">
+                                <span class="card-tag">自然风光</span>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">朱鹮梨园</h3>
+                            <div class="card-rating">
+                                <span class="stars">★★★★★</span>
+                                <span class="rating-text">4.8分</span>
+                            </div>
+                            <p class="card-description">
+                                世界朱鹮之乡，万亩梨花海洋。每年春季，梨花盛开如雪，与朱鹮飞舞形成绝美画卷。
+                                这里是朱鹮保护区，也是观赏春花的绝佳地点。
+                            </p>
+                            <div class="card-info">
+                                <div class="info-item">
+                                    <span class="info-label">开放时间：</span>
+                                    <span class="info-value">8:00-18:00</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">门票价格：</span>
+                                    <span class="info-value">60元/人</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">推荐时长：</span>
+                                    <span class="info-value">2-3小时</span>
+                                </div>
+                            </div>
+                            <div class="card-actions">
+                                <button class="btn btn-primary">查看详情</button>
+                                <button class="btn btn-outline">收藏</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 石门栈道 -->
+                    <div class="attraction-card" data-category="history">
+                        <div class="card-image">
+                            <img src="img/shimen-zhandao.jpg" alt="石门栈道">
+                            <div class="card-overlay">
+                                <span class="card-tag">历史文化</span>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">石门栈道</h3>
+                            <div class="card-rating">
+                                <span class="stars">★★★★★</span>
+                                <span class="rating-text">4.7分</span>
+                            </div>
+                            <p class="card-description">
+                                古代蜀道遗址，见证汉中历史变迁。栈道依山而建，惊险壮观，
+                                是古代交通的奇迹，也是现代游客体验历史的绝佳场所。
+                            </p>
+                            <div class="card-info">
+                                <div class="info-item">
+                                    <span class="info-label">开放时间：</span>
+                                    <span class="info-value">8:30-17:30</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">门票价格：</span>
+                                    <span class="info-value">80元/人</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">推荐时长：</span>
+                                    <span class="info-value">3-4小时</span>
+                                </div>
+                            </div>
+                            <div class="card-actions">
+                                <button class="btn btn-primary">查看详情</button>
+                                <button class="btn btn-outline">收藏</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 武侯祠 -->
+                    <div class="attraction-card" data-category="history" id="qinling">
+                        <div class="card-image">
+                            <img src="img/wuhou-ci.jpg" alt="勉县武侯祠">
+                            <div class="card-overlay">
+                                <span class="card-tag">历史文化</span>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">勉县武侯祠</h3>
+                            <div class="card-rating">
+                                <span class="stars">★★★★★</span>
+                                <span class="rating-text">4.9分</span>
+                            </div>
+                            <p class="card-description">
+                                纪念诸葛亮的历史名胜，三国文化圣地。祠内古柏参天，
+                                文物众多，是了解三国历史和诸葛亮生平的重要场所。
+                            </p>
+                            <div class="card-info">
+                                <div class="info-item">
+                                    <span class="info-label">开放时间：</span>
+                                    <span class="info-value">8:00-18:00</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">门票价格：</span>
+                                    <span class="info-value">50元/人</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">推荐时长：</span>
+                                    <span class="info-value">2-3小时</span>
+                                </div>
+                            </div>
+                            <div class="card-actions">
+                                <button class="btn btn-primary">查看详情</button>
+                                <button class="btn btn-outline">收藏</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 汉水源头 -->
+                    <div class="attraction-card" data-category="water" id="hanshui">
+                        <div class="card-image">
+                            <img src="img/hanshui-yuan.jpg" alt="汉水源头">
+                            <div class="card-overlay">
+                                <span class="card-tag">水景名胜</span>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">汉水源头</h3>
+                            <div class="card-rating">
+                                <span class="stars">★★★★☆</span>
+                                <span class="rating-text">4.6分</span>
+                            </div>
+                            <p class="card-description">
+                                汉江发源地，山清水秀，风景如画。这里水质清澈，
+                                环境优美，是感受自然纯净和汉文化源头的绝佳场所。
+                            </p>
+                            <div class="card-info">
+                                <div class="info-item">
+                                    <span class="info-label">开放时间：</span>
+                                    <span class="info-value">全天开放</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">门票价格：</span>
+                                    <span class="info-value">免费</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">推荐时长：</span>
+                                    <span class="info-value">1-2小时</span>
+                                </div>
+                            </div>
+                            <div class="card-actions">
+                                <button class="btn btn-primary">查看详情</button>
+                                <button class="btn btn-outline">收藏</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 褒河栈道 -->
+                    <div class="attraction-card" data-category="mountain">
+                        <div class="card-image">
+                            <img src="img/baohe-zhandao.jpg" alt="褒河栈道">
+                            <div class="card-overlay">
+                                <span class="card-tag">山岳景观</span>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">褒河栈道</h3>
+                            <div class="card-rating">
+                                <span class="stars">★★★★☆</span>
+                                <span class="rating-text">4.5分</span>
+                            </div>
+                            <p class="card-description">
+                                沿褒河而建的现代栈道，集观光、健身于一体。
+                                栈道蜿蜒曲折，沿途风光秀美，是体验汉中山水的理想选择。
+                            </p>
+                            <div class="card-info">
+                                <div class="info-item">
+                                    <span class="info-label">开放时间：</span>
+                                    <span class="info-value">7:00-19:00</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">门票价格：</span>
+                                    <span class="info-value">30元/人</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">推荐时长：</span>
+                                    <span class="info-value">2-4小时</span>
+                                </div>
+                            </div>
+                            <div class="card-actions">
+                                <button class="btn btn-primary">查看详情</button>
+                                <button class="btn btn-outline">收藏</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 张良庙 -->
+                    <div class="attraction-card" data-category="history">
+                        <div class="card-image">
+                            <img src="img/zhangliang-miao.jpg" alt="张良庙">
+                            <div class="card-overlay">
+                                <span class="card-tag">历史文化</span>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">张良庙</h3>
+                            <div class="card-rating">
+                                <span class="stars">★★★★☆</span>
+                                <span class="rating-text">4.4分</span>
+                            </div>
+                            <p class="card-description">
+                                纪念汉初三杰之一张良的古建筑群，建筑古朴典雅，
+                                环境清幽，是了解汉代历史和张良生平的重要场所。
+                            </p>
+                            <div class="card-info">
+                                <div class="info-item">
+                                    <span class="info-label">开放时间：</span>
+                                    <span class="info-value">8:00-17:30</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">门票价格：</span>
+                                    <span class="info-value">40元/人</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">推荐时长：</span>
+                                    <span class="info-value">1-2小时</span>
+                                </div>
+                            </div>
+                            <div class="card-actions">
+                                <button class="btn btn-primary">查看详情</button>
+                                <button class="btn btn-outline">收藏</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 加载更多按钮 -->
+                <div class="load-more-section">
+                    <button class="btn btn-load-more" onclick="loadMoreAttractions()">加载更多景点</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 景点推荐区域 -->
+        <section class="recommended-section">
+            <div class="container">
+                <h2 class="section-title">推荐景点</h2>
+                <div class="recommended-list">
+                    <ol class="attraction-ranking">
+                        <li class="ranking-item">
+                            <span class="rank-number">1</span>
+                            <div class="rank-content">
+                                <h4>朱鹮梨园</h4>
+                                <p>春季梨花盛开，朱鹮翩翩起舞</p>
+                            </div>
+                            <span class="rank-score">4.8分</span>
+                        </li>
+                        <li class="ranking-item">
+                            <span class="rank-number">2</span>
+                            <div class="rank-content">
+                                <h4>勉县武侯祠</h4>
+                                <p>三国文化圣地，诸葛亮纪念馆</p>
+                            </div>
+                            <span class="rank-score">4.9分</span>
+                        </li>
+                        <li class="ranking-item">
+                            <span class="rank-number">3</span>
+                            <div class="rank-content">
+                                <h4>石门栈道</h4>
+                                <p>古代蜀道奇观，历史文化遗址</p>
+                            </div>
+                            <span class="rank-score">4.7分</span>
+                        </li>
+                        <li class="ranking-item">
+                            <span class="rank-number">4</span>
+                            <div class="rank-content">
+                                <h4>汉水源头</h4>
+                                <p>汉江发源地，山清水秀风光美</p>
+                            </div>
+                            <span class="rank-score">4.6分</span>
+                        </li>
+                        <li class="ranking-item">
+                            <span class="rank-number">5</span>
+                            <div class="rank-content">
+                                <h4>褒河栈道</h4>
+                                <p>现代栈道工程，观光健身两相宜</p>
+                            </div>
+                            <span class="rank-score">4.5分</span>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页面底部 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>关于我们</h3>
+                    <p>汉中旅游官方网站，致力于推广汉中文化旅游资源</p>
+                </div>
+                <div class="footer-section">
+                    <h3>联系方式</h3>
+                    <p>电话：0916-1234567</p>
+                    <p>邮箱：info@hztravel.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>友情链接</h3>
+                    <ul>
+                        <li><a href="javascript:void(0)">陕西省旅游局</a></li>
+                        <li><a href="javascript:void(0)">汉中市政府</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 汉中旅游网站. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/attractions.js"></script>
+</body>
+</html> 

@@ -1,0 +1,148 @@
+{
+  "foods": [
+    {
+      "id": 1,
+      "name": "汉中热面皮",
+      "englishName": "Hanzhong Hot Rice Noodles",
+      "category": "面食小吃",
+      "price": 8,
+      "image": "img/remianpi.jpg",
+      "description": "汉中热面皮是汉中最具代表性的小吃，以优质大米为原料制成，口感爽滑，配以特制的酱料，酸辣鲜香，是汉中人早餐的首选。",
+      "ingredients": ["优质大米", "豆芽菜", "韭菜", "芝麻酱", "辣椒油", "蒜泥"],
+      "taste": "酸辣鲜香",
+      "origin": "汉中本地",
+      "features": [
+        "口感爽滑Q弹",
+        "营养丰富",
+        "酱料独特",
+        "老少皆宜"
+      ],
+      "bestPlace": "汉中各大早餐店",
+      "tips": [
+        "建议趁热食用",
+        "可根据个人口味调节辣度",
+        "搭配豆浆更佳"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "菜豆腐",
+      "englishName": "Vegetable Tofu",
+      "category": "传统菜肴",
+      "price": 12,
+      "image": "img/caidoufu.jpg",
+      "description": "菜豆腐是汉中的传统家常菜，用新鲜豆腐配以时令蔬菜烹制而成，清淡爽口，营养丰富，体现了汉中人的饮食智慧。",
+      "ingredients": ["嫩豆腐", "青菜", "胡萝卜", "黑木耳", "香菇", "高汤"],
+      "taste": "清淡鲜美",
+      "origin": "汉中民间",
+      "features": [
+        "营养均衡",
+        "口感层次丰富",
+        "制作简单",
+        "老人小孩都爱吃"
+      ],
+      "bestPlace": "汉中家常菜馆",
+      "tips": [
+        "选用优质嫩豆腐",
+        "蔬菜要新鲜",
+        "火候要掌握好"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "浆水面",
+      "englishName": "Sour Soup Noodles",
+      "category": "面食",
+      "price": 10,
+      "image": "img/jiangshuimian.jpg",
+      "description": "浆水面是汉中夏季最受欢迎的面食，以发酵的酸菜汤为汤底，面条劲道，汤汁酸爽，具有很好的开胃和消暑效果。",
+      "ingredients": ["手擀面条", "浆水", "芹菜", "韭菜", "辣椒油", "蒜苗"],
+      "taste": "酸爽开胃",
+      "origin": "陕南地区",
+      "features": [
+        "酸味独特",
+        "消暑开胃",
+        "营养丰富",
+        "制作工艺古老"
+      ],
+      "bestPlace": "汉中传统面馆",
+      "tips": [
+        "夏季食用最佳",
+        "浆水要发酵到位",
+        "面条要煮得恰到好处"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "汉中腊肉",
+      "englishName": "Hanzhong Bacon",
+      "category": "腌制品",
+      "price": 35,
+      "image": "img/larou.jpg",
+      "description": "汉中腊肉是当地的传统腌制食品，选用优质五花肉，经过特殊的腌制和熏制工艺，肉质紧实，香味浓郁，是汉中人过年必备的美食。",
+      "ingredients": ["五花肉", "盐", "花椒", "桂皮", "八角", "柏树枝"],
+      "taste": "咸香醇厚",
+      "origin": "汉中农村",
+      "features": [
+        "香味浓郁",
+        "肉质紧实",
+        "保存时间长",
+        "制作工艺传统"
+      ],
+      "bestPlace": "汉中农家菜馆",
+      "tips": [
+        "购买时选择色泽红亮的",
+        "食用前要充分清洗",
+        "可与蔬菜搭配烹饪"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "汉中黄酒",
+      "englishName": "Hanzhong Yellow Wine",
+      "category": "酒类",
+      "price": 25,
+      "image": "img/huangjiu.jpg",
+      "description": "汉中黄酒是用当地优质糯米酿制的传统黄酒，酒体清亮，口感甘甜，酒精度适中，是汉中人招待客人和节庆必备的佳酿。",
+      "ingredients": ["优质糯米", "酒曲", "山泉水"],
+      "taste": "甘甜醇厚",
+      "origin": "汉中古法酿造",
+      "features": [
+        "工艺传统",
+        "口感温和",
+        "营养价值高",
+        "文化底蕴深厚"
+      ],
+      "bestPlace": "汉中酒厂直销",
+      "tips": [
+        "适量饮用",
+        "冬季温热饮用更佳",
+        "可用于烹饪调味"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "核桃馍",
+      "englishName": "Walnut Steamed Bun",
+      "category": "糕点",
+      "price": 6,
+      "image": "img/hetaomo.jpg",
+      "description": "核桃馍是汉中的传统糕点，以面粉和核桃为主要原料，经过发酵和蒸制而成，香甜可口，营养丰富，是当地人喜爱的早餐和点心。",
+      "ingredients": ["面粉", "核桃仁", "白糖", "酵母", "芝麻"],
+      "taste": "香甜可口",
+      "origin": "汉中民间",
+      "features": [
+        "营养丰富",
+        "口感松软",
+        "核桃香味浓郁",
+        "制作工艺精细"
+      ],
+      "bestPlace": "汉中传统糕点店",
+      "tips": [
+        "选择新鲜出炉的",
+        "可配茶水食用",
+        "保存时要密封"
+      ]
+    }
+  ]
+} 
