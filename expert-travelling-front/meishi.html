@@ -202,6 +202,7 @@
         <section class="food-categories">
             <div class="container">
                 <h2 class="section-title">美食分类</h2>
+                <p class="section-subtitle">按照类型快速查找您喜欢的汉中美食</p>
                 <div class="category-tabs">
                     <button class="category-tab active" data-category="all">全部美食</button>
                     <button class="category-tab" data-category="noodles">面食类</button>
@@ -375,6 +376,23 @@
             <div class="container">
                 <h2 class="section-title">美食制作体验</h2>
                 <div class="experience-content">
+                    <!-- 先显示图片区域 -->
+                    <div class="experience-gallery">
+                        <div class="gallery-item">
+                            <img src="img/experience1.jpg" alt="制作热面皮">
+                            <p>制作热面皮</p>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="img/experience2.jpg" alt="学习包饺子">
+                            <p>学习包饺子</p>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="img/experience3.jpg" alt="菜豆腐制作">
+                            <p>菜豆腐制作</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 文字信息区域在下方 -->
                     <div class="experience-info">
                         <h3>亲手制作汉中美食</h3>
                         <p>我们提供专业的美食制作体验课程，让您亲手学习汉中传统美食的制作技艺，
@@ -403,21 +421,6 @@
                         <div class="experience-booking">
                             <button class="btn btn-primary">预约体验</button>
                             <button class="btn btn-outline">了解详情</button>
-                        </div>
-                    </div>
-                    
-                    <div class="experience-gallery">
-                        <div class="gallery-item">
-                            <img src="img/experience1.jpg" alt="制作热面皮">
-                            <p>制作热面皮</p>
-                        </div>
-                        <div class="gallery-item">
-                            <img src="img/experience2.jpg" alt="学习包饺子">
-                            <p>学习包饺子</p>
-                        </div>
-                        <div class="gallery-item">
-                            <img src="img/experience3.jpg" alt="菜豆腐制作">
-                            <p>菜豆腐制作</p>
                         </div>
                     </div>
                 </div>
@@ -452,7 +455,8 @@
         </div>
     </footer>
 
-    <script src="js/common.js"></script>
-    <script src="js/food.js"></script>
+    <!-- JavaScript文件 -->
+    <script src="js/utils.js"></script>
+    <script src="js/meishi.js"></script>
 </body>
 </html> 

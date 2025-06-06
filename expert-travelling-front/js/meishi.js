@@ -1,11 +1,14 @@
 // 美食页面JavaScript功能
 
 document.addEventListener('DOMContentLoaded', function() {
-    initFoodCategories();
+    // initFoodCategories(); // 注释掉这个函数，保持HTML中的分类区域结构
     initFoodCards();
     initRestaurantMap();
     initFoodSearch();
     initReviewSystem();
+    initCategoryTabs();
+    initScrollAnimations();
+    initHoverEffects();
 });
 
 // 美食数据
@@ -696,16 +699,167 @@ function markHelpful(button) {
     Utils.showMessage('感谢您的反馈！', 'success');
 }
 
-// 全局函数
-window.showFoodModal = showFoodModal;
-window.addToFavorites = addToFavorites;
-window.showRestaurants = showRestaurants;
-window.centerMap = centerMap;
-window.showAllRestaurants = showAllRestaurants;
-window.showOnMap = showOnMap;
-window.getDirections = getDirections;
-window.showReviewForm = showReviewForm;
-window.markHelpful = markHelpful;
+// 初始化分类标签功能
+function initCategoryTabs() {
+    const categoryTabs = document.querySelectorAll('.category-tab');
+    const foodItems = document.querySelectorAll('.food-item');
+    
+    if (!categoryTabs.length || !foodItems.length) {
+        return;
+    }
+    
+    categoryTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            const category = this.dataset.category;
+            
+            // 更新活动标签
+            categoryTabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            
+            // 筛选美食项目
+            filterFoodItems(category, foodItems);
+        });
+    });
+}
+
+// 筛选美食项目
+function filterFoodItems(category, foodItems) {
+    foodItems.forEach(item => {
+        const itemCategory = item.dataset.category;
+        
+        if (category === 'all' || itemCategory === category) {
+            // 显示项目
+            item.style.display = 'flex';
+            item.style.opacity = '0';
+            setTimeout(() => {
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0)';
+            }, 100);
+        } else {
+            // 隐藏项目
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                item.style.display = 'none';
+            }, 300);
+        }
+    });
+}
+
+// 滚动动画
+function initScrollAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animated');
+            }
+        });
+    }, observerOptions);
+    
+    // 观察需要动画的元素
+    const animatedElements = document.querySelectorAll(
+        '.food-card, .restaurant-card, .program-item, .gallery-item'
+    );
+    
+    animatedElements.forEach(el => {
+        observer.observe(el);
+    });
+}
+
+// 悬浮效果
+function initHoverEffects() {
+    // 美食卡片悬浮效果
+    const foodCards = document.querySelectorAll('.food-card');
+    foodCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px) scale(1.02)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+    
+    // 餐厅卡片悬浮效果
+    const restaurantCards = document.querySelectorAll('.restaurant-card');
+    restaurantCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px)';
+            const img = this.querySelector('img');
+            if (img) img.style.transform = 'scale(1.1)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            const img = this.querySelector('img');
+            if (img) img.style.transform = 'scale(1)';
+        });
+    });
+    
+    // 体验项目悬浮效果
+    const programItems = document.querySelectorAll('.program-item');
+    programItems.forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateX(10px)';
+            this.style.borderLeftColor = '#764ba2';
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateX(0)';
+            this.style.borderLeftColor = '#667eea';
+        });
+    });
+}
+
+// 预约体验功能
+function bookExperience(programType) {
+    const programs = {
+        'noodles': '热面皮制作体验',
+        'dumplings': '汉中饺子体验', 
+        'tofu': '菜豆腐制作体验'
+    };
+    
+    const programName = programs[programType] || '美食制作体验';
+    
+    if (confirm(`确定要预约"${programName}"吗？`)) {
+        alert(`预约成功！我们将在24小时内联系您确认具体时间。`);
+    }
+}
+
+// 查看餐厅详情
+function viewRestaurantDetails(restaurantId) {
+    alert('餐厅详情页面正在开发中...');
+}
+
+// 分享美食功能
+function shareFood(foodName, description) {
+    const shareText = `${foodName} - ${description}\n查看更多汉中美食: ${window.location.href}`;
+    
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(shareText).then(() => {
+            alert('分享链接已复制到剪贴板！');
+        });
+    } else {
+        // 创建临时文本区域
+        const textArea = document.createElement('textarea');
+        textArea.value = shareText;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        alert('分享链接已复制到剪贴板！');
+    }
+}
+
+// 全局函数（供HTML调用）
+window.bookExperience = bookExperience;
+window.viewRestaurantDetails = viewRestaurantDetails;
+window.shareFood = shareFood;
 
 // 添加样式
 const style = document.createElement('style');

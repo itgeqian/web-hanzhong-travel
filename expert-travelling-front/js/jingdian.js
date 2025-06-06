@@ -1,8 +1,13 @@
 // 景点介绍页面JavaScript功能
 
 document.addEventListener('DOMContentLoaded', function() {
+    // 首先初始化景点卡片（如果需要动态生成）
+    // initAttractionCards();
+    
+    // 然后初始化分类导航（这时HTML中的卡片已经存在）
     initCategoryNav();
-    initAttractionCards();
+    
+    // 最后初始化其他功能
     initRankingList();
     initAttractionModal();
     initSearchFunction();
@@ -12,79 +17,79 @@ document.addEventListener('DOMContentLoaded', function() {
 const attractionsData = [
     {
         id: 1,
-        name: '汉中博物馆',
-        category: 'culture',
-        image: 'img/attraction1.jpg',
+        name: '朱鹮梨园',
+        category: 'nature',
+        image: 'img/zhuyu-liyuan.jpg',
         rating: 4.8,
-        price: 50,
-        openTime: '9:00-17:00',
-        address: '汉中市汉台区东大街26号',
-        description: '汉中博物馆是展示汉中历史文化的重要场所，珍藏着大量汉代文物和历史资料。',
-        features: ['历史文化', '文物展览', '导游讲解', '停车便利'],
-        details: '汉中博物馆建于1958年，是陕西省重点博物馆之一。馆内收藏文物万余件，其中国家一级文物100余件。展览以汉代历史文化为主线，全面展示了汉中作为汉王朝发祥地的重要地位。'
+        price: 60,
+        openTime: '8:00-18:00',
+        address: '汉中市洋县草庙村',
+        description: '世界朱鹮之乡，万亩梨花海洋。每年春季，梨花盛开如雪，与朱鹮飞舞形成绝美画卷。',
+        features: ['生态保护', '珍稀动物', '自然教育', '梨花观赏'],
+        details: '朱鹮梨园是朱鹮国家级自然保护区的核心区域。这里不仅是朱鹮的栖息地，还是万亩梨园的所在地。每年春季梨花盛开时，景色格外美丽。'
     },
     {
         id: 2,
         name: '石门栈道',
-        category: 'nature',
-        image: 'img/attraction2.jpg',
-        rating: 4.9,
+        category: 'history',
+        image: 'img/shimen-zhandao.jpg',
+        rating: 4.7,
         price: 80,
-        openTime: '8:00-18:00',
+        openTime: '8:30-17:30',
         address: '汉中市汉台区河东店镇',
-        description: '世界第一古栈道，古代蜀道的重要组成部分，工程奇迹，历史价值极高。',
+        description: '古代蜀道遗址，见证汉中历史变迁。栈道依山而建，惊险壮观，是古代交通的奇迹。',
         features: ['古代栈道', '自然风光', '历史遗迹', '摄影胜地'],
         details: '石门栈道开凿于秦汉时期，是古代川陕交通要道。栈道沿嘉陵江而建，全长234.3公里。这里不仅有丰富的历史文化内涵，还有壮美的自然风光。'
     },
     {
         id: 3,
-        name: '朱鹮梨园',
-        category: 'nature',
-        image: 'img/attraction3.jpg',
-        rating: 4.7,
-        price: 60,
-        openTime: '8:30-17:30',
-        address: '汉中市洋县草庙村',
-        description: '朱鹮自然保护区，生态环境优美，是观赏世界珍稀鸟类朱鹮的最佳地点。',
-        features: ['生态保护', '珍稀动物', '自然教育', '梨花观赏'],
-        details: '朱鹮梨园是朱鹮国家级自然保护区的核心区域。这里不仅是朱鹮的栖息地，还是万亩梨园的所在地。每年春季梨花盛开时，景色格外美丽。'
-    },
-    {
-        id: 4,
-        name: '武侯祠',
-        category: 'culture',
-        image: 'img/attraction4.jpg',
-        rating: 4.6,
-        price: 45,
+        name: '勉县武侯祠',
+        category: 'history',
+        image: 'img/wuhou-ci.jpg',
+        rating: 4.9,
+        price: 50,
         openTime: '8:00-18:00',
         address: '汉中市勉县108国道',
-        description: '为纪念诸葛亮而建的祠堂，三国文化的重要载体，建筑古朴典雅。',
+        description: '纪念诸葛亮的历史名胜，三国文化圣地。祠内古柏参天，文物众多。',
         features: ['三国文化', '古建筑', '历史名人', '文化体验'],
         details: '武侯祠是全国重点文物保护单位，始建于蜀汉景耀六年。祠内有诸葛亮塑像和众多碑刻，是研究三国文化的重要场所。'
     },
     {
+        id: 4,
+        name: '汉水源头',
+        category: 'water',
+        image: 'img/hanshui-yuan.jpg',
+        rating: 4.6,
+        price: 0,
+        openTime: '全天开放',
+        address: '汉中市宁强县',
+        description: '汉江发源地，山清水秀，风景如画。这里水质清澈，环境优美。',
+        features: ['水源地', '自然风光', '生态环境', '文化内涵'],
+        details: '汉水源头位于秦岭南麓，是汉江的发源地。这里山清水秀，生态环境优美，是感受自然纯净和汉文化源头的绝佳场所。'
+    },
+    {
         id: 5,
-        name: '黎坪森林公园',
-        category: 'nature',
-        image: 'img/attraction5.jpg',
+        name: '褒河栈道',
+        category: 'mountain',
+        image: 'img/baohe-zhandao.jpg',
         rating: 4.5,
-        price: 70,
+        price: 30,
         openTime: '7:00-19:00',
-        address: '汉中市南郑区黎坪镇',
-        description: '原始森林公园，植被丰富，空气清新，是避暑休闲的理想之地。',
-        features: ['原始森林', '负氧离子', '徒步登山', '避暑胜地'],
-        details: '黎坪森林公园总面积94平方公里，森林覆盖率达90%以上。公园内有珍稀植物1000多种，是天然的植物基因库。'
+        address: '汉中市汉台区褒城镇',
+        description: '沿褒河而建的现代栈道，集观光、健身于一体。栈道蜿蜒曲折，沿途风光秀美。',
+        features: ['现代栈道', '观光健身', '山水风光', '摄影胜地'],
+        details: '褒河栈道是现代建设的观光栈道，沿褒河而建，全长约10公里。栈道设计精巧，与自然环境完美融合。'
     },
     {
         id: 6,
         name: '张良庙',
-        category: 'culture',
-        image: 'img/attraction6.jpg',
+        category: 'history',
+        image: 'img/zhangliang-miao.jpg',
         rating: 4.4,
-        price: 55,
-        openTime: '8:30-17:30',
+        price: 40,
+        openTime: '8:00-17:30',
         address: '汉中市留坝县庙台子街',
-        description: '供奉汉初三杰之一张良的庙宇，建筑风格独特，历史文化底蕴深厚。',
+        description: '纪念汉初三杰之一张良的古建筑群，建筑古朴典雅，环境清幽。',
         features: ['历史名人', '古建筑群', '道教文化', '山水结合'],
         details: '张良庙始建于东汉末年，是为纪念"汉初三杰"之一的张良而建。庙宇依山而建，与自然环境融为一体，建筑风格独特。'
     }
@@ -95,31 +100,34 @@ function initCategoryNav() {
     const categoryItems = document.querySelectorAll('.category-item');
     const attractionCards = document.querySelectorAll('.attraction-card');
     
-    // 分类数据
-    const categories = [
-        { key: 'all', name: '全部景点', count: attractionsData.length },
-        { key: 'culture', name: '文化古迹', count: attractionsData.filter(item => item.category === 'culture').length },
-        { key: 'nature', name: '自然风光', count: attractionsData.filter(item => item.category === 'nature').length },
-        { key: 'recreation', name: '休闲娱乐', count: attractionsData.filter(item => item.category === 'recreation').length }
-    ];
+    // 统计各分类的景点数量
+    const categoryData = {
+        'all': attractionCards.length,
+        'history': document.querySelectorAll('.attraction-card[data-category="history"]').length,
+        'nature': document.querySelectorAll('.attraction-card[data-category="nature"]').length,
+        'mountain': document.querySelectorAll('.attraction-card[data-category="mountain"]').length,
+        'water': document.querySelectorAll('.attraction-card[data-category="water"]').length
+    };
     
     // 初始化分类按钮
-    categoryItems.forEach((item, index) => {
-        if (categories[index]) {
-            item.textContent = `${categories[index].name} (${categories[index].count})`;
-            item.dataset.category = categories[index].key;
-        }
+    categoryItems.forEach((item) => {
+        const category = item.dataset.category;
+        const originalText = item.textContent.replace(/\s*\(\d+\)$/, ''); // 移除可能已存在的数量
+        const count = categoryData[category] || 0;
+        
+        // 更新显示文本
+        item.textContent = `${originalText} (${count})`;
         
         // 分类点击事件
         item.addEventListener('click', function() {
-            const category = this.dataset.category;
+            const selectedCategory = this.dataset.category;
             
             // 更新活动状态
             categoryItems.forEach(cat => cat.classList.remove('active'));
             this.classList.add('active');
             
             // 筛选景点
-            filterAttractions(category);
+            filterAttractions(selectedCategory);
         });
     });
     
@@ -133,10 +141,10 @@ function initCategoryNav() {
 function filterAttractions(category) {
     const attractionCards = document.querySelectorAll('.attraction-card');
     
-    attractionCards.forEach((card, index) => {
-        const cardData = attractionsData[index];
+    attractionCards.forEach((card) => {
+        const cardCategory = card.dataset.category;
         
-        if (category === 'all' || !cardData || cardData.category === category) {
+        if (category === 'all' || cardCategory === category) {
             // 显示卡片
             card.style.display = 'block';
             card.classList.remove('hidden');
@@ -159,11 +167,10 @@ function filterAttractions(category) {
 
 // 更新结果计数
 function updateResultCount(category) {
-    let count = attractionsData.length;
-    if (category !== 'all') {
-        count = attractionsData.filter(item => item.category === category).length;
-    }
+    const visibleCards = document.querySelectorAll('.attraction-card[style*="display: block"], .attraction-card:not([style*="display: none"])');
+    const count = visibleCards.length;
     
+    // 如果页面上有结果计数元素，则更新它
     const resultText = document.querySelector('.result-count');
     if (resultText) {
         resultText.textContent = `找到 ${count} 个景点`;
@@ -265,9 +272,10 @@ function createAttractionCard(attraction, index) {
 // 获取分类名称
 function getCategoryName(category) {
     const categoryNames = {
-        'culture': '文化古迹',
+        'history': '历史文化',
         'nature': '自然风光',
-        'recreation': '休闲娱乐'
+        'mountain': '山岳景观',
+        'water': '水景名胜'
     };
     return categoryNames[category] || '其他';
 }
