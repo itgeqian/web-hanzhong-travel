@@ -32,7 +32,7 @@
     margin: 0 auto;
 }
 
-.search-input {
+.faq-search-input {
     width: 100%;
     padding: 20px 60px 20px 25px;
     border: 3px solid #e0e0e0;
@@ -43,13 +43,13 @@
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
-.search-input:focus {
+.faq-search-input:focus {
     outline: none;
     border-color: #667eea;
     box-shadow: 0 15px 40px rgba(102, 126, 234, 0.2);
 }
 
-.search-btn {
+.faq-search-btn {
     position: absolute;
     right: 5px;
     top: 50%;
@@ -65,7 +65,7 @@
     transition: all 0.3s ease;
 }
 
-.search-btn:hover {
+.faq-search-btn:hover {
     transform: translateY(-50%) scale(1.1);
     box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
 }
@@ -372,12 +372,12 @@
         font-size: 16px;
     }
     
-    .search-input {
+    .faq-search-input {
         padding: 15px 50px 15px 20px;
         font-size: 14px;
     }
     
-    .search-btn {
+    .faq-search-btn {
         width: 40px;
         height: 40px;
         font-size: 16px;
@@ -426,11 +426,11 @@
         font-size: 24px;
     }
     
-    .search-input {
+    .faq-search-input {
         padding: 12px 40px 12px 15px;
     }
     
-    .search-btn {
+    .faq-search-btn {
         width: 35px;
         height: 35px;
         font-size: 14px;

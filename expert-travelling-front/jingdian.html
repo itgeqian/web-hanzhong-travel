@@ -10,29 +10,61 @@
 <body>
     <!-- 页面头部 -->
     <header class="header">
-        <div class="logo-container">
-            <img src="img/logo.png" alt="汉中旅游Logo" class="logo">
-            <h1 class="site-title">汉中旅游</h1>
-        </div>
-        
-        <nav class="navbar">
-            <ul class="nav-list">
-                <li class="nav-item"><a href="index.html" class="nav-link">首页</a></li>
-                <li class="nav-item"><a href="jingdian.html" class="nav-link active">景点介绍</a></li>
-                <li class="nav-item"><a href="luxian.html" class="nav-link">旅游线路</a></li>
-                <li class="nav-item"><a href="gonglue.html" class="nav-link">旅游攻略</a></li>
-                <li class="nav-item"><a href="meishi.html" class="nav-link">美食推荐</a></li>
-                <li class="nav-item"><a href="wenhua.html" class="nav-link">汉文化活动</a></li>
-                <li class="nav-item"><a href="lianxi.html" class="nav-link">联系我们</a></li>
-                <li class="nav-item"><a href="wenti.html" class="nav-link">常见问题</a></li>
-            </ul>
+        <div class="container">
+            <!-- Logo区域 -->
+            <div class="logo-container">
+                <img src="img/logo.png" alt="汉中旅游Logo" class="logo">
+                <h1 class="site-title">汉中旅游</h1>
+            </div>
+            
+            <!-- 导航栏 -->
+            <nav class="navbar">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="index.html" class="nav-link">首页</a></li>
+                    <li class="nav-item dropdown">
+                        <a href="jingdian.html" class="nav-link active">景点介绍</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="jingdian.html#laoshan">老君山</a></li>
+                            <li><a href="jingdian.html#qinling">秦岭</a></li>
+                            <li><a href="jingdian.html#hanshui">汉水源</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a href="luxian.html" class="nav-link">旅游线路</a></li>
+                    <li class="nav-item"><a href="gonglue.html" class="nav-link">旅游攻略</a></li>
+                    <li class="nav-item"><a href="meishi.html" class="nav-link">美食推荐</a></li>
+                    <li class="nav-item"><a href="wenhua.html" class="nav-link">汉文化活动</a></li>
+                    <li class="nav-item"><a href="lianxi.html" class="nav-link">联系我们</a></li>
+                    <li class="nav-item"><a href="wenti.html" class="nav-link">常见问题</a></li>
+                </ul>
+            </nav>
+
+            <!-- 搜索区域 -->
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="搜索景点、美食、攻略...">
+                    <button class="search-btn" onclick="performSearch()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </button>
+                </div>
+                <!-- 搜索建议下拉框 -->
+                <div class="search-suggestions" id="searchSuggestions">
+                    <div class="suggestion-item" onclick="selectSuggestion('朱鹮梨园')">朱鹮梨园</div>
+                    <div class="suggestion-item" onclick="selectSuggestion('石门栈道')">石门栈道</div>
+                    <div class="suggestion-item" onclick="selectSuggestion('武侯祠')">武侯祠</div>
+                    <div class="suggestion-item" onclick="selectSuggestion('汉中热面皮')">汉中热面皮</div>
+                    <div class="suggestion-item" onclick="selectSuggestion('旅游攻略')">旅游攻略</div>
+                </div>
+            </div>
             
             <!-- 用户操作按钮 -->
             <div class="user-actions">
                 <a href="register.html" class="btn btn-outline">注册</a>
                 <a href="login.html" class="btn btn-primary">登录</a>
             </div>
-        </nav>
+        </div>
     </header>
 
     <!-- 主要内容 -->

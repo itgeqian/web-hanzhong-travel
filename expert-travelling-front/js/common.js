@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initAnimations();
     initCommonForms();
     initSmoothScroll();
+    initSearch();
 });
 
 // 导航栏功能
@@ -56,6 +57,150 @@ function initNavigation() {
     });
 }
 
+// 搜索功能初始化
+function initSearch() {
+    const searchInput = document.querySelector('.search-input');
+    const searchBtn = document.querySelector('.search-btn');
+    const searchSuggestions = document.querySelector('.search-suggestions');
+    
+    if (!searchInput) return;
+    
+    // 搜索建议数据
+    const suggestions = [
+        { text: '朱鹮梨园', type: 'attraction', url: 'jingdian.html#zhuhui' },
+        { text: '石门栈道', type: 'attraction', url: 'jingdian.html#shimen' },
+        { text: '武侯祠', type: 'attraction', url: 'jingdian.html#wuhou' },
+        { text: '汉中热面皮', type: 'food', url: 'meishi.html#mianpi' },
+        { text: '菜豆腐', type: 'food', url: 'meishi.html#caidoufu' },
+        { text: '旅游攻略', type: 'guide', url: 'gonglue.html' },
+        { text: '精品线路', type: 'route', url: 'luxian.html' },
+        { text: '汉文化活动', type: 'culture', url: 'wenhua.html' },
+        { text: '联系我们', type: 'contact', url: 'lianxi.html' }
+    ];
+    
+    // 输入框事件
+    searchInput.addEventListener('input', function() {
+        const query = this.value.trim().toLowerCase();
+        if (query.length > 0) {
+            showSearchSuggestions(query, suggestions);
+        } else {
+            hideSearchSuggestions();
+        }
+    });
+    
+    // 输入框获得焦点时显示建议
+    searchInput.addEventListener('focus', function() {
+        const query = this.value.trim().toLowerCase();
+        if (query.length > 0) {
+            showSearchSuggestions(query, suggestions);
+        } else {
+            showAllSuggestions(suggestions);
+        }
+    });
+    
+    // 点击其他地方隐藏建议
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.search-container')) {
+            hideSearchSuggestions();
+        }
+    });
+    
+    // 搜索按钮点击事件
+    searchBtn.addEventListener('click', performSearch);
+    
+    // 回车键搜索
+    searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            performSearch();
+        }
+    });
+}
+
+// 显示搜索建议
+function showSearchSuggestions(query, suggestions) {
+    const searchSuggestions = document.querySelector('.search-suggestions');
+    const filtered = suggestions.filter(item => 
+        item.text.toLowerCase().includes(query)
+    );
+    
+    if (filtered.length > 0) {
+        searchSuggestions.innerHTML = filtered.map(item => 
+            `<div class="suggestion-item" onclick="selectSuggestion('${item.text}', '${item.url}')">${item.text}</div>`
+        ).join('');
+        searchSuggestions.classList.add('show');
+    } else {
+        hideSearchSuggestions();
+    }
+}
+
+// 显示所有建议
+function showAllSuggestions(suggestions) {
+    const searchSuggestions = document.querySelector('.search-suggestions');
+    searchSuggestions.innerHTML = suggestions.slice(0, 6).map(item => 
+        `<div class="suggestion-item" onclick="selectSuggestion('${item.text}', '${item.url}')">${item.text}</div>`
+    ).join('');
+    searchSuggestions.classList.add('show');
+}
+
+// 隐藏搜索建议
+function hideSearchSuggestions() {
+    const searchSuggestions = document.querySelector('.search-suggestions');
+    searchSuggestions.classList.remove('show');
+}
+
+// 选择搜索建议
+function selectSuggestion(text, url) {
+    const searchInput = document.querySelector('.search-input');
+    searchInput.value = text;
+    hideSearchSuggestions();
+    
+    if (url) {
+        window.location.href = url;
+    }
+}
+
+// 执行搜索
+function performSearch() {
+    const searchInput = document.querySelector('.search-input');
+    const query = searchInput.value.trim();
+    
+    if (query) {
+        // 这里可以实现实际的搜索逻辑
+        // 目前简单地根据关键词跳转到相应页面
+        const searchMap = {
+            '景点': 'jingdian.html',
+            '朱鹮': 'jingdian.html',
+            '石门': 'jingdian.html',
+            '武侯': 'jingdian.html',
+            '线路': 'luxian.html',
+            '路线': 'luxian.html',
+            '攻略': 'gonglue.html',
+            '美食': 'meishi.html',
+            '面皮': 'meishi.html',
+            '豆腐': 'meishi.html',
+            '文化': 'wenhua.html',
+            '活动': 'wenhua.html',
+            '联系': 'lianxi.html',
+            '问题': 'wenti.html'
+        };
+        
+        let targetPage = null;
+        for (const [keyword, page] of Object.entries(searchMap)) {
+            if (query.includes(keyword)) {
+                targetPage = page;
+                break;
+            }
+        }
+        
+        if (targetPage) {
+            window.location.href = targetPage;
+        } else {
+            // 如果没有匹配的页面，显示搜索结果提示
+            alert(`正在搜索"${query}"相关内容...`);
+        }
+    }
+}
+
 // 滚动效果
 function initScrollEffects() {
     let lastScrollTop = 0;
@@ -64,13 +209,11 @@ function initScrollEffects() {
     window.addEventListener('scroll', function() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         
-        // 滚动时头部透明度变化
-        if (scrollTop > 100) {
-            header.style.background = 'rgba(102, 126, 234, 0.95)';
-            header.style.backdropFilter = 'blur(10px)';
+        // 滚动时头部样式变化
+        if (scrollTop > 50) {
+            header.classList.add('scrolled');
         } else {
-            header.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-            header.style.backdropFilter = 'none';
+            header.classList.remove('scrolled');
         }
         
         // 返回顶部按钮

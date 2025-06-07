@@ -303,7 +303,7 @@ function updateFAQViews(faqId) {
 
 // 初始化FAQ搜索
 function initFAQSearch() {
-    const searchInput = document.querySelector('.faq-search');
+    const searchInput = document.querySelector('.faq-search-input');
     if (!searchInput) return;
     
     searchInput.addEventListener('input', Utils.debounce(function() {
@@ -444,7 +444,7 @@ function hideNoResults() {
 
 // 清除搜索
 function clearSearch() {
-    const searchInput = document.querySelector('.faq-search');
+    const searchInput = document.querySelector('.faq-search-input');
     if (searchInput) {
         searchInput.value = '';
         searchFAQ('');
