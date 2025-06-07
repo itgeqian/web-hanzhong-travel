@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>按钮功能测试页面</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/luxian.css">
+    <style>
+        body {
+            padding: 20px;
+            background: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+        .test-section h3 {
+            margin: 0 0 20px 0;
+            color: #333;
+            font-size: 18px;
+        }
+        .test-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .test-info {
+            background: #e8f4fd;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .status-success { background: #27ae60; }
+        .status-error { background: #e74c3c; }
+        .status-pending { background: #f39c12; }
+        .scroll-test {
+            height: 500px;
+            background: linear-gradient(to bottom, #667eea, #764ba2);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 按钮功能测试页面</h1>
+        
+        <div class="test-info">
+            <p><strong>测试说明：</strong></p>
+            <ul>
+                <li>点击按钮后页面应该可以正常滚动</li>
+                <li>预订按钮应该弹出预订表单</li>
+                <li>咨询和方案按钮应该显示通知消息</li>
+                <li>定制需求按钮应该验证表单并提交</li>
+            </ul>
+        </div>
+        
+        <!-- 预订功能测试 -->
+        <div class="test-section">
+            <h3>📋 预订功能测试</h3>
+            <div class="test-buttons">
+                <button class="btn btn-primary" onclick="testBookRoute(1)">
+                    <span>💰 立即预订 (线路1)</span>
+                </button>
+                <button class="btn btn-primary" onclick="testBookRoute(2)">
+                    <span>💰 立即预订 (线路2)</span>
+                </button>
+                <button class="btn btn-outline" onclick="testShowDetail(1)">
+                    <span>📋 查看详情</span>
+                </button>
+            </div>
+            <p id="booking-status">
+                <span class="status-indicator status-pending"></span>
+                等待测试...
+            </p>
+        </div>
+        
+        <!-- 咨询功能测试 -->
+        <div class="test-section">
+            <h3>📞 咨询功能测试</h3>
+            <div class="test-buttons">
+                <button class="btn btn-primary" onclick="testConsultRoute()">
+                    <span>📞 立即咨询</span>
+                </button>
+                <button class="btn btn-outline" onclick="testGetCustomPlan()">
+                    <span>📋 获取方案</span>
+                </button>
+            </div>
+            <p id="consult-status">
+                <span class="status-indicator status-pending"></span>
+                等待测试...
+            </p>
+        </div>
+        
+        <!-- 定制需求测试 -->
+        <div class="test-section">
+            <h3>🎯 定制需求测试</h3>
+            <form class="quick-custom-form" style="margin-bottom: 20px;">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>出行天数</label>
+                        <select name="days">
+                            <option value="">请选择</option>
+                            <option value="1-2">1-2天</option>
+                            <option value="3-4">3-4天</option>
+                            <option value="5-7">5-7天</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>预算范围</label>
+                        <select name="budget">
+                            <option value="">请选择</option>
+                            <option value="500-1000">500-1000元</option>
+                            <option value="1000-2000">1000-2000元</option>
+                            <option value="2000+">2000元以上</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>联系方式</label>
+                    <input type="tel" name="contact" placeholder="请输入手机号码">
+                </div>
+                <button type="button" class="btn btn-primary btn-full" onclick="testSubmitCustomRequest(event)">
+                    提交定制需求
+                </button>
+            </form>
+            <p id="custom-status">
+                <span class="status-indicator status-pending"></span>
+                等待测试...
+            </p>
+        </div>
+        
+        <!-- 滚动测试区域 -->
+        <div class="scroll-test">
+            <p>📜 滚动测试区域 - 点击按钮后页面应该可以正常滚动到这里</p>
+        </div>
+    </div>
+
+    <script src="js/common.js"></script>
+    <script src="js/luxian.js"></script>
+    <script>
+        // 测试函数
+        function testBookRoute(routeId) {
+            console.log('测试预订功能，线路ID:', routeId);
+            updateStatus('booking-status', 'pending', '正在测试预订功能...');
+            
+            try {
+                bookRoute(routeId);
+                updateStatus('booking-status', 'success', '预订功能正常，模态框已显示');
+            } catch (error) {
+                console.error('预订功能测试失败:', error);
+                updateStatus('booking-status', 'error', '预订功能测试失败: ' + error.message);
+            }
+        }
+        
+        function testShowDetail(routeId) {
+            console.log('测试详情功能，线路ID:', routeId);
+            try {
+                showRouteDetail(routeId);
+                updateStatus('booking-status', 'success', '详情功能正常');
+            } catch (error) {
+                console.error('详情功能测试失败:', error);
+                updateStatus('booking-status', 'error', '详情功能测试失败: ' + error.message);
+            }
+        }
+        
+        function testConsultRoute() {
+            console.log('测试咨询功能');
+            updateStatus('consult-status', 'pending', '正在测试咨询功能...');
+            
+            try {
+                consultRoute();
+                updateStatus('consult-status', 'success', '咨询功能正常，通知已显示');
+            } catch (error) {
+                console.error('咨询功能测试失败:', error);
+                updateStatus('consult-status', 'error', '咨询功能测试失败: ' + error.message);
+            }
+        }
+        
+        function testGetCustomPlan() {
+            console.log('测试获取方案功能');
+            updateStatus('consult-status', 'pending', '正在测试获取方案功能...');
+            
+            try {
+                getCustomPlan();
+                updateStatus('consult-status', 'success', '获取方案功能正常，通知已显示');
+            } catch (error) {
+                console.error('获取方案功能测试失败:', error);
+                updateStatus('consult-status', 'error', '获取方案功能测试失败: ' + error.message);
+            }
+        }
+        
+        function testSubmitCustomRequest(event) {
+            console.log('测试定制需求提交功能');
+            updateStatus('custom-status', 'pending', '正在测试定制需求功能...');
+            
+            try {
+                submitCustomRequest(event);
+                updateStatus('custom-status', 'success', '定制需求功能正常');
+            } catch (error) {
+                console.error('定制需求功能测试失败:', error);
+                updateStatus('custom-status', 'error', '定制需求功能测试失败: ' + error.message);
+            }
+        }
+        
+        function updateStatus(elementId, status, message) {
+            const element = document.getElementById(elementId);
+            const indicator = element.querySelector('.status-indicator');
+            
+            indicator.className = `status-indicator status-${status}`;
+            element.innerHTML = `<span class="status-indicator status-${status}"></span>${message}`;
+        }
+        
+        // 页面加载完成后的测试
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('测试页面加载完成');
+            
+            // 检查关键函数是否存在
+            const functions = ['bookRoute', 'consultRoute', 'getCustomPlan', 'submitCustomRequest', 'showRouteDetail'];
+            functions.forEach(funcName => {
+                if (typeof window[funcName] === 'function') {
+                    console.log(`✓ ${funcName} 函数已正确加载`);
+                } else {
+                    console.error(`✗ ${funcName} 函数未找到`);
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

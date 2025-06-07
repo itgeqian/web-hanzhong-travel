@@ -95,7 +95,7 @@
             <div class="container">
                 <div class="routes-grid">
                     <!-- 经典汉中3日游 -->
-                    <div class="route-card" data-category="cultural">
+                    <div class="route-card" data-category="classic" data-route-id="1">
                         <div class="route-image">
                             <img src="img/route-classic.jpg" alt="经典汉中3日游">
                             <div class="route-tag">精品推荐</div>
@@ -104,7 +104,7 @@
                             <h3 class="route-title">经典汉中3日游</h3>
                             <div class="route-info">
                                 <span class="route-duration">3天2晚</span>
-                                <span class="route-price">¥899/人</span>
+                                <span class="route-price">¥599/人</span>
                             </div>
                             <ul class="route-highlights">
                                 <li>武侯祠 - 感受三国文化</li>
@@ -113,10 +113,10 @@
                                 <li>汉中古城 - 品味历史韵味</li>
                             </ul>
                             <div class="route-actions">
-                                <button class="btn btn-primary btn-ripple">
+                                <button class="btn btn-primary btn-ripple" onclick="bookRoute(1)">
                                     <span>🎯 立即预订</span>
                                 </button>
-                                <button class="btn btn-outline">
+                                <button class="btn btn-outline" onclick="showRouteDetail(1)">
                                     <span>📋 查看详情</span>
                                 </button>
                             </div>
@@ -124,7 +124,7 @@
                     </div>
 
                     <!-- 汉中自然风光5日游 -->
-                    <div class="route-card" data-category="nature">
+                    <div class="route-card" data-category="nature" data-route-id="2">
                         <div class="route-image">
                             <img src="img/route-nature.jpg" alt="汉中自然风光5日游">
                             <div class="route-tag">生态游</div>
@@ -142,10 +142,10 @@
                                 <li>朱鹮自然保护区 - 生态观察</li>
                             </ul>
                             <div class="route-actions">
-                                <button class="btn btn-primary btn-ripple">
+                                <button class="btn btn-primary btn-ripple" onclick="bookRoute(2)">
                                     <span>🌿 立即预订</span>
                                 </button>
-                                <button class="btn btn-outline">
+                                <button class="btn btn-outline" onclick="showRouteDetail(2)">
                                     <span>📋 查看详情</span>
                                 </button>
                             </div>
@@ -153,7 +153,7 @@
                     </div>
 
                     <!-- 汉文化深度体验2日游 -->
-                    <div class="route-card" data-category="cultural">
+                    <div class="route-card" data-category="cultural" data-route-id="3">
                         <div class="route-image">
                             <img src="img/route-culture.jpg" alt="汉文化深度体验2日游">
                             <div class="route-tag">文化游</div>
@@ -162,7 +162,7 @@
                             <h3 class="route-title">汉文化深度体验2日游</h3>
                             <div class="route-info">
                                 <span class="route-duration">2天1晚</span>
-                                <span class="route-price">¥599/人</span>
+                                <span class="route-price">¥399/人</span>
                             </div>
                             <ul class="route-highlights">
                                 <li>汉文化博物馆 - 了解汉朝历史</li>
@@ -171,10 +171,10 @@
                                 <li>汉调桄桄表演 - 非遗文化欣赏</li>
                             </ul>
                             <div class="route-actions">
-                                <button class="btn btn-primary btn-ripple">
+                                <button class="btn btn-primary btn-ripple" onclick="bookRoute(3)">
                                     <span>🏛️ 立即预订</span>
                                 </button>
-                                <button class="btn btn-outline">
+                                <button class="btn btn-outline" onclick="showRouteDetail(3)">
                                     <span>📋 查看详情</span>
                                 </button>
                             </div>
@@ -182,7 +182,7 @@
                     </div>
 
                     <!-- 亲子欢乐游3日 -->
-                    <div class="route-card" data-category="family">
+                    <div class="route-card" data-category="family" data-route-id="4">
                         <div class="route-image">
                             <img src="img/route-family.jpg" alt="亲子欢乐游3日">
                             <div class="route-tag">亲子游</div>
@@ -200,10 +200,10 @@
                                 <li>农家乐体验 - 田园生活乐趣</li>
                             </ul>
                             <div class="route-actions">
-                                <button class="btn btn-primary btn-ripple">
+                                <button class="btn btn-primary btn-ripple" onclick="bookRoute(4)">
                                     <span>👨‍👩‍👧‍👦 立即预订</span>
                                 </button>
-                                <button class="btn btn-outline">
+                                <button class="btn btn-outline" onclick="showRouteDetail(4)">
                                     <span>📋 查看详情</span>
                                 </button>
                             </div>
@@ -211,7 +211,7 @@
                     </div>
 
                     <!-- 摄影采风专线4日游 -->
-                    <div class="route-card" data-category="photography">
+                    <div class="route-card" data-category="photography" data-route-id="5">
                         <div class="route-image">
                             <img src="img/route-photo.jpg" alt="摄影采风专线4日游">
                             <div class="route-tag">摄影游</div>
@@ -220,7 +220,7 @@
                             <h3 class="route-title">摄影采风专线4日游</h3>
                             <div class="route-info">
                                 <span class="route-duration">4天3晚</span>
-                                <span class="route-price">¥1099/人</span>
+                                <span class="route-price">¥999/人</span>
                             </div>
                             <ul class="route-highlights">
                                 <li>日出朱鹮梨园 - 最美光影时刻</li>
@@ -229,10 +229,10 @@
                                 <li>专业摄影指导 - 提升摄影技巧</li>
                             </ul>
                             <div class="route-actions">
-                                <button class="btn btn-primary btn-ripple">
+                                <button class="btn btn-primary btn-ripple" onclick="bookRoute(5)">
                                     <span>📸 立即预订</span>
                                 </button>
-                                <button class="btn btn-outline">
+                                <button class="btn btn-outline" onclick="showRouteDetail(5)">
                                     <span>📋 查看详情</span>
                                 </button>
                             </div>
@@ -240,7 +240,7 @@
                     </div>
 
                     <!-- 美食文化探索2日游 -->
-                    <div class="route-card" data-category="cultural">
+                    <div class="route-card" data-category="cultural" data-route-id="6">
                         <div class="route-image">
                             <img src="img/route-food.jpg" alt="美食文化探索2日游">
                             <div class="route-tag">美食游</div>
@@ -258,10 +258,10 @@
                                 <li>农家宴体验 - 地道乡村美味</li>
                             </ul>
                             <div class="route-actions">
-                                <button class="btn btn-primary btn-ripple">
+                                <button class="btn btn-primary btn-ripple" onclick="bookRoute(6)">
                                     <span>🍜 立即预订</span>
                                 </button>
-                                <button class="btn btn-outline">
+                                <button class="btn btn-outline" onclick="showRouteDetail(6)">
                                     <span>📋 查看详情</span>
                                 </button>
                             </div>
@@ -293,12 +293,12 @@
                             <tr>
                                 <td class="route-name">经典汉中3日游</td>
                                 <td>3天2晚</td>
-                                <td class="price">¥899</td>
+                                <td class="price">¥599</td>
                                 <td>武侯祠、石门栈道、朱鹮梨园</td>
                                 <td>所有人群</td>
                                 <td>春秋两季</td>
                                 <td><span class="difficulty easy">简单</span></td>
-                                <td><button class="btn btn-small">预订</button></td>
+                                <td><button class="btn btn-small" onclick="bookRoute(1)">预订</button></td>
                             </tr>
                             <tr>
                                 <td class="route-name">自然风光5日游</td>
@@ -308,17 +308,17 @@
                                 <td>喜爱自然</td>
                                 <td>4-10月</td>
                                 <td><span class="difficulty medium">中等</span></td>
-                                <td><button class="btn btn-small">预订</button></td>
+                                <td><button class="btn btn-small" onclick="bookRoute(2)">预订</button></td>
                             </tr>
                             <tr>
                                 <td class="route-name">汉文化深度游</td>
                                 <td>2天1晚</td>
-                                <td class="price">¥599</td>
+                                <td class="price">¥399</td>
                                 <td>汉文化博物馆、张良庙</td>
                                 <td>文化爱好者</td>
                                 <td>全年</td>
                                 <td><span class="difficulty easy">简单</span></td>
-                                <td><button class="btn btn-small">预订</button></td>
+                                <td><button class="btn btn-small" onclick="bookRoute(3)">预订</button></td>
                             </tr>
                             <tr>
                                 <td class="route-name">亲子欢乐游</td>
@@ -328,17 +328,17 @@
                                 <td>家庭游客</td>
                                 <td>春夏秋季</td>
                                 <td><span class="difficulty easy">简单</span></td>
-                                <td><button class="btn btn-small">预订</button></td>
+                                <td><button class="btn btn-small" onclick="bookRoute(4)">预订</button></td>
                             </tr>
                             <tr>
                                 <td class="route-name">摄影采风专线</td>
                                 <td>4天3晚</td>
-                                <td class="price">¥1099</td>
+                                <td class="price">¥999</td>
                                 <td>梨园、古栈道、民俗村</td>
                                 <td>摄影爱好者</td>
                                 <td>春季最佳</td>
                                 <td><span class="difficulty medium">中等</span></td>
-                                <td><button class="btn btn-small">预订</button></td>
+                                <td><button class="btn btn-small" onclick="bookRoute(5)">预订</button></td>
                             </tr>
                             <tr>
                                 <td class="route-name">美食文化探索</td>
@@ -348,7 +348,7 @@
                                 <td>美食爱好者</td>
                                 <td>全年</td>
                                 <td><span class="difficulty easy">简单</span></td>
-                                <td><button class="btn btn-small">预订</button></td>
+                                <td><button class="btn btn-small" onclick="bookRoute(6)">预订</button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -375,8 +375,8 @@
                         </ul>
                         
                         <div class="custom-actions">
-                            <button class="btn btn-primary">立即咨询</button>
-                            <button class="btn btn-outline">获取方案</button>
+                            <button class="btn btn-primary" onclick="consultRoute()">立即咨询</button>
+                            <button class="btn btn-outline" onclick="getCustomPlan()">获取方案</button>
                         </div>
                     </div>
                     
@@ -420,7 +420,7 @@
                                 <input type="tel" name="contact" placeholder="请输入手机号码">
                             </div>
                             
-                            <button type="submit" class="btn btn-primary btn-full">提交定制需求</button>
+                            <button type="submit" class="btn btn-primary btn-full" onclick="submitCustomRequest(event)">提交定制需求</button>
                         </form>
                     </div>
                 </div>
@@ -457,6 +457,5 @@
 
     <script src="js/common.js"></script>
     <script src="js/luxian.js"></script>
-    <script src="js/luxian-buttons.js"></script>
 </body>
 </html> 

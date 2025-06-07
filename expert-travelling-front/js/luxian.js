@@ -1,30 +1,120 @@
 // 旅游线路页面JavaScript功能
 
 document.addEventListener('DOMContentLoaded', function() {
-    initRouteList();
-    initRouteFilter();
-    initRouteComparison();
-    initCustomizeForm();
-    initRouteBooking();
-    initFilterTabs();
-    initRouteCards();
-    initButtonEffects();
-    loadRoutesFromJSON();
+    console.log('旅游线路页面初始化开始...');
+    
+    try {
+        initRouteList();
+        initRouteFilter();
+        initRouteComparison();
+        initCustomizeForm();
+        initRouteBooking();
+        initFilterTabs();
+        initRouteCards();
+        loadRoutesFromJSON();
+        
+        console.log('旅游线路页面初始化完成');
+    } catch (error) {
+        console.error('页面初始化出错:', error);
+        showNotification('页面初始化失败，请刷新页面重试', 'error');
+    }
 });
+
+// 全局对比列表
+let compareList = [];
+
+// 添加到对比
+function addToCompare(routeId) {
+    if (compareList.includes(routeId)) {
+        showNotification('该线路已在对比列表中', 'warning');
+        return;
+    }
+    
+    if (compareList.length >= 3) {
+        showNotification('最多只能对比3条线路', 'warning');
+        return;
+    }
+    
+    compareList.push(routeId);
+    showNotification('已添加到对比列表', 'success');
+    updateCompareWidget();
+}
+
+// 从对比中移除
+function removeFromCompare(routeId) {
+    compareList = compareList.filter(id => id !== routeId);
+    updateCompareWidget();
+}
+
+// 显示对比
+function showComparison() {
+    if (compareList.length < 2) {
+        showNotification('至少选择2条线路进行对比', 'warning');
+        return;
+    }
+    
+    const compareRoutes = compareList.map(id => routeData.find(r => r.id === id));
+    showComparisonModal(compareRoutes);
+}
+
+// 清空对比
+function clearCompare() {
+    compareList = [];
+    updateCompareWidget();
+}
+
+// 更新对比组件
+function updateCompareWidget() {
+    let compareWidget = document.querySelector('.compare-widget');
+    
+    if (compareList.length === 0) {
+        if (compareWidget) {
+            compareWidget.remove();
+        }
+        return;
+    }
+    
+    if (!compareWidget) {
+        compareWidget = document.createElement('div');
+        compareWidget.className = 'compare-widget';
+        document.body.appendChild(compareWidget);
+    }
+    
+    const compareRoutes = compareList.map(id => routeData.find(r => r.id === id));
+    
+    compareWidget.innerHTML = `
+        <div class="compare-header">
+            <h4>线路对比 (${compareList.length}/3)</h4>
+            <button class="compare-close" onclick="clearCompare()">×</button>
+        </div>
+        <div class="compare-list">
+            ${compareRoutes.map(route => `
+                <div class="compare-item">
+                    <img src="${route.image}" alt="${route.title}">
+                    <span class="compare-title">${route.title}</span>
+                    <button class="compare-remove" onclick="removeFromCompare(${route.id})">×</button>
+                </div>
+            `).join('')}
+        </div>
+        <div class="compare-actions">
+            <button class="btn btn-primary" onclick="showComparison()">开始对比</button>
+        </div>
+    `;
+}
 
 // 旅游线路数据
 const routeData = [
     {
         id: 1,
-        title: '文化古韵三日游',
+        title: '经典汉中3日游',
         category: 'culture',
         duration: 3,
-        price: 899,
-        originalPrice: 1299,
+        price: 599,
+        originalPrice: 899,
         difficulty: 'easy',
         rating: 4.8,
         reviewCount: 156,
-        image: 'img/route1.jpg',
+        image: 'img/route-classic.jpg',
         description: '深度体验汉中历史文化，走访古迹名胜，感受千年文明魅力。',
         highlights: ['汉中博物馆', '石门栈道', '武侯祠', '张良庙', '古汉台'],
         included: ['住宿2晚', '专业导游', '景点门票', '文化讲解', '特色午餐'],
@@ -61,15 +151,15 @@ const routeData = [
     },
     {
         id: 2,
-        title: '秦巴山水五日游',
+        title: '汉中自然风光5日游',
         category: 'nature',
         duration: 5,
-        price: 1599,
-        originalPrice: 2199,
+        price: 1299,
+        originalPrice: 1799,
         difficulty: 'medium',
         rating: 4.7,
         reviewCount: 203,
-        image: 'img/route2.jpg',
+        image: 'img/route-nature.jpg',
         description: '穿越秦巴山区，欣赏原始森林，体验生态之美。',
         highlights: ['黎坪森林公园', '朱鹮保护区', '紫柏山', '太白山', '嘉陵江源头'],
         included: ['住宿4晚', '专业导游', '景点门票', '生态讲解', '特色餐饮'],
@@ -120,7 +210,142 @@ const routeData = [
     },
     {
         id: 3,
-        title: '汉中美食探索游',
+        title: '汉文化深度体验2日游',
+        category: 'culture',
+        duration: 2,
+        price: 399,
+        originalPrice: 599,
+        difficulty: 'easy',
+        rating: 4.8,
+        reviewCount: 234,
+        image: 'img/route-culture.jpg',
+        description: '深入了解汉文化精髓，体验传统文化魅力，感受汉中历史底蕴。',
+        highlights: ['汉文化博物馆', '汉代遗址', '传统工艺体验', '汉服体验', '文化讲座'],
+        included: ['住宿1晚', '专业导游', '景点门票', '文化体验', '汉服租赁'],
+        excluded: ['往返交通', '个人消费', '额外活动', '旅游保险'],
+        itinerary: [
+            {
+                day: 1,
+                title: '汉文化探索',
+                activities: ['汉文化博物馆', '汉代遗址参观', '传统工艺学习', '汉服体验'],
+                meals: '午餐、晚餐',
+                accommodation: '文化主题酒店'
+            },
+            {
+                day: 2,
+                title: '文化体验深度游',
+                activities: ['书法体验', '茶艺学习', '文化讲座', '纪念品制作'],
+                meals: '早餐、午餐',
+                accommodation: '无'
+            }
+        ],
+        tags: ['汉文化', '传统体验', '历史学习'],
+        suitable: ['文化爱好者', '学生团体', '历史研究者'],
+        minPeople: 2,
+        maxPeople: 25,
+        bookingDeadline: 1,
+        cancellationPolicy: '出发前48小时可免费取消'
+    },
+    {
+        id: 4,
+        title: '亲子欢乐游3日',
+        category: 'family',
+        duration: 3,
+        price: 799,
+        originalPrice: 1299,
+        difficulty: 'easy',
+        rating: 4.7,
+        reviewCount: 187,
+        image: 'img/route-family.jpg',
+        description: '专为亲子家庭设计，寓教于乐，增进亲子感情。',
+        highlights: ['亲子互动', '科普教育', '手工体验', '安全保障', '专业导师'],
+        included: ['住宿2晚', '亲子导师', '研学材料', '手工材料', '特色餐饮'],
+        excluded: ['往返交通', '个人消费', '额外活动', '旅游保险'],
+        itinerary: [
+            {
+                day: 1,
+                title: '历史启蒙之旅',
+                activities: ['博物馆研学', '文物探秘', '历史故事', '手工制作'],
+                meals: '午餐、晚餐',
+                accommodation: '亲子主题酒店'
+            },
+            {
+                day: 2,
+                title: '自然科普体验',
+                activities: ['朱鹮科普', '生态观察', '自然笔记', '户外游戏'],
+                meals: '早餐、午餐、晚餐',
+                accommodation: '亲子主题酒店'
+            },
+            {
+                day: 3,
+                title: '传统文化学习',
+                activities: ['书法体验', '传统游戏', '民俗表演', '快乐返程'],
+                meals: '早餐、午餐',
+                accommodation: '无'
+            }
+        ],
+        tags: ['亲子教育', '研学旅行', '互动体验'],
+        suitable: ['亲子家庭', '学生团体', '教育机构'],
+        minPeople: 2,
+        maxPeople: 25,
+        bookingDeadline: 3,
+        cancellationPolicy: '出发前72小时可免费取消'
+    },
+    {
+        id: 5,
+        title: '摄影采风专线4日游',
+        category: 'photography',
+        duration: 4,
+        price: 999,
+        originalPrice: 1699,
+        difficulty: 'medium',
+        rating: 4.5,
+        reviewCount: 76,
+        image: 'img/route-photo.jpg',
+        description: '专业摄影指导，捕捉汉中最美瞬间，提升摄影技艺。',
+        highlights: ['专业指导', '最佳机位', '日出日落', '四季美景', '后期处理'],
+        included: ['住宿3晚', '摄影导师', '拍摄指导', '后期培训', '作品点评'],
+        excluded: ['摄影器材', '往返交通', '个人消费', '作品制作'],
+        itinerary: [
+            {
+                day: 1,
+                title: '摄影基础课程',
+                activities: ['摄影讲座', '器材检查', '构图训练', '市区夜景'],
+                meals: '晚餐',
+                accommodation: '摄影主题酒店'
+            },
+            {
+                day: 2,
+                title: '历史建筑摄影',
+                activities: ['古建筑拍摄', '光影技巧', '细节捕捉', '作品点评'],
+                meals: '早餐、午餐、晚餐',
+                accommodation: '摄影主题酒店'
+            },
+            {
+                day: 3,
+                title: '自然风光摄影',
+                activities: ['山水拍摄', '日出日落', '长曝光技巧', '风光构图'],
+                meals: '早餐、午餐、晚餐',
+                accommodation: '山地客栈'
+            },
+            {
+                day: 4,
+                title: '后期处理与分享',
+                activities: ['后期技巧', '作品整理', '经验分享', '结业仪式'],
+                meals: '早餐、午餐',
+                accommodation: '无'
+            }
+        ],
+        tags: ['专业摄影', '技能提升', '作品创作'],
+        suitable: ['摄影爱好者', '专业摄影师', '艺术创作者'],
+        minPeople: 3,
+        maxPeople: 10,
+        bookingDeadline: 3,
+        cancellationPolicy: '出发前72小时可免费取消'
+    },
+    {
+        id: 6,
+        title: '美食文化探索2日游',
         category: 'food',
         duration: 2,
         price: 499,
@@ -128,7 +353,7 @@ const routeData = [
         difficulty: 'easy',
         rating: 4.9,
         reviewCount: 324,
-        image: 'img/route3.jpg',
+        image: 'img/route-food.jpg',
         description: '品尝地道汉中美食，探访传统小吃制作工艺。',
         highlights: ['汉中面皮', '菜豆腐', '浆水面', '粉皮子', '美食街'],
         included: ['美食品尝', '制作体验', '美食导览', '特色餐厅'],
@@ -155,197 +380,6 @@ const routeData = [
         maxPeople: 15,
         bookingDeadline: 1,
         cancellationPolicy: '出发前24小时可免费取消'
-    },
-    {
-        id: 4,
-        title: '全景深度七日游',
-        category: 'comprehensive',
-        duration: 7,
-        price: 2899,
-        originalPrice: 3999,
-        difficulty: 'medium',
-        rating: 4.6,
-        reviewCount: 98,
-        image: 'img/route4.jpg',
-        description: '汉中全景游览，文化、自然、美食一网打尽。',
-        highlights: ['全景体验', '深度游览', '专业服务', '精品住宿', '特色体验'],
-        included: ['住宿6晚', '全程导游', '所有门票', '特色餐饮', '专车接送'],
-        excluded: ['往返大交通', '个人消费', '自费项目', '旅游保险'],
-        itinerary: [
-            {
-                day: 1,
-                title: '初识汉中',
-                activities: ['接机服务', '市区游览', '欢迎晚宴', '行程说明'],
-                meals: '晚餐',
-                accommodation: '五星酒店'
-            },
-            {
-                day: 2,
-                title: '历史文化深度游',
-                activities: ['汉中博物馆', '古汉台', '石门栈道', '文化讲座'],
-                meals: '早餐、午餐、晚餐',
-                accommodation: '五星酒店'
-            },
-            {
-                day: 3,
-                title: '三国文化探访',
-                activities: ['武侯祠', '定军山', '张良庙', '三国文化体验'],
-                meals: '早餐、午餐、晚餐',
-                accommodation: '文化主题酒店'
-            },
-            {
-                day: 4,
-                title: '自然生态之旅',
-                activities: ['黎坪森林公园', '朱鹮保护区', '生态科普', '篝火晚会'],
-                meals: '早餐、午餐、晚餐',
-                accommodation: '生态度假村'
-            },
-            {
-                day: 5,
-                title: '美食文化体验',
-                activities: ['美食制作', '农家体验', '传统工艺', '市场游览'],
-                meals: '早餐、午餐、晚餐',
-                accommodation: '民俗客栈'
-            },
-            {
-                day: 6,
-                title: '休闲度假时光',
-                activities: ['温泉养生', '茶园体验', '自由活动', '购物时间'],
-                meals: '早餐、午餐、晚餐',
-                accommodation: '温泉酒店'
-            },
-            {
-                day: 7,
-                title: '愉快返程',
-                activities: ['最后游览', '纪念品购买', '送机服务', '结束行程'],
-                meals: '早餐、午餐',
-                accommodation: '无'
-            }
-        ],
-        tags: ['全景游览', '深度体验', '精品服务'],
-        suitable: ['首次来汉中', '深度游爱好者', '高端客户'],
-        minPeople: 2,
-        maxPeople: 12,
-        bookingDeadline: 7,
-        cancellationPolicy: '出发前168小时可免费取消'
-    },
-    {
-        id: 5,
-        title: '亲子研学四日游',
-        category: 'family',
-        duration: 4,
-        price: 1299,
-        originalPrice: 1799,
-        difficulty: 'easy',
-        rating: 4.7,
-        reviewCount: 187,
-        image: 'img/route5.jpg',
-        description: '专为亲子家庭设计，寓教于乐，增进亲子感情。',
-        highlights: ['亲子互动', '科普教育', '手工体验', '安全保障', '专业导师'],
-        included: ['住宿3晚', '亲子导师', '研学材料', '手工材料', '特色餐饮'],
-        excluded: ['往返交通', '个人消费', '额外活动', '旅游保险'],
-        itinerary: [
-            {
-                day: 1,
-                title: '历史启蒙之旅',
-                activities: ['博物馆研学', '文物探秘', '历史故事', '手工制作'],
-                meals: '午餐、晚餐',
-                accommodation: '亲子主题酒店'
-            },
-            {
-                day: 2,
-                title: '自然科普体验',
-                activities: ['朱鹮科普', '生态观察', '自然笔记', '户外游戏'],
-                meals: '早餐、午餐、晚餐',
-                accommodation: '亲子主题酒店'
-            },
-            {
-                day: 3,
-                title: '传统文化学习',
-                activities: ['书法体验', '传统游戏', '民俗表演', '文化制作'],
-                meals: '早餐、午餐、晚餐',
-                accommodation: '亲子主题酒店'
-            },
-            {
-                day: 4,
-                title: '美食文化体验',
-                activities: ['面皮制作', '家庭烹饪', '成果展示', '快乐返程'],
-                meals: '早餐、午餐',
-                accommodation: '无'
-            }
-        ],
-        tags: ['亲子教育', '研学旅行', '互动体验'],
-        suitable: ['亲子家庭', '学生团体', '教育机构'],
-        minPeople: 2,
-        maxPeople: 25,
-        bookingDeadline: 3,
-        cancellationPolicy: '出发前72小时可免费取消'
-    },
-    {
-        id: 6,
-        title: '摄影采风六日游',
-        category: 'photography',
-        duration: 6,
-        price: 2199,
-        originalPrice: 2999,
-        difficulty: 'medium',
-        rating: 4.5,
-        reviewCount: 76,
-        image: 'img/route6.jpg',
-        description: '专业摄影指导，捕捉汉中最美瞬间，提升摄影技艺。',
-        highlights: ['专业指导', '最佳机位', '日出日落', '四季美景', '后期处理'],
-        included: ['住宿5晚', '摄影导师', '拍摄指导', '后期培训', '作品点评'],
-        excluded: ['摄影器材', '往返交通', '个人消费', '作品制作'],
-        itinerary: [
-            {
-                day: 1,
-                title: '摄影基础课程',
-                activities: ['摄影讲座', '器材检查', '构图训练', '市区夜景'],
-                meals: '晚餐',
-                accommodation: '摄影主题酒店'
-            },
-            {
-                day: 2,
-                title: '历史建筑摄影',
-                activities: ['古建筑拍摄', '光影技巧', '细节捕捉', '作品点评'],
-                meals: '早餐、午餐、晚餐',
-                accommodation: '摄影主题酒店'
-            },
-            {
-                day: 3,
-                title: '自然风光摄影',
-                activities: ['山水拍摄', '日出日落', '长曝光技巧', '风光构图'],
-                meals: '早餐、午餐、晚餐',
-                accommodation: '山地客栈'
-            },
-            {
-                day: 4,
-                title: '生态摄影专题',
-                activities: ['野生动物', '生态环境', '微距摄影', '隐蔽拍摄'],
-                meals: '早餐、午餐、晚餐',
-                accommodation: '生态酒店'
-            },
-            {
-                day: 5,
-                title: '人文纪实摄影',
-                activities: ['民俗拍摄', '街头摄影', '人物肖像', '故事记录'],
-                meals: '早餐、午餐、晚餐',
-                accommodation: '民俗客栈'
-            },
-            {
-                day: 6,
-                title: '后期处理与分享',
-                activities: ['后期技巧', '作品整理', '经验分享', '结业仪式'],
-                meals: '早餐、午餐',
-                accommodation: '无'
-            }
-        ],
-        tags: ['专业摄影', '技能提升', '作品创作'],
-        suitable: ['摄影爱好者', '专业摄影师', '艺术创作者'],
-        minPeople: 3,
-        maxPeople: 10,
-        bookingDeadline: 5,
-        cancellationPolicy: '出发前120小时可免费取消'
     }
 ];
 
@@ -777,81 +811,8 @@ function updateFavoriteButtons() {
 
 // 初始化线路对比
 function initRouteComparison() {
-    let compareList = [];
-    
-    window.addToCompare = function(routeId) {
-        if (compareList.includes(routeId)) {
-            Utils.showMessage('该线路已在对比列表中', 'warning');
-            return;
-        }
-        
-        if (compareList.length >= 3) {
-            Utils.showMessage('最多只能对比3条线路', 'warning');
-            return;
-        }
-        
-        compareList.push(routeId);
-        Utils.showMessage('已添加到对比列表', 'success');
-        updateCompareWidget();
-    };
-    
-    window.removeFromCompare = function(routeId) {
-        compareList = compareList.filter(id => id !== routeId);
-        updateCompareWidget();
-    };
-    
-    window.showComparison = function() {
-        if (compareList.length < 2) {
-            Utils.showMessage('至少选择2条线路进行对比', 'warning');
-            return;
-        }
-        
-        const compareRoutes = compareList.map(id => routeData.find(r => r.id === id));
-        showComparisonModal(compareRoutes);
-    };
-    
-    function updateCompareWidget() {
-        let compareWidget = document.querySelector('.compare-widget');
-        
-        if (compareList.length === 0) {
-            if (compareWidget) {
-                compareWidget.remove();
-            }
-            return;
-        }
-        
-        if (!compareWidget) {
-            compareWidget = document.createElement('div');
-            compareWidget.className = 'compare-widget';
-            document.body.appendChild(compareWidget);
-        }
-        
-        const compareRoutes = compareList.map(id => routeData.find(r => r.id === id));
-        
-        compareWidget.innerHTML = `
-            <div class="compare-header">
-                <h4>线路对比 (${compareList.length}/3)</h4>
-                <button class="compare-close" onclick="clearCompare()">×</button>
-            </div>
-            <div class="compare-list">
-                ${compareRoutes.map(route => `
-                    <div class="compare-item">
-                        <img src="${route.image}" alt="${route.title}">
-                        <span class="compare-title">${route.title}</span>
-                        <button class="compare-remove" onclick="removeFromCompare(${route.id})">×</button>
-                    </div>
-                `).join('')}
-            </div>
-            <div class="compare-actions">
-                <button class="btn btn-primary" onclick="showComparison()">开始对比</button>
-            </div>
-        `;
-    }
-    
-    window.clearCompare = function() {
-        compareList = [];
-        updateCompareWidget();
-    };
+    // 对比功能已经在全局范围内定义，这里只需要初始化
+    console.log('线路对比功能已初始化');
 }
 
 // 显示对比弹窗
@@ -964,8 +925,21 @@ function showComparisonModal(routes) {
 
 // 预订线路
 function bookRoute(routeId) {
+    console.log('预订线路ID:', routeId);
+    
     const route = routeData.find(r => r.id === routeId);
-    if (!route) return;
+    if (!route) {
+        console.error('未找到线路数据:', routeId);
+        showNotification('线路信息不存在', 'error');
+        return;
+    }
+    
+    // 先移除已存在的模态框
+    const existingModal = document.querySelector('.modal');
+    if (existingModal) {
+        existingModal.remove();
+        document.body.style.overflow = 'auto';
+    }
     
     const modal = document.createElement('div');
     modal.className = 'modal';
@@ -990,11 +964,11 @@ function bookRoute(routeId) {
                         <h5>出行信息</h5>
                         <div class="form-row">
                             <div class="form-group">
-                                <label>出发日期</label>
+                                <label>出发日期 <span style="color: red;">*</span></label>
                                 <input type="date" id="departureDate" min="${new Date().toISOString().split('T')[0]}" required>
                             </div>
                             <div class="form-group">
-                                <label>出行人数</label>
+                                <label>出行人数 <span style="color: red;">*</span></label>
                                 <select id="peopleCount" required>
                                     ${Array.from({length: route.maxPeople - route.minPeople + 1}, (_, i) => 
                                         `<option value="${route.minPeople + i}">${route.minPeople + i}人</option>`
@@ -1008,12 +982,12 @@ function bookRoute(routeId) {
                         <h5>联系信息</h5>
                         <div class="form-row">
                             <div class="form-group">
-                                <label>联系人姓名</label>
+                                <label>联系人姓名 <span style="color: red;">*</span></label>
                                 <input type="text" id="contactName" placeholder="请输入联系人姓名" required>
                             </div>
                             <div class="form-group">
-                                <label>手机号码</label>
-                                <input type="tel" id="contactPhone" placeholder="请输入手机号码" required>
+                                <label>手机号码 <span style="color: red;">*</span></label>
+                                <input type="tel" id="contactPhone" placeholder="请输入11位手机号码" required>
                             </div>
                         </div>
                         <div class="form-group">
@@ -1054,31 +1028,98 @@ function bookRoute(routeId) {
         </div>
     `;
     
-    document.body.appendChild(modal);
-    modal.style.display = 'block';
-    document.body.style.overflow = 'hidden';
-    
-    // 人数变化时更新价格
-    const peopleSelect = modal.querySelector('#peopleCount');
-    const selectedPeopleSpan = modal.querySelector('#selectedPeople');
-    const totalPriceSpan = modal.querySelector('#totalPrice');
-    
-    peopleSelect.addEventListener('change', function() {
-        const people = parseInt(this.value);
-        selectedPeopleSpan.textContent = `${people}人`;
-        totalPriceSpan.textContent = `¥${route.price * people}`;
-    });
-    
-    const closeBtn = modal.querySelector('.modal-close');
-    closeBtn.addEventListener('click', function() {
-        modal.remove();
+    try {
+        document.body.appendChild(modal);
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        
+        // 人数变化时更新价格
+        const peopleSelect = modal.querySelector('#peopleCount');
+        const selectedPeopleSpan = modal.querySelector('#selectedPeople');
+        const totalPriceSpan = modal.querySelector('#totalPrice');
+        
+        if (peopleSelect && selectedPeopleSpan && totalPriceSpan) {
+            peopleSelect.addEventListener('change', function() {
+                const people = parseInt(this.value);
+                selectedPeopleSpan.textContent = `${people}人`;
+                totalPriceSpan.textContent = `¥${route.price * people}`;
+            });
+        }
+        
+        // 关闭按钮事件
+        const closeBtn = modal.querySelector('.modal-close');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', function() {
+                modal.remove();
+                document.body.style.overflow = 'auto';
+            });
+        }
+        
+        // 点击背景关闭
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.remove();
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        console.log('预订模态框已显示');
+        
+    } catch (error) {
+        console.error('显示预订模态框时出错:', error);
         document.body.style.overflow = 'auto';
-    });
+        showNotification('预订功能暂时不可用，请稍后再试', 'error');
+    }
+}
+
+// 表单验证工具函数
+function validateForm(formData) {
+    const errors = [];
     
-    window.closeBookingModal = function() {
-        modal.remove();
-        document.body.style.overflow = 'auto';
-    };
+    // 验证姓名
+    if (!formData.name || formData.name.trim().length < 2) {
+        errors.push('请输入正确的姓名（至少2个字符）');
+    }
+    
+    // 验证手机号
+    const phoneRegex = /^1[3-9]\d{9}$/;
+    if (!formData.phone || !phoneRegex.test(formData.phone)) {
+        errors.push('请输入正确的手机号码');
+    }
+    
+    // 验证邮箱（如果提供）
+    if (formData.email && formData.email.trim()) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(formData.email)) {
+            errors.push('请输入正确的邮箱地址');
+        }
+    }
+    
+    // 验证日期
+    if (formData.date) {
+        const selectedDate = new Date(formData.date);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
+        if (selectedDate < today) {
+            errors.push('出发日期不能早于今天');
+        }
+    }
+    
+    // 验证人数
+    if (formData.people && (formData.people < 1 || formData.people > 50)) {
+        errors.push('出行人数应在1-50人之间');
+    }
+    
+    return errors;
+}
+
+// 显示表单错误
+function showFormErrors(errors) {
+    if (errors.length === 0) return;
+    
+    const errorMessage = errors.join('\n');
+    showNotification(errorMessage, 'error');
 }
 
 // 提交预订
@@ -1091,34 +1132,40 @@ function submitBooking(routeId) {
     const contactEmail = document.getElementById('contactEmail').value.trim();
     const specialRequests = document.getElementById('specialRequests').value.trim();
     
-    // 验证表单
+    // 表单验证
+    const formData = {
+        name: contactName,
+        phone: contactPhone,
+        email: contactEmail,
+        date: departureDate,
+        people: peopleCount
+    };
+    
+    const errors = validateForm(formData);
+    
+    // 额外验证
     if (!departureDate) {
-        Utils.showMessage('请选择出发日期', 'warning');
-        return;
+        errors.push('请选择出发日期');
     }
     
-    if (!contactName) {
-        Utils.showMessage('请输入联系人姓名', 'warning');
-        return;
-    }
-    
-    if (!contactPhone || !Utils.validatePhone(contactPhone)) {
-        Utils.showMessage('请输入正确的手机号码', 'warning');
-        return;
-    }
-    
-    if (contactEmail && !Utils.validateEmail(contactEmail)) {
-        Utils.showMessage('邮箱格式不正确', 'warning');
-        return;
+    if (!peopleCount || peopleCount < route.minPeople || peopleCount > route.maxPeople) {
+        errors.push(`出行人数应在${route.minPeople}-${route.maxPeople}人之间`);
     }
     
     // 检查日期是否符合预订要求
-    const departure = new Date(departureDate);
-    const today = new Date();
-    const diffDays = Math.ceil((departure - today) / (1000 * 60 * 60 * 24));
+    if (departureDate) {
+        const departure = new Date(departureDate);
+        const today = new Date();
+        const diffDays = Math.ceil((departure - today) / (1000 * 60 * 60 * 24));
+        
+        if (diffDays < route.bookingDeadline) {
+            errors.push(`该线路需要提前${route.bookingDeadline}天预订`);
+        }
+    }
     
-    if (diffDays < route.bookingDeadline) {
-        Utils.showMessage(`该线路需要提前${route.bookingDeadline}天预订`, 'warning');
+    // 如果有错误，显示错误信息并返回
+    if (errors.length > 0) {
+        showFormErrors(errors);
         return;
     }
     
@@ -1142,11 +1189,20 @@ function submitBooking(routeId) {
     localStorage.setItem('hanzhong_route_bookings', JSON.stringify(bookings));
     
     // 显示成功信息
-    Utils.showMessage('预订成功！我们会尽快与您联系确认。', 'success');
+    showNotification('预订成功！我们会尽快与您联系确认。', 'success');
     closeBookingModal();
     
     // 显示预订确认
     showBookingConfirmation(booking);
+}
+
+// 关闭预订模态框
+function closeBookingModal() {
+    const modal = document.querySelector('.modal');
+    if (modal) {
+        modal.remove();
+        document.body.style.overflow = 'auto';
+    }
 }
 
 // 显示预订确认
@@ -1334,107 +1390,146 @@ function initCustomizeForm() {
     `;
 }
 
-// 提交定制表单
+// 提交定制表单（这个函数目前与HTML不匹配，需要修复）
 function submitCustomizeForm() {
-    const name = document.getElementById('customizeName').value.trim();
-    const phone = document.getElementById('customizePhone').value.trim();
-    const email = document.getElementById('customizeEmail').value.trim();
-    const type = document.getElementById('customizeType').value;
-    const duration = document.getElementById('customizeDuration').value;
-    const people = document.getElementById('customizePeople').value;
-    const budget = document.getElementById('customizeBudget').value;
-    const date = document.getElementById('customizeDate').value;
-    const origin = document.getElementById('customizeOrigin').value.trim();
-    const requirements = document.getElementById('customizeRequirements').value.trim();
-    
-    // 验证表单
-    if (!name) {
-        Utils.showMessage('请输入您的姓名', 'warning');
-        return;
-    }
-    
-    if (!phone || !Utils.validatePhone(phone)) {
-        Utils.showMessage('请输入正确的手机号码', 'warning');
-        return;
-    }
-    
-    if (email && !Utils.validateEmail(email)) {
-        Utils.showMessage('邮箱格式不正确', 'warning');
-        return;
-    }
-    
-    if (!type) {
-        Utils.showMessage('请选择旅行类型', 'warning');
-        return;
-    }
-    
-    if (!duration) {
-        Utils.showMessage('请选择行程天数', 'warning');
-        return;
-    }
-    
-    if (!people || people < 1) {
-        Utils.showMessage('请输入正确的出行人数', 'warning');
-        return;
-    }
-    
-    if (!budget) {
-        Utils.showMessage('请选择预算范围', 'warning');
-        return;
-    }
-    
-    if (!date) {
-        Utils.showMessage('请选择出发日期', 'warning');
-        return;
-    }
-    
-    if (!origin) {
-        Utils.showMessage('请输入出发城市', 'warning');
-        return;
-    }
-    
-    if (!requirements) {
-        Utils.showMessage('请描述您的详细需求', 'warning');
-        return;
-    }
-    
-    // 保存定制需求
-    const customization = {
-        name: name,
-        phone: phone,
-        email: email,
-        type: type,
-        duration: duration,
-        people: parseInt(people),
-        budget: budget,
-        date: date,
-        origin: origin,
-        requirements: requirements,
-        submitTime: new Date().toISOString(),
-        status: 'pending'
-    };
-    
-    let customizations = JSON.parse(localStorage.getItem('hanzhong_customizations') || '[]');
-    customizations.push(customization);
-    localStorage.setItem('hanzhong_customizations', JSON.stringify(customizations));
-    
-    Utils.showMessage('定制需求提交成功！我们会在24小时内与您联系。', 'success');
-    resetCustomizeForm();
+    // 注意：当前HTML中的定制表单使用的是submitCustomRequest函数
+    // 这个函数保留用于可能的扩展功能
+    showNotification('请使用下方的快速定制需求表单提交您的需求', 'info');
 }
 
 // 重置定制表单
 function resetCustomizeForm() {
-    document.getElementById('customizeName').value = '';
-    document.getElementById('customizePhone').value = '';
-    document.getElementById('customizeEmail').value = '';
-    document.getElementById('customizeType').value = '';
-    document.getElementById('customizeDuration').value = '';
-    document.getElementById('customizePeople').value = '';
-    document.getElementById('customizeBudget').value = '';
-    document.getElementById('customizeDate').value = '';
-    document.getElementById('customizeOrigin').value = '';
-    document.getElementById('customizeRequirements').value = '';
+    // 重置快速定制表单
+    const form = document.querySelector('.quick-custom-form');
+    if (form) {
+        form.reset();
+    }
 }
+
+// 初始化筛选标签
+function initFilterTabs() {
+    const filterTabs = document.querySelectorAll('.filter-tab');
+    const routeCards = document.querySelectorAll('.route-card');
+    
+    filterTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            const filter = this.dataset.filter;
+            
+            // 更新活动标签
+            filterTabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            
+            // 筛选路线卡片
+            routeCards.forEach(card => {
+                if (filter === 'all' || card.dataset.category === filter) {
+                    card.style.display = 'block';
+                    card.style.animation = 'fadeInScale 0.5s ease-out';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+}
+
+// 初始化路线卡片
+function initRouteCards() {
+    const routeCards = document.querySelectorAll('.route-card');
+    
+    routeCards.forEach(card => {
+        // 移除悬停效果设置，使用CSS样式
+        // 不再手动设置transform，避免与CSS冲突
+        
+        // 添加收藏功能
+        const favoriteBtn = document.createElement('button');
+        favoriteBtn.className = 'btn-icon favorite-btn';
+        favoriteBtn.innerHTML = '❤️';
+        favoriteBtn.title = '收藏路线';
+        
+        favoriteBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            this.classList.toggle('favorited');
+            
+            if (this.classList.contains('favorited')) {
+                this.innerHTML = '💖';
+                this.title = '已收藏';
+                showNotification('已添加到收藏夹！', 'success');
+            } else {
+                this.innerHTML = '❤️';
+                this.title = '收藏路线';
+                showNotification('已从收藏夹移除', 'info');
+            }
+        });
+        
+        // 将收藏按钮添加到卡片
+        const routeImage = card.querySelector('.route-image');
+        if (routeImage) {
+            favoriteBtn.style.position = 'absolute';
+            favoriteBtn.style.top = '15px';
+            favoriteBtn.style.right = '15px';
+            favoriteBtn.style.zIndex = '10';
+            routeImage.style.position = 'relative';
+            routeImage.appendChild(favoriteBtn);
+        }
+    });
+}
+
+// 从JSON加载路线数据
+function loadRoutesFromJSON() {
+    fetch('data/routes.json')
+        .then(response => response.json())
+        .then(data => {
+            console.log('路线数据加载成功：', data);
+            // 可以在这里处理动态路线数据
+        })
+        .catch(error => {
+            console.error('加载路线数据失败：', error);
+        });
+}
+
+// 通知系统
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <span class="notification-message">${message}</span>
+            <button class="notification-close">&times;</button>
+        </div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // 自动关闭
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.remove();
+        }
+    }, 3000);
+    
+    // 手动关闭
+    const closeBtn = notification.querySelector('.notification-close');
+    closeBtn.addEventListener('click', () => {
+        notification.remove();
+    });
+}
+
+// 更新全局函数
+window.addToCompare = addToCompare;
+window.removeFromCompare = removeFromCompare;
+window.showComparison = showComparison;
+window.clearCompare = clearCompare;
+window.bookRoute = bookRoute;
+window.closeBookingModal = closeBookingModal;
+window.submitBooking = submitBooking;
+window.submitCustomizeForm = submitCustomizeForm;
+window.resetCustomizeForm = resetCustomizeForm;
+window.consultRoute = consultRoute;
+window.getCustomPlan = getCustomPlan;
+window.submitCustomRequest = submitCustomRequest;
+window.showRouteDetail = showRouteDetail;
+window.toggleFavorite = toggleFavorite;
+window.showNotification = showNotification;
 
 // 初始化线路预订功能
 function initRouteBooking() {
@@ -1477,294 +1572,228 @@ function addRouteStatistics() {
     `;
 }
 
-// 初始化筛选标签
-function initFilterTabs() {
-    const filterTabs = document.querySelectorAll('.filter-tab');
-    const routeCards = document.querySelectorAll('.route-card');
-    
-    filterTabs.forEach(tab => {
-        tab.addEventListener('click', function() {
-            const filter = this.dataset.filter;
-            
-            // 更新活动标签
-            filterTabs.forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
-            
-            // 筛选路线卡片
-            routeCards.forEach(card => {
-                if (filter === 'all' || card.dataset.category === filter) {
-                    card.style.display = 'block';
-                    card.style.animation = 'fadeInScale 0.5s ease-out';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        });
-    });
-}
-
-// 初始化路线卡片
-function initRouteCards() {
-    const routeCards = document.querySelectorAll('.route-card');
-    
-    routeCards.forEach(card => {
-        // 卡片悬停效果
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-8px) scale(1.02)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-        });
-        
-        // 添加收藏功能
-        const favoriteBtn = document.createElement('button');
-        favoriteBtn.className = 'btn-icon favorite-btn';
-        favoriteBtn.innerHTML = '❤️';
-        favoriteBtn.title = '收藏路线';
-        
-        favoriteBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            this.classList.toggle('favorited');
-            
-            if (this.classList.contains('favorited')) {
-                this.innerHTML = '💖';
-                this.title = '已收藏';
-                showNotification('已添加到收藏夹！', 'success');
-            } else {
-                this.innerHTML = '❤️';
-                this.title = '收藏路线';
-                showNotification('已从收藏夹移除', 'info');
-            }
-        });
-        
-        // 将收藏按钮添加到卡片
-        const routeImage = card.querySelector('.route-image');
-        if (routeImage) {
-            favoriteBtn.style.position = 'absolute';
-            favoriteBtn.style.top = '15px';
-            favoriteBtn.style.right = '15px';
-            favoriteBtn.style.zIndex = '10';
-            routeImage.style.position = 'relative';
-            routeImage.appendChild(favoriteBtn);
-        }
-    });
-}
-
-// 初始化按钮特效
-function initButtonEffects() {
-    // 波纹效果
-    const rippleButtons = document.querySelectorAll('.btn-ripple');
-    
-    rippleButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            createRipple(e, this);
-        });
-    });
-    
-    // 主要按钮特效
-    const primaryButtons = document.querySelectorAll('.btn-primary');
-    
-    primaryButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            // 添加成功动画
-            this.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                this.style.transform = '';
-                showNotification('预订请求已提交！', 'success');
-            }, 150);
-        });
-        
-        // 按钮加载状态
-        button.addEventListener('mousedown', function() {
-            this.style.transform = 'scale(0.98)';
-        });
-        
-        button.addEventListener('mouseup', function() {
-            this.style.transform = '';
-        });
-    });
-    
-    // 查看详情按钮
-    const outlineButtons = document.querySelectorAll('.btn-outline');
-    
-    outlineButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            const routeCard = this.closest('.route-card');
-            const routeTitle = routeCard.querySelector('.route-title').textContent;
-            
-            // 显示详情模态框
-            showRouteDetails(routeCard);
-        });
-    });
-}
-
-// 创建波纹效果
-function createRipple(event, element) {
-    const circle = document.createElement('span');
-    const diameter = Math.max(element.clientWidth, element.clientHeight);
-    const radius = diameter / 2;
-    
-    circle.style.width = circle.style.height = `${diameter}px`;
-    circle.style.left = `${event.clientX - element.offsetLeft - radius}px`;
-    circle.style.top = `${event.clientY - element.offsetTop - radius}px`;
-    circle.classList.add('ripple');
-    
-    const ripple = element.getElementsByClassName('ripple')[0];
-    if (ripple) {
-        ripple.remove();
-    }
-    
-    element.appendChild(circle);
-    
-    // 移除波纹元素
+// 咨询线路
+function consultRoute() {
+    showNotification('正在为您转接客服，请稍候...', 'info');
+    // 模拟客服咨询
     setTimeout(() => {
-        circle.remove();
-    }, 600);
-}
-
-// 显示路线详情
-function showRouteDetails(routeCard) {
-    const routeTitle = routeCard.querySelector('.route-title').textContent;
-    const routeDuration = routeCard.querySelector('.route-duration').textContent;
-    const routePrice = routeCard.querySelector('.route-price').textContent;
-    const highlights = Array.from(routeCard.querySelectorAll('.route-highlights li'))
-        .map(li => li.textContent);
-    
-    // 创建模态框
-    const modal = document.createElement('div');
-    modal.className = 'route-modal';
-    modal.innerHTML = `
-        <div class="modal-overlay">
+        const modal = document.createElement('div');
+        modal.className = 'modal';
+        modal.innerHTML = `
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2>${routeTitle}</h2>
-                    <button class="modal-close">&times;</button>
+                    <h3>客服咨询</h3>
+                    <span class="modal-close">&times;</span>
                 </div>
                 <div class="modal-body">
-                    <div class="route-details">
-                        <div class="detail-item">
-                            <strong>行程时间：</strong>${routeDuration}
+                    <div class="consultation-content">
+                        <div class="service-info">
+                            <h4>联系我们的专业顾问</h4>
+                            <div class="contact-methods">
+                                <div class="contact-item">
+                                    <strong>客服热线：</strong>
+                                    <span>0916-1234567</span>
+                                </div>
+                                <div class="contact-item">
+                                    <strong>工作时间：</strong>
+                                    <span>9:00-18:00（周一至周日）</span>
+                                </div>
+                                <div class="contact-item">
+                                    <strong>微信客服：</strong>
+                                    <span>hanzhong_travel</span>
+                                </div>
+                                <div class="contact-item">
+                                    <strong>QQ客服：</strong>
+                                    <span>123456789</span>
+                                </div>
+                            </div>
+                            <p>我们的专业旅游顾问将为您提供一对一的咨询服务，帮助您选择最适合的旅游线路。</p>
                         </div>
-                        <div class="detail-item">
-                            <strong>价格：</strong>${routePrice}
-                        </div>
-                        <div class="detail-item">
-                            <strong>行程亮点：</strong>
-                            <ul class="highlights-list">
-                                ${highlights.map(highlight => `<li>${highlight}</li>`).join('')}
-                            </ul>
-                        </div>
-                        <div class="detail-item">
-                            <strong>包含服务：</strong>
-                            <ul class="service-list">
-                                <li>✅ 专业导游服务</li>
-                                <li>✅ 景点门票</li>
-                                <li>✅ 酒店住宿</li>
-                                <li>✅ 交通接送</li>
-                                <li>✅ 旅游保险</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="modal-actions">
-                        <button class="btn btn-primary btn-glow">
-                            <span>💰 立即预订</span>
-                        </button>
-                        <button class="btn btn-outline">
-                            <span>📞 咨询客服</span>
-                        </button>
                     </div>
                 </div>
             </div>
-        </div>
-    `;
-    
-    document.body.appendChild(modal);
-    
-    // 模态框动画
-    setTimeout(() => {
-        modal.style.opacity = '1';
-        modal.querySelector('.modal-content').style.transform = 'translateY(0) scale(1)';
-    }, 10);
-    
-    // 关闭模态框
-    const closeBtn = modal.querySelector('.modal-close');
-    const overlay = modal.querySelector('.modal-overlay');
-    
-    closeBtn.addEventListener('click', closeModal);
-    overlay.addEventListener('click', function(e) {
-        if (e.target === overlay) {
-            closeModal();
-        }
-    });
-    
-    function closeModal() {
-        modal.style.opacity = '0';
-        modal.querySelector('.modal-content').style.transform = 'translateY(-20px) scale(0.9)';
-        setTimeout(() => {
+        `;
+        
+        document.body.appendChild(modal);
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        
+        const closeBtn = modal.querySelector('.modal-close');
+        closeBtn.addEventListener('click', function() {
             modal.remove();
-        }, 300);
+            document.body.style.overflow = 'auto';
+        });
+        
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.remove();
+                document.body.style.overflow = 'auto';
+            }
+        });
+    }, 1000);
+}
+
+// 获取定制方案
+function getCustomPlan() {
+    showNotification('正在为您生成定制方案，请稍候...', 'info');
+    // 模拟方案生成
+    setTimeout(() => {
+        const modal = document.createElement('div');
+        modal.className = 'modal';
+        modal.innerHTML = `
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>获取定制方案</h3>
+                    <span class="modal-close">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <div class="plan-form">
+                        <h4>请填写您的基本信息，我们将为您制定专属方案</h4>
+                        <form id="planRequestForm">
+                            <div class="form-group">
+                                <label>您的姓名</label>
+                                <input type="text" name="name" placeholder="请输入您的姓名" required>
+                            </div>
+                            <div class="form-group">
+                                <label>联系电话</label>
+                                <input type="tel" name="phone" placeholder="请输入手机号码" required>
+                            </div>
+                            <div class="form-group">
+                                <label>邮箱地址</label>
+                                <input type="email" name="email" placeholder="请输入邮箱地址" required>
+                            </div>
+                            <div class="form-group">
+                                <label>旅行偏好</label>
+                                <textarea name="preferences" placeholder="请简单描述您的旅行偏好和需求..." rows="3"></textarea>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-outline" onclick="this.closest('.modal').remove(); document.body.style.overflow = 'auto';">取消</button>
+                                <button type="submit" class="btn btn-primary">提交申请</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        
+        const closeBtn = modal.querySelector('.modal-close');
+        closeBtn.addEventListener('click', function() {
+            modal.remove();
+            document.body.style.overflow = 'auto';
+        });
+        
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.remove();
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // 表单提交处理
+        const form = modal.querySelector('#planRequestForm');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const name = formData.get('name').trim();
+            const phone = formData.get('phone').trim();
+            const email = formData.get('email').trim();
+            
+            // 简单验证
+            if (!name || !phone || !email) {
+                showNotification('请填写完整的联系信息', 'error');
+                return;
+            }
+            
+            // 保存申请信息
+            const planRequest = {
+                name: name,
+                phone: phone,
+                email: email,
+                preferences: formData.get('preferences').trim(),
+                requestTime: new Date().toISOString(),
+                status: 'pending'
+            };
+            
+            let planRequests = JSON.parse(localStorage.getItem('hanzhong_plan_requests') || '[]');
+            planRequests.push(planRequest);
+            localStorage.setItem('hanzhong_plan_requests', JSON.stringify(planRequests));
+            
+            modal.remove();
+            document.body.style.overflow = 'auto';
+            showNotification('申请提交成功！定制方案将在24小时内发送到您的邮箱。', 'success');
+        });
+    }, 2000);
+}
+
+// 提交定制需求
+function submitCustomRequest(event) {
+    event.preventDefault();
+    
+    const form = event.target.closest('form');
+    const formData = new FormData(form);
+    
+    const days = formData.get('days');
+    const budget = formData.get('budget');
+    const contact = formData.get('contact');
+    
+    // 表单验证
+    const errors = [];
+    
+    if (!days) {
+        errors.push('请选择出行天数');
     }
     
-    // ESC键关闭
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            closeModal();
+    if (!budget) {
+        errors.push('请选择预算范围');
+    }
+    
+    if (!contact || contact.trim().length < 5) {
+        errors.push('请输入正确的联系方式');
+    }
+    
+    // 验证联系方式格式（手机号或邮箱）
+    if (contact && contact.trim()) {
+        const phoneRegex = /^1[3-9]\d{9}$/;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        
+        if (!phoneRegex.test(contact.trim()) && !emailRegex.test(contact.trim())) {
+            errors.push('请输入正确的手机号码或邮箱地址');
         }
+    }
+    
+    // 如果有错误，显示错误信息并返回
+    if (errors.length > 0) {
+        showFormErrors(errors);
+        return;
+    }
+    
+    // 获取兴趣偏好
+    const interests = [];
+    form.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
+        interests.push(checkbox.value);
     });
-}
-
-// 从JSON加载路线数据
-function loadRoutesFromJSON() {
-    fetch('data/routes.json')
-        .then(response => response.json())
-        .then(data => {
-            console.log('路线数据加载成功：', data);
-            // 可以在这里处理动态路线数据
-        })
-        .catch(error => {
-            console.error('加载路线数据失败：', error);
-        });
-}
-
-// 通知系统
-function showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
-    notification.className = `notification ${type}`;
-    notification.innerHTML = `
-        <div class="notification-content">
-            <span class="notification-icon">
-                ${type === 'success' ? '✅' : type === 'warning' ? '⚠️' : 'ℹ️'}
-            </span>
-            <span class="notification-message">${message}</span>
-        </div>
-    `;
     
-    document.body.appendChild(notification);
+    // 保存定制需求
+    const customRequest = {
+        days: days,
+        budget: budget,
+        interests: interests,
+        contact: contact.trim(),
+        submitTime: new Date().toISOString(),
+        status: 'pending'
+    };
     
-    // 动画显示
-    setTimeout(() => {
-        notification.style.transform = 'translateX(0)';
-        notification.style.opacity = '1';
-    }, 10);
+    let customRequests = JSON.parse(localStorage.getItem('hanzhong_custom_requests') || '[]');
+    customRequests.push(customRequest);
+    localStorage.setItem('hanzhong_custom_requests', JSON.stringify(customRequests));
     
-    // 自动移除
-    setTimeout(() => {
-        notification.style.transform = 'translateX(100%)';
-        notification.style.opacity = '0';
-        setTimeout(() => {
-            notification.remove();
-        }, 300);
-    }, 3000);
-}
-
-// 更新全局函数
-window.toggleFavorite = toggleFavorite;
-window.removeFromCompare = removeFromCompare;
-window.showComparison = showComparison;
-window.clearCompare = clearCompare;
-window.closeBookingModal = closeBookingModal;
-window.submitBooking = submitBooking;
-window.submitCustomizeForm = submitCustomizeForm;
-window.resetCustomizeForm = resetCustomizeForm; 
+    showNotification('定制需求提交成功！我们会在24小时内与您联系。', 'success');
+    
+    // 重置表单
+    form.reset();
+} 

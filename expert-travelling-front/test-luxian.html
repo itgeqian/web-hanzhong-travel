@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旅游线路测试页面</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/luxian.css">
+    <style>
+        body {
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        .test-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .test-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .test-info {
+            background: #e8f4fd;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h2>旅游线路按钮测试</h2>
+        
+        <div class="test-info">
+            <p><strong>测试说明：</strong></p>
+            <ul>
+                <li>点击"立即预订"按钮应该弹出预订表单</li>
+                <li>点击"查看详情"按钮应该显示线路详情</li>
+                <li>按钮不应该出现撑大变形效果</li>
+                <li>页面应该可以正常滚动</li>
+            </ul>
+        </div>
+        
+        <div class="test-buttons">
+            <button class="btn btn-primary" onclick="bookRoute(1)">
+                <span>💰 立即预订</span>
+            </button>
+            <button class="btn btn-outline" onclick="showRouteDetail(1)">
+                <span>📋 查看详情</span>
+            </button>
+        </div>
+        
+        <div class="test-buttons">
+            <button class="btn btn-primary" onclick="consultRoute()">
+                <span>📞 立即咨询</span>
+            </button>
+            <button class="btn btn-outline" onclick="getCustomPlan()">
+                <span>📋 获取方案</span>
+            </button>
+        </div>
+        
+        <div style="height: 1000px; background: linear-gradient(to bottom, #f8f9fa, #e9ecef); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #666;">
+            <p>滚动测试区域 - 页面应该可以正常滚动</p>
+        </div>
+    </div>
+
+    <script src="js/common.js"></script>
+    <script src="js/luxian.js"></script>
+</body>
+</html> 
