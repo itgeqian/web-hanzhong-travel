@@ -8,7 +8,321 @@ document.addEventListener('DOMContentLoaded', function() {
     initCommonForms();
     initSmoothScroll();
     initSearch();
+    checkGlobalUserStatus(); // 检查全局用户状态
 });
+
+// 全局用户状态检查
+function checkGlobalUserStatus() {
+    const userData = getGlobalUserData();
+    if (userData) {
+        // 检查是否过期
+        if (userData.expiresAt && Date.now() > userData.expiresAt) {
+            // 已过期，清除数据
+            clearGlobalUserData();
+            return;
+        }
+        
+        // 更新用户界面
+        updateGlobalUserInterface(userData);
+    }
+}
+
+// 获取全局用户数据
+function getGlobalUserData() {
+    let userData = localStorage.getItem('hanzhong_user');
+    if (!userData) {
+        userData = sessionStorage.getItem('hanzhong_user');
+    }
+    
+    if (userData) {
+        try {
+            return JSON.parse(userData);
+        } catch (e) {
+            console.error('解析用户数据失败:', e);
+            clearGlobalUserData();
+            return null;
+        }
+    }
+    
+    return null;
+}
+
+// 清除全局用户数据
+function clearGlobalUserData() {
+    localStorage.removeItem('hanzhong_user');
+    sessionStorage.removeItem('hanzhong_user');
+}
+
+// 更新全局用户界面
+function updateGlobalUserInterface(userData) {
+    const userActions = document.getElementById('userActions');
+    if (!userActions) return;
+    
+    userActions.innerHTML = `
+        <div class="user-info">
+            <img src="${userData.avatar || 'img/default-avatar.jpg'}" alt="用户头像" class="user-avatar" onerror="this.src='img/default-avatar.jpg'">
+            <span class="user-welcome">欢迎您，${userData.name}</span>
+            <button class="btn btn-outline logout-btn" onclick="handleGlobalLogout()">退出</button>
+        </div>
+    `;
+}
+
+// 处理全局退出登录
+function handleGlobalLogout() {
+    showCustomConfirm('确定要退出登录吗？', '退出登录', function() {
+        clearGlobalUserData();
+        showGlobalMessage('已成功退出登录', 'info');
+        
+        // 恢复登录注册按钮
+        const userActions = document.getElementById('userActions');
+        if (userActions) {
+            userActions.innerHTML = `
+                <a href="register.html" class="btn btn-outline">注册</a>
+                <a href="login.html" class="btn btn-primary">登录</a>
+            `;
+        }
+        
+        // 如果在需要登录的页面，跳转到首页
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 1000);
+    });
+}
+
+// 自定义确认弹窗
+function showCustomConfirm(message, title, onConfirm, onCancel) {
+    // 移除已存在的确认弹窗
+    const existingConfirm = document.querySelector('.custom-confirm');
+    if (existingConfirm) {
+        existingConfirm.remove();
+    }
+    
+    const confirmModal = document.createElement('div');
+    confirmModal.className = 'custom-confirm';
+    confirmModal.innerHTML = `
+        <div class="confirm-overlay"></div>
+        <div class="confirm-content">
+            <div class="confirm-header">
+                <h3>${title || '确认操作'}</h3>
+            </div>
+            <div class="confirm-body">
+                <div class="confirm-icon">⚠️</div>
+                <p>${message}</p>
+            </div>
+            <div class="confirm-actions">
+                <button class="confirm-btn confirm-cancel">取消</button>
+                <button class="confirm-btn confirm-ok">确定</button>
+            </div>
+        </div>
+    `;
+    
+    // 添加样式
+    confirmModal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    `;
+    
+    const style = document.createElement('style');
+    style.textContent = `
+        .custom-confirm .confirm-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+        
+        .custom-confirm .confirm-content {
+            position: relative;
+            background: white;
+            border-radius: 16px;
+            min-width: 320px;
+            max-width: 400px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            animation: confirmSlideIn 0.3s ease-out;
+            overflow: hidden;
+        }
+        
+        @keyframes confirmSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        
+        .custom-confirm .confirm-header {
+            padding: 20px 24px 0;
+            text-align: center;
+        }
+        
+        .custom-confirm .confirm-header h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .custom-confirm .confirm-body {
+            padding: 20px 24px;
+            text-align: center;
+        }
+        
+        .custom-confirm .confirm-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+        
+        .custom-confirm .confirm-body p {
+            margin: 0;
+            font-size: 16px;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .custom-confirm .confirm-actions {
+            padding: 0 24px 24px;
+            display: flex;
+            gap: 12px;
+        }
+        
+        .custom-confirm .confirm-btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .custom-confirm .confirm-cancel {
+            background: #f5f5f5;
+            color: #666;
+        }
+        
+        .custom-confirm .confirm-cancel:hover {
+            background: #e8e8e8;
+            color: #333;
+        }
+        
+        .custom-confirm .confirm-ok {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .custom-confirm .confirm-ok:hover {
+            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+    `;
+    
+    document.head.appendChild(style);
+    document.body.appendChild(confirmModal);
+    
+    // 事件处理
+    const cancelBtn = confirmModal.querySelector('.confirm-cancel');
+    const okBtn = confirmModal.querySelector('.confirm-ok');
+    const overlay = confirmModal.querySelector('.confirm-overlay');
+    
+    function closeConfirm() {
+        confirmModal.style.animation = 'confirmSlideOut 0.3s ease-in forwards';
+        setTimeout(() => {
+            confirmModal.remove();
+            style.remove();
+        }, 300);
+    }
+    
+    cancelBtn.addEventListener('click', function() {
+        closeConfirm();
+        if (onCancel) onCancel();
+    });
+    
+    okBtn.addEventListener('click', function() {
+        closeConfirm();
+        if (onConfirm) onConfirm();
+    });
+    
+    overlay.addEventListener('click', function() {
+        closeConfirm();
+        if (onCancel) onCancel();
+    });
+    
+    // 添加退出动画
+    const exitStyle = document.createElement('style');
+    exitStyle.textContent = `
+        @keyframes confirmSlideOut {
+            from {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: scale(0.9) translateY(-20px);
+            }
+        }
+    `;
+    document.head.appendChild(exitStyle);
+}
+
+// 全局消息提示函数
+function showGlobalMessage(message, type = 'info') {
+    // 移除已存在的消息
+    const existingMessage = document.querySelector('.message-toast');
+    if (existingMessage) {
+        existingMessage.remove();
+    }
+    
+    const messageElement = document.createElement('div');
+    messageElement.className = `message-toast message-${type}`;
+    messageElement.innerHTML = `
+        <div class="message-content">
+            <span class="message-icon">${getGlobalMessageIcon(type)}</span>
+            <span class="message-text">${message}</span>
+        </div>
+    `;
+    
+    document.body.appendChild(messageElement);
+    
+    // 显示动画
+    setTimeout(() => {
+        messageElement.classList.add('show');
+    }, 100);
+    
+    // 自动隐藏
+    setTimeout(() => {
+        messageElement.classList.remove('show');
+        setTimeout(() => {
+            if (messageElement.parentNode) {
+                messageElement.remove();
+            }
+        }, 300);
+    }, 3000);
+}
+
+function getGlobalMessageIcon(type) {
+    const icons = {
+        success: '✅',
+        error: '❌',
+        warning: '⚠️',
+        info: 'ℹ️'
+    };
+    return icons[type] || icons.info;
+}
 
 // 导航栏功能
 function initNavigation() {
@@ -570,4 +884,11 @@ const Utils = {
 };
 
 // 全局暴露工具函数
-window.Utils = Utils; 
+window.Utils = Utils;
+
+// 全局函数导出
+window.handleGlobalLogout = handleGlobalLogout;
+window.getGlobalUserData = getGlobalUserData;
+window.updateGlobalUserInterface = updateGlobalUserInterface;
+window.showGlobalMessage = showGlobalMessage;
+window.checkGlobalUserStatus = checkGlobalUserStatus; 

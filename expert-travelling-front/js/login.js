@@ -1,45 +1,149 @@
 // 登录页面JavaScript功能
 
 document.addEventListener('DOMContentLoaded', function() {
+    initUserDatabase();
     initLoginForm();
     initPrivilegeAnimation();
-    initPasswordToggle();
-    initRememberLogin();
+    checkUserLoginStatus();
 });
+
+// 初始化用户数据库
+function initUserDatabase() {
+    // 检查是否已有用户数据库
+    let storedUsers = localStorage.getItem('hanzhong_users_db');
+    if (!storedUsers) {
+        // 初始化默认用户数据
+        const defaultUsers = [
+            { 
+                id: 1,
+                username: 'admin', 
+                email: 'admin@hanzhong.com',
+                phone: '13800138000',
+                password: '123456', 
+                role: 'admin', 
+                name: '管理员',
+                avatar: 'img/avatar-admin.jpg'
+            },
+            { 
+                id: 2,
+                username: 'zhangsan', 
+                email: 'zhangsan@example.com',
+                phone: '13800138001',
+                password: '123456', 
+                role: 'user', 
+                name: '张三',
+                avatar: 'img/avatar-user.jpg'
+            },
+            { 
+                id: 3,
+                username: 'vipuser', 
+                email: 'vip@hanzhong.com',
+                phone: '13800138002',
+                password: '123456', 
+                role: 'vip', 
+                name: 'VIP用户',
+                avatar: 'img/avatar-vip.jpg'
+            }
+        ];
+        localStorage.setItem('hanzhong_users_db', JSON.stringify(defaultUsers));
+    }
+}
+
+// 获取用户数据库
+function getUserDatabase() {
+    const storedUsers = localStorage.getItem('hanzhong_users_db');
+    return storedUsers ? JSON.parse(storedUsers) : [];
+}
+
+// 保存用户数据库
+function saveUserDatabase(users) {
+    localStorage.setItem('hanzhong_users_db', JSON.stringify(users));
+}
+
+// 添加新用户到数据库
+function addUserToDatabase(userData) {
+    const users = getUserDatabase();
+    const newUser = {
+        id: users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1,
+        ...userData,
+        avatar: generateUserAvatar(userData.username, userData.role || 'user')
+    };
+    users.push(newUser);
+    saveUserDatabase(users);
+    return newUser;
+}
+
+// 更新用户数据库中的用户信息
+function updateUserInDatabase(userId, updates) {
+    const users = getUserDatabase();
+    const userIndex = users.findIndex(u => u.id === userId);
+    if (userIndex !== -1) {
+        users[userIndex] = { ...users[userIndex], ...updates };
+        saveUserDatabase(users);
+        return users[userIndex];
+    }
+    return null;
+}
+
+// 根据条件查找用户
+function findUserInDatabase(condition) {
+    const users = getUserDatabase();
+    return users.find(condition);
+}
+
+// 生成用户头像路径
+function generateUserAvatar(username, role) {
+    // 根据角色返回对应的头像
+    switch (role) {
+        case 'admin':
+            return 'img/avatar-admin.jpg';
+        case 'vip':
+            return 'img/avatar-vip.jpg';
+        default:
+            return 'img/avatar-user.jpg';
+    }
+}
+
+// 模拟用户数据库（动态获取）
+function getMockUsers() {
+    return getUserDatabase();
+}
 
 // 登录表单功能
 function initLoginForm() {
-    const loginForm = document.querySelector('.login-form');
-    const usernameInput = document.querySelector('input[name="username"]');
-    const passwordInput = document.querySelector('input[name="password"]');
-    const rememberCheckbox = document.querySelector('input[name="remember"]');
+    const loginForm = document.getElementById('loginForm');
+    const accountInput = document.getElementById('loginAccount');
+    const passwordInput = document.getElementById('password');
+    const rememberCheckbox = document.getElementById('remember');
     const loginBtn = document.querySelector('.login-btn');
     
-    // 表单数据
-    const formFields = {
-        username: { element: usernameInput, rules: ['required', 'username'] },
-        password: { element: passwordInput, rules: ['required', 'password'] }
-    };
+    if (!loginForm) return;
     
-    // 模拟用户数据
-    const mockUsers = [
-        { username: 'admin', password: '123456', role: 'admin', name: '管理员' },
-        { username: 'user1', password: '123456', role: 'user', name: '张三' },
-        { username: 'vip', password: '123456', role: 'vip', name: 'VIP用户' }
-    ];
+    // 表单提交事件
+    loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        handleLogin();
+    });
     
-    // 表单提交
-    if (loginForm) {
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            handleLogin();
-        });
-    }
+    // 实时验证
+    accountInput.addEventListener('input', function() {
+        clearFieldError(this);
+        if (this.value.trim()) {
+            validateAccount(this.value.trim());
+        }
+    });
+    
+    passwordInput.addEventListener('input', function() {
+        clearFieldError(this);
+        if (this.value.length >= 6) {
+            showFieldSuccess(this);
+        }
+    });
     
     // 处理登录
     async function handleLogin() {
         const formData = {
-            username: usernameInput.value.trim(),
+            account: accountInput.value.trim(),
             password: passwordInput.value.trim(),
             remember: rememberCheckbox.checked
         };
@@ -74,15 +178,14 @@ function initLoginForm() {
     function validateLoginForm(data) {
         let isValid = true;
         
-        // 验证用户名
-        if (!data.username) {
-            showFieldError(usernameInput, '请输入用户名');
+        // 验证账号
+        if (!data.account) {
+            showFieldError(accountInput, '请输入用户名、邮箱或手机号');
             isValid = false;
-        } else if (data.username.length < 3) {
-            showFieldError(usernameInput, '用户名至少需要3个字符');
+        } else if (!validateAccount(data.account)) {
             isValid = false;
         } else {
-            showFieldSuccess(usernameInput);
+            showFieldSuccess(accountInput);
         }
         
         // 验证密码
@@ -99,12 +202,31 @@ function initLoginForm() {
         return isValid;
     }
     
+    // 验证账号格式
+    function validateAccount(account) {
+        // 用户名格式：3-20位字母数字下划线
+        const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
+        // 邮箱格式
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        // 手机号格式
+        const phoneRegex = /^1[3-9]\d{9}$/;
+        
+        if (usernameRegex.test(account) || emailRegex.test(account) || phoneRegex.test(account)) {
+            return true;
+        } else {
+            showFieldError(accountInput, '请输入正确的用户名、邮箱或手机号格式');
+            return false;
+        }
+    }
+    
     // 模拟登录API
     function mockLogin(credentials) {
         return new Promise((resolve) => {
             setTimeout(() => {
-                const user = mockUsers.find(u => 
-                    u.username === credentials.username && 
+                const user = getMockUsers().find(u => 
+                    (u.username === credentials.account || 
+                     u.email === credentials.account || 
+                     u.phone === credentials.account) && 
                     u.password === credentials.password
                 );
                 
@@ -112,16 +234,20 @@ function initLoginForm() {
                     resolve({
                         success: true,
                         user: {
-                            id: user.username,
+                            id: user.id,
+                            username: user.username,
                             name: user.name,
+                            email: user.email,
+                            phone: user.phone,
                             role: user.role,
+                            avatar: user.avatar,
                             loginTime: new Date().toISOString()
                         }
                     });
                 } else {
                     resolve({
                         success: false,
-                        message: '用户名或密码错误'
+                        message: '用户名/邮箱/手机号或密码错误'
                     });
                 }
             }, 1500); // 模拟网络延迟
@@ -134,9 +260,11 @@ function initLoginForm() {
         const userData = {
             ...user,
             remember: remember,
-            loginTime: Date.now()
+            loginTime: Date.now(),
+            expiresAt: remember ? Date.now() + (30 * 24 * 60 * 60 * 1000) : null // 记住我30天
         };
         
+        // 根据记住我选项选择存储方式
         if (remember) {
             localStorage.setItem('hanzhong_user', JSON.stringify(userData));
         } else {
@@ -144,7 +272,10 @@ function initLoginForm() {
         }
         
         // 显示成功消息
-        Utils.showMessage(`欢迎回来，${user.name}！`, 'success');
+        showMessage(`欢迎回来，${user.name}！`, 'success');
+        
+        // 更新页面用户状态
+        updateUserInterface(user);
         
         // 延迟跳转
         setTimeout(() => {
@@ -155,7 +286,7 @@ function initLoginForm() {
     
     // 登录失败处理
     function handleLoginError(message) {
-        Utils.showMessage(message, 'error');
+        showMessage(message, 'error');
         
         // 密码框获得焦点
         passwordInput.focus();
@@ -170,54 +301,548 @@ function initLoginForm() {
     
     // 显示加载状态
     function showLoginLoading(loading) {
+        const btnText = loginBtn.querySelector('.btn-text');
+        const btnLoading = loginBtn.querySelector('.btn-loading');
+        
         if (loading) {
-            loginBtn.classList.add('loading');
+            btnText.style.display = 'none';
+            btnLoading.style.display = 'inline';
             loginBtn.disabled = true;
+            loginBtn.classList.add('loading');
         } else {
-            loginBtn.classList.remove('loading');
+            btnText.style.display = 'inline';
+            btnLoading.style.display = 'none';
             loginBtn.disabled = false;
+            loginBtn.classList.remove('loading');
+        }
+    }
+}
+
+// 检查用户登录状态
+function checkUserLoginStatus() {
+    const userData = getUserData();
+    if (userData) {
+        // 检查是否过期
+        if (userData.expiresAt && Date.now() > userData.expiresAt) {
+            // 已过期，清除数据
+            clearUserData();
+            return;
+        }
+        
+        // 更新用户界面
+        updateUserInterface(userData);
+    }
+}
+
+// 获取用户数据
+function getUserData() {
+    let userData = localStorage.getItem('hanzhong_user');
+    if (!userData) {
+        userData = sessionStorage.getItem('hanzhong_user');
+    }
+    
+    if (userData) {
+        try {
+            return JSON.parse(userData);
+        } catch (e) {
+            console.error('解析用户数据失败:', e);
+            clearUserData();
+            return null;
         }
     }
     
-    // 实时验证
-    Object.values(formFields).forEach(field => {
-        if (field.element) {
-            field.element.addEventListener('input', function() {
-                clearFieldError(this);
-                
-                // 实时验证
-                if (this.value.trim()) {
-                    if (this.name === 'username' && this.value.length >= 3) {
-                        showFieldSuccess(this);
-                    } else if (this.name === 'password' && this.value.length >= 6) {
-                        showFieldSuccess(this);
-                    }
-                }
-            });
-            
-            field.element.addEventListener('blur', function() {
-                if (this.value.trim()) {
-                    validateField(this);
-                }
-            });
+    return null;
+}
+
+// 清除用户数据
+function clearUserData() {
+    localStorage.removeItem('hanzhong_user');
+    sessionStorage.removeItem('hanzhong_user');
+}
+
+// 更新用户界面
+function updateUserInterface(userData) {
+    const userActions = document.getElementById('userActions');
+    if (!userActions) return;
+    
+    userActions.innerHTML = `
+        <div class="user-info">
+            <img src="${userData.avatar || 'img/default-avatar.jpg'}" alt="用户头像" class="user-avatar" onerror="this.src='img/default-avatar.jpg'">
+            <span class="user-welcome">欢迎您，${userData.name}</span>
+            <button class="btn btn-outline logout-btn" onclick="handleLogout()">退出</button>
+        </div>
+    `;
+}
+
+// 处理退出登录
+function handleLogout() {
+    showCustomConfirm('确定要退出登录吗？', '退出登录', function() {
+        clearUserData();
+        showMessage('已成功退出登录', 'info');
+        
+        // 恢复登录注册按钮
+        const userActions = document.getElementById('userActions');
+        if (userActions) {
+            userActions.innerHTML = `
+                <a href="register.html" class="btn btn-outline">注册</a>
+                <a href="login.html" class="btn btn-primary">登录</a>
+            `;
         }
+        
+        // 如果在需要登录的页面，跳转到首页
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 1000);
     });
 }
 
-// 字段验证显示
+// 自定义确认弹窗（如果common.js中没有定义的话）
+function showCustomConfirm(message, title, onConfirm, onCancel) {
+    // 检查是否已经有全局的showCustomConfirm函数
+    if (window.showCustomConfirm && typeof window.showCustomConfirm === 'function') {
+        return window.showCustomConfirm(message, title, onConfirm, onCancel);
+    }
+    
+    // 移除已存在的确认弹窗
+    const existingConfirm = document.querySelector('.custom-confirm');
+    if (existingConfirm) {
+        existingConfirm.remove();
+    }
+    
+    const confirmModal = document.createElement('div');
+    confirmModal.className = 'custom-confirm';
+    confirmModal.innerHTML = `
+        <div class="confirm-overlay"></div>
+        <div class="confirm-content">
+            <div class="confirm-header">
+                <h3>${title || '确认操作'}</h3>
+            </div>
+            <div class="confirm-body">
+                <div class="confirm-icon">⚠️</div>
+                <p>${message}</p>
+            </div>
+            <div class="confirm-actions">
+                <button class="confirm-btn confirm-cancel">取消</button>
+                <button class="confirm-btn confirm-ok">确定</button>
+            </div>
+        </div>
+    `;
+    
+    // 添加样式
+    confirmModal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    `;
+    
+    const style = document.createElement('style');
+    style.textContent = `
+        .custom-confirm .confirm-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+        
+        .custom-confirm .confirm-content {
+            position: relative;
+            background: white;
+            border-radius: 16px;
+            min-width: 320px;
+            max-width: 400px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            animation: confirmSlideIn 0.3s ease-out;
+            overflow: hidden;
+        }
+        
+        @keyframes confirmSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        
+        .custom-confirm .confirm-header {
+            padding: 20px 24px 0;
+            text-align: center;
+        }
+        
+        .custom-confirm .confirm-header h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .custom-confirm .confirm-body {
+            padding: 20px 24px;
+            text-align: center;
+        }
+        
+        .custom-confirm .confirm-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+        
+        .custom-confirm .confirm-body p {
+            margin: 0;
+            font-size: 16px;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .custom-confirm .confirm-actions {
+            padding: 0 24px 24px;
+            display: flex;
+            gap: 12px;
+        }
+        
+        .custom-confirm .confirm-btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .custom-confirm .confirm-cancel {
+            background: #f5f5f5;
+            color: #666;
+        }
+        
+        .custom-confirm .confirm-cancel:hover {
+            background: #e8e8e8;
+            color: #333;
+        }
+        
+        .custom-confirm .confirm-ok {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .custom-confirm .confirm-ok:hover {
+            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+    `;
+    
+    document.head.appendChild(style);
+    document.body.appendChild(confirmModal);
+    
+    // 事件处理
+    const cancelBtn = confirmModal.querySelector('.confirm-cancel');
+    const okBtn = confirmModal.querySelector('.confirm-ok');
+    const overlay = confirmModal.querySelector('.confirm-overlay');
+    
+    function closeConfirm() {
+        confirmModal.style.animation = 'confirmSlideOut 0.3s ease-in forwards';
+        setTimeout(() => {
+            confirmModal.remove();
+            style.remove();
+        }, 300);
+    }
+    
+    cancelBtn.addEventListener('click', function() {
+        closeConfirm();
+        if (onCancel) onCancel();
+    });
+    
+    okBtn.addEventListener('click', function() {
+        closeConfirm();
+        if (onConfirm) onConfirm();
+    });
+    
+    overlay.addEventListener('click', function() {
+        closeConfirm();
+        if (onCancel) onCancel();
+    });
+    
+    // 添加退出动画
+    const exitStyle = document.createElement('style');
+    exitStyle.textContent = `
+        @keyframes confirmSlideOut {
+            from {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: scale(0.9) translateY(-20px);
+            }
+        }
+    `;
+    document.head.appendChild(exitStyle);
+}
+
+// 密码显示/隐藏切换
+function togglePassword() {
+    const passwordInput = document.getElementById('password');
+    const toggleIcon = document.querySelector('.password-toggle-icon');
+    
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleIcon.textContent = '🙈';
+    } else {
+        passwordInput.type = 'password';
+        toggleIcon.textContent = '👁️';
+    }
+}
+
+// 忘记密码功能
+let forgotPasswordStep = 1;
+let verificationTimer = null;
+
+function showForgotPassword() {
+    const modal = document.getElementById('forgotPasswordModal');
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    
+    // 重置表单状态
+    resetForgotPasswordForm();
+}
+
+function closeForgotPassword() {
+    const modal = document.getElementById('forgotPasswordModal');
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+    
+    // 重置表单状态
+    resetForgotPasswordForm();
+}
+
+function resetForgotPasswordForm() {
+    forgotPasswordStep = 1;
+    
+    // 重置表单
+    const form = document.getElementById('forgotPasswordForm');
+    form.reset();
+    
+    // 隐藏所有步骤
+    document.getElementById('verificationGroup').style.display = 'none';
+    document.getElementById('newPasswordGroup').style.display = 'none';
+    document.getElementById('confirmPasswordGroup').style.display = 'none';
+    
+    // 重置按钮文本
+    document.getElementById('resetPasswordBtn').textContent = '下一步';
+    
+    // 清除验证码计时器
+    if (verificationTimer) {
+        clearInterval(verificationTimer);
+        verificationTimer = null;
+    }
+    
+    // 重置发送验证码按钮
+    const sendCodeBtn = document.getElementById('sendCodeBtn');
+    sendCodeBtn.textContent = '发送验证码';
+    sendCodeBtn.disabled = false;
+    
+    // 清除错误信息
+    document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+}
+
+// 处理忘记密码表单提交
+document.addEventListener('DOMContentLoaded', function() {
+    const forgotPasswordForm = document.getElementById('forgotPasswordForm');
+    if (forgotPasswordForm) {
+        forgotPasswordForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            handleForgotPasswordSubmit();
+        });
+    }
+});
+
+function handleForgotPasswordSubmit() {
+    switch (forgotPasswordStep) {
+        case 1:
+            handleAccountVerification();
+            break;
+        case 2:
+            handleVerificationCode();
+            break;
+        case 3:
+            handlePasswordReset();
+            break;
+    }
+}
+
+// 第一步：验证账号
+function handleAccountVerification() {
+    const accountInput = document.getElementById('resetAccount');
+    const account = accountInput.value.trim();
+    
+    if (!account) {
+        showFieldError(accountInput, '请输入用户名、邮箱或手机号');
+        return;
+    }
+    
+    // 检查账号是否存在
+    const user = getMockUsers().find(u => 
+        u.username === account || u.email === account || u.phone === account
+    );
+    
+    if (!user) {
+        showFieldError(accountInput, '账号不存在，请检查输入');
+        return;
+    }
+    
+    // 显示验证码输入框
+    document.getElementById('verificationGroup').style.display = 'block';
+    document.getElementById('resetPasswordBtn').textContent = '验证验证码';
+    forgotPasswordStep = 2;
+    
+    showMessage('账号验证成功，请获取验证码', 'success');
+}
+
+// 发送验证码
+function sendVerificationCode() {
+    const sendCodeBtn = document.getElementById('sendCodeBtn');
+    
+    // 模拟发送验证码
+    showMessage('验证码已发送，请查收（模拟验证码：123456）', 'info');
+    
+    // 开始倒计时
+    let countdown = 60;
+    sendCodeBtn.disabled = true;
+    
+    verificationTimer = setInterval(() => {
+        sendCodeBtn.textContent = `${countdown}秒后重发`;
+        countdown--;
+        
+        if (countdown < 0) {
+            clearInterval(verificationTimer);
+            sendCodeBtn.textContent = '重新发送';
+            sendCodeBtn.disabled = false;
+        }
+    }, 1000);
+}
+
+// 第二步：验证验证码
+function handleVerificationCode() {
+    const codeInput = document.getElementById('verificationCode');
+    const code = codeInput.value.trim();
+    
+    if (!code) {
+        showFieldError(codeInput, '请输入验证码');
+        return;
+    }
+    
+    // 模拟验证码验证（实际应该是后端验证）
+    if (code !== '123456') {
+        showFieldError(codeInput, '验证码错误，请重新输入');
+        return;
+    }
+    
+    // 显示新密码输入框
+    document.getElementById('newPasswordGroup').style.display = 'block';
+    document.getElementById('confirmPasswordGroup').style.display = 'block';
+    document.getElementById('resetPasswordBtn').textContent = '重置密码';
+    forgotPasswordStep = 3;
+    
+    showMessage('验证码验证成功，请设置新密码', 'success');
+}
+
+// 第三步：重置密码
+function handlePasswordReset() {
+    const accountInput = document.getElementById('resetAccount');
+    const newPasswordInput = document.getElementById('newPassword');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+    const account = accountInput.value.trim();
+    const newPassword = newPasswordInput.value.trim();
+    const confirmPassword = confirmPasswordInput.value.trim();
+    
+    let isValid = true;
+    
+    // 验证新密码
+    if (!newPassword) {
+        showFieldError(newPasswordInput, '请输入新密码');
+        isValid = false;
+    } else if (newPassword.length < 6) {
+        showFieldError(newPasswordInput, '密码至少需要6个字符');
+        isValid = false;
+    }
+    
+    // 验证确认密码
+    if (!confirmPassword) {
+        showFieldError(confirmPasswordInput, '请确认新密码');
+        isValid = false;
+    } else if (newPassword !== confirmPassword) {
+        showFieldError(confirmPasswordInput, '两次输入的密码不一致');
+        isValid = false;
+    }
+    
+    if (!isValid) return;
+    
+    // 找到对应用户并更新密码
+    const users = getUserDatabase();
+    const userIndex = users.findIndex(u => 
+        u.username === account || u.email === account || u.phone === account
+    );
+    
+    if (userIndex !== -1) {
+        // 更新用户密码
+        users[userIndex].password = newPassword;
+        saveUserDatabase(users);
+        
+        // 如果用户当前已登录，清除登录状态
+        const currentUser = getUserData();
+        if (currentUser && (currentUser.username === account || currentUser.email === account || currentUser.phone === account)) {
+            clearUserData();
+            // 恢复登录注册按钮
+            const userActions = document.getElementById('userActions');
+            if (userActions) {
+                userActions.innerHTML = `
+                    <a href="register.html" class="btn btn-outline">注册</a>
+                    <a href="login.html" class="btn btn-primary">登录</a>
+                `;
+            }
+        }
+        
+        showMessage('密码重置成功，请使用新密码登录', 'success');
+        closeForgotPassword();
+        
+        // 清空登录表单的密码
+        const loginPasswordInput = document.getElementById('password');
+        if (loginPasswordInput) {
+            loginPasswordInput.value = '';
+        }
+        
+        // 将账号填入登录表单
+        const loginAccountInput = document.getElementById('loginAccount');
+        if (loginAccountInput) {
+            loginAccountInput.value = account;
+        }
+    } else {
+        showFieldError(accountInput, '账号不存在，密码重置失败');
+    }
+}
+
+// 表单验证辅助函数
 function showFieldError(field, message) {
     field.classList.add('error');
     field.classList.remove('success');
     
-    let errorElement = field.parentNode.querySelector('.error-message');
-    if (!errorElement) {
-        errorElement = document.createElement('span');
-        errorElement.className = 'error-message';
-        field.parentNode.appendChild(errorElement);
+    const errorElement = field.parentNode.querySelector('.error-message');
+    if (errorElement) {
+        errorElement.textContent = message;
+        errorElement.style.display = 'block';
     }
-    
-    errorElement.textContent = message;
-    errorElement.classList.add('show');
 }
 
 function showFieldSuccess(field) {
@@ -226,251 +851,81 @@ function showFieldSuccess(field) {
     
     const errorElement = field.parentNode.querySelector('.error-message');
     if (errorElement) {
-        errorElement.classList.remove('show');
+        errorElement.textContent = '';
+        errorElement.style.display = 'none';
     }
 }
 
 function clearFieldError(field) {
-    field.classList.remove('error');
+    field.classList.remove('error', 'success');
     
     const errorElement = field.parentNode.querySelector('.error-message');
     if (errorElement) {
-        errorElement.classList.remove('show');
+        errorElement.textContent = '';
+        errorElement.style.display = 'none';
     }
 }
 
-// 密码显示/隐藏切换
-function initPasswordToggle() {
-    const passwordInput = document.querySelector('input[name="password"]');
-    
-    if (passwordInput) {
-        // 创建眼睛图标
-        const toggleBtn = document.createElement('button');
-        toggleBtn.type = 'button';
-        toggleBtn.className = 'password-toggle';
-        toggleBtn.innerHTML = '👁️';
-        toggleBtn.style.cssText = `
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            color: #999;
-            z-index: 10;
-        `;
-        
-        // 设置容器相对定位
-        passwordInput.parentNode.style.position = 'relative';
-        passwordInput.parentNode.appendChild(toggleBtn);
-        
-        // 为密码框添加右边距
-        passwordInput.style.paddingRight = '45px';
-        
-        let isVisible = false;
-        
-        toggleBtn.addEventListener('click', function() {
-            isVisible = !isVisible;
-            passwordInput.type = isVisible ? 'text' : 'password';
-            this.innerHTML = isVisible ? '🙈' : '👁️';
-            this.style.color = isVisible ? '#667eea' : '#999';
-        });
+// 消息提示函数
+function showMessage(message, type = 'info') {
+    // 移除已存在的消息
+    const existingMessage = document.querySelector('.message-toast');
+    if (existingMessage) {
+        existingMessage.remove();
     }
-}
-
-// 记住登录状态
-function initRememberLogin() {
-    const usernameInput = document.querySelector('input[name="username"]');
-    const passwordInput = document.querySelector('input[name="password"]');
-    const rememberCheckbox = document.querySelector('input[name="remember"]');
     
-    // 检查是否有保存的登录信息
-    const savedUser = localStorage.getItem('hanzhong_user');
-    if (savedUser) {
-        try {
-            const userData = JSON.parse(savedUser);
-            
-            // 检查登录是否过期（7天）
-            const loginTime = userData.loginTime || 0;
-            const now = Date.now();
-            const daysDiff = (now - loginTime) / (1000 * 60 * 60 * 24);
-            
-            if (daysDiff < 7) {
-                // 自动登录
-                Utils.showMessage('欢迎回来！正在为您自动登录...', 'info');
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 1500);
-                return;
-            } else {
-                // 清除过期信息
-                localStorage.removeItem('hanzhong_user');
+    const messageElement = document.createElement('div');
+    messageElement.className = `message-toast message-${type}`;
+    messageElement.innerHTML = `
+        <div class="message-content">
+            <span class="message-icon">${getMessageIcon(type)}</span>
+            <span class="message-text">${message}</span>
+        </div>
+    `;
+    
+    document.body.appendChild(messageElement);
+    
+    // 显示动画
+    setTimeout(() => {
+        messageElement.classList.add('show');
+    }, 100);
+    
+    // 自动隐藏
+    setTimeout(() => {
+        messageElement.classList.remove('show');
+        setTimeout(() => {
+            if (messageElement.parentNode) {
+                messageElement.remove();
             }
-        } catch (error) {
-            localStorage.removeItem('hanzhong_user');
-        }
-    }
-    
-    // 从记住的信息中填充表单
-    const rememberedUsername = localStorage.getItem('remembered_username');
-    if (rememberedUsername && usernameInput) {
-        usernameInput.value = rememberedUsername;
-        rememberCheckbox.checked = true;
-    }
-    
-    // 监听记住密码选择
-    if (rememberCheckbox) {
-        rememberCheckbox.addEventListener('change', function() {
-            if (!this.checked) {
-                localStorage.removeItem('remembered_username');
-            }
-        });
-    }
+        }, 300);
+    }, 3000);
 }
 
-// 会员特权动画
+function getMessageIcon(type) {
+    const icons = {
+        success: '✅',
+        error: '❌',
+        warning: '⚠️',
+        info: 'ℹ️'
+    };
+    return icons[type] || icons.info;
+}
+
+// 特权动画
 function initPrivilegeAnimation() {
     const privilegeItems = document.querySelectorAll('.privilege-list li');
     
-    // 特权数据
-    const privileges = [
-        { icon: '🎯', text: '专属客服服务，24小时在线解答' },
-        { icon: '💰', text: '享受门票、酒店特价优惠' },
-        { icon: '🎁', text: '生日专属礼品和祝福' },
-        { icon: '⭐', text: '优先预订热门景点和活动' },
-        { icon: '📱', text: '手机APP无广告体验' },
-        { icon: '🏆', text: '积分兑换精美纪念品' }
-    ];
-    
-    // 填充特权数据
     privilegeItems.forEach((item, index) => {
-        if (privileges[index]) {
-            item.textContent = privileges[index].text;
-            item.style.setProperty('--before-content', `"${privileges[index].icon}"`);
-        }
-        
-        // 添加悬浮效果
-        item.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateX(10px)';
-            this.style.color = '#667eea';
-        });
-        
-        item.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateX(0)';
-            this.style.color = '#666';
-        });
-    });
-    
-    // 渐入动画
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry, index) => {
-            if (entry.isIntersecting) {
-                setTimeout(() => {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateX(0)';
-                }, index * 100);
-            }
-        });
-    }, { threshold: 0.5 });
-    
-    privilegeItems.forEach((item, index) => {
-        item.style.opacity = '0';
-        item.style.transform = 'translateX(-30px)';
-        item.style.transition = 'all 0.5s ease';
-        observer.observe(item);
+        item.style.animationDelay = `${index * 0.1}s`;
+        item.classList.add('animate-fade-in');
     });
 }
 
-// 社交登录功能
-function initSocialLogin() {
-    // 微信登录
-    const wechatBtn = document.querySelector('.wechat-login');
-    if (wechatBtn) {
-        wechatBtn.addEventListener('click', function() {
-            Utils.showMessage('微信登录功能开发中...', 'info');
-        });
-    }
-    
-    // QQ登录
-    const qqBtn = document.querySelector('.qq-login');
-    if (qqBtn) {
-        qqBtn.addEventListener('click', function() {
-            Utils.showMessage('QQ登录功能开发中...', 'info');
-        });
-    }
-    
-    // 微博登录
-    const weiboBtn = document.querySelector('.weibo-login');
-    if (weiboBtn) {
-        weiboBtn.addEventListener('click', function() {
-            Utils.showMessage('微博登录功能开发中...', 'info');
-        });
-    }
-}
-
-// 注册链接
-function initRegisterLink() {
-    const registerLink = document.querySelector('.register-link');
-    if (registerLink) {
-        registerLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            Utils.showMessage('注册功能开发中，请联系客服开通账号', 'info');
-        });
-    }
-}
-
-// 忘记密码链接
-function initForgotPassword() {
-    const forgotLink = document.querySelector('.forgot-password');
-    if (forgotLink) {
-        forgotLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const email = prompt('请输入您的注册邮箱地址：');
-            if (email && validateEmail(email)) {
-                Utils.showMessage('密码重置邮件已发送，请检查您的邮箱', 'success');
-            } else if (email) {
-                Utils.showMessage('请输入有效的邮箱地址', 'error');
-            }
-        });
-    }
-}
-
-// 邮箱验证
-function validateEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
-
-// 添加震动动画CSS
-const shakeStyle = document.createElement('style');
-shakeStyle.textContent = `
-    @keyframes shake {
-        0%, 100% { transform: translateX(0); }
-        10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-        20%, 40%, 60%, 80% { transform: translateX(5px); }
-    }
-    
-    .password-toggle:hover {
-        color: #667eea !important;
-        transform: translateY(-50%) scale(1.1);
-    }
-    
-    .form-input.error {
-        animation: fieldShake 0.3s ease-in-out;
-    }
-    
-    @keyframes fieldShake {
-        0%, 100% { transform: translateX(0); }
-        25% { transform: translateX(-3px); }
-        75% { transform: translateX(3px); }
-    }
-`;
-document.head.appendChild(shakeStyle);
-
-// 初始化其他功能
-initSocialLogin();
-initRegisterLink();
-initForgotPassword(); 
+// 全局函数导出
+window.togglePassword = togglePassword;
+window.showForgotPassword = showForgotPassword;
+window.closeForgotPassword = closeForgotPassword;
+window.sendVerificationCode = sendVerificationCode;
+window.handleLogout = handleLogout;
+window.getUserData = getUserData;
+window.updateUserInterface = updateUserInterface; 
