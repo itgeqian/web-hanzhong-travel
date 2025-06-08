@@ -1,18 +1,18 @@
 /* 旅游攻略页面专用样式 */
 
-/* 攻略导航标签 */
+/* 导航标签区域 */
 .guide-nav {
-    padding: 40px 0;
-    background: white;
-    border-bottom: 1px solid #e0e0e0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    padding: 30px 0;
+    border-bottom: 2px solid #f0f0f0;
 }
 
 .nav-tabs {
     display: flex;
     justify-content: center;
+    gap: 20px;
     flex-wrap: wrap;
-    gap: 15px;
-    margin-top: 20px;
+    padding: 0 20px;
 }
 
 .nav-tab {
@@ -20,14 +20,14 @@
     background: white;
     border: 2px solid #e0e0e0;
     border-radius: 30px;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     color: #666;
     position: relative;
     overflow: hidden;
-    white-space: nowrap;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
 .nav-tab::before {
@@ -60,116 +60,465 @@
     box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
 }
 
-/* 攻略内容区域 */
+/* 内容区域 */
 .guide-content {
-    padding: 80px 0;
+    padding: 60px 0;
     background: #f8f9fa;
 }
 
 .tab-content {
     display: none;
-    animation: fadeIn 0.5s ease-in-out;
 }
 
 .tab-content.active {
     display: block;
 }
 
-/* 内容布局 */
 .content-layout {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    gap: 50px;
-    margin-bottom: 60px;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 .content-main {
     background: white;
     border-radius: 20px;
     padding: 40px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border: 1px solid #f0f0f0;
 }
 
 .content-sidebar {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 25px;
 }
 
-/* 交通卡片 */
+/* 交通卡片优化 */
 .transport-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-    margin: 30px 0;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin: 40px 0;
 }
 
 .transport-card {
-    background: white;
-    border: 2px solid #e0e0e0;
-    border-radius: 15px;
-    padding: 25px;
-    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border: 2px solid #e9ecef;
+    border-radius: 20px;
+    padding: 30px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.transport-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+}
+
+.transport-card:hover::before {
+    transform: scaleX(1);
 }
 
 .transport-card:hover {
     border-color: #667eea;
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.15);
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.2);
+    background: white;
 }
 
 .transport-card h4 {
-    color: #667eea;
-    font-size: 18px;
-    margin-bottom: 10px;
+    color: #2c3e50;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
+.transport-card h4::before {
+    content: '🚗';
+    font-size: 24px;
+}
+
+/* 交通区域标题优化 */
 .transport-section {
-    margin-bottom: 40px;
+    margin-bottom: 50px;
 }
 
 .transport-section h3 {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
+    font-size: 28px;
+    color: #2c3e50;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
     border-bottom: 3px solid #667eea;
+    position: relative;
+    font-weight: 700;
 }
 
-/* 住宿卡片 */
+.transport-section h3::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* 市内交通部分优化 */
+.local-transport {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin: 40px 0;
+}
+
+.transport-item {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border: 2px solid #e9ecef;
+    border-radius: 20px;
+    padding: 30px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.transport-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+}
+
+.transport-item:hover::before {
+    transform: scaleX(1);
+}
+
+.transport-item:hover {
+    border-color: #667eea;
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.2);
+    background: white;
+}
+
+.transport-item h4 {
+    color: #2c3e50;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.transport-item h4::before {
+    content: '🚌';
+    font-size: 22px;
+}
+
+.transport-item p {
+    color: #495057;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-weight: 500;
+    padding: 15px 20px;
+    background: linear-gradient(135deg, #f8f9ff 0%, #e8f4ff 100%);
+    border-radius: 12px;
+    border-left: 4px solid #667eea;
+}
+
+.transport-item ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 20px;
+    border: 1px solid #e9ecef;
+}
+
+.transport-item li {
+    position: relative;
+    padding: 12px 0 12px 35px;
+    color: #495057;
+    border-bottom: 1px solid #e9ecef;
+    font-size: 15px;
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+.transport-item li:last-child {
+    border-bottom: none;
+}
+
+.transport-item li::before {
+    content: '🎯';
+    position: absolute;
+    left: 0;
+    top: 12px;
+    font-size: 18px;
+}
+
+/* 注意事项网格优化 */
+.tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 30px;
+    margin: 40px 0;
+}
+
+.tip-category {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border: 2px solid #e9ecef;
+    border-radius: 20px;
+    padding: 30px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.tip-category::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+}
+
+.tip-category:hover::before {
+    transform: scaleX(1);
+}
+
+.tip-category:hover {
+    border-color: #667eea;
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.2);
+    background: white;
+}
+
+.tip-category h3 {
+    color: #2c3e50;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    text-align: center;
+    padding: 15px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    position: relative;
+}
+
+.tip-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 25px;
+    border: 1px solid #e9ecef;
+}
+
+.tip-list li {
+    position: relative;
+    padding: 15px 0 15px 40px;
+    color: #495057;
+    border-bottom: 1px solid #e9ecef;
+    font-size: 15px;
+    line-height: 1.7;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.tip-list li:last-child {
+    border-bottom: none;
+}
+
+.tip-list li::before {
+    content: '✅';
+    position: absolute;
+    left: 0;
+    top: 15px;
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+.tip-list li:hover {
+    color: #667eea;
+    transform: translateX(5px);
+    background: rgba(102, 126, 234, 0.05);
+    border-radius: 8px;
+    margin: 0 -10px;
+    padding-left: 50px;
+    padding-right: 10px;
+}
+
+.tip-list li:hover::before {
+    transform: scale(1.2);
+}
+
+/* 紧急联系框优化 */
+.emergency-box {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+    color: white;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.emergency-box::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    animation: float 6s ease-in-out infinite;
+}
+
+.emergency-box h4 {
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.emergency-contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.contact-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateX(5px);
+}
+
+.contact-type {
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+.contact-number {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* 住宿卡片优化 */
 .hotel-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    margin: 30px 0;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 35px;
+    margin: 40px 0;
 }
 
 .hotel-category {
-    background: white;
-    border-radius: 15px;
-    padding: 25px;
-    border: 2px solid #e0e0e0;
-    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 20px;
+    padding: 35px;
+    border: 2px solid #e9ecef;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.hotel-category::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+}
+
+.hotel-category:hover::before {
+    transform: scaleX(1);
 }
 
 .hotel-category:hover {
     border-color: #667eea;
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.15);
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.2);
+    background: white;
 }
 
 .hotel-category h4 {
-    color: #667eea;
-    font-size: 20px;
-    margin-bottom: 20px;
+    color: #2c3e50;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 25px;
     text-align: center;
+    padding: 15px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
 
 .hotel-item {
-    background: #f8f9fa;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 15px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 20px;
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.hotel-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border-color: #667eea;
 }
 
 .hotel-item:last-child {
@@ -177,60 +526,104 @@
 }
 
 .hotel-item h5 {
-    color: #333;
-    font-size: 16px;
-    margin-bottom: 10px;
+    color: #2c3e50;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.hotel-item h5::before {
+    content: '🏨';
+    font-size: 20px;
 }
 
 .hotel-item p {
-    color: #666;
-    font-size: 14px;
-    margin: 5px 0;
+    color: #495057;
+    font-size: 15px;
+    margin: 8px 0;
+    line-height: 1.6;
+    font-weight: 400;
 }
 
-/* 内容卡片 */
+/* 内容卡片优化 */
 .content-card {
-    background: white;
-    border-radius: 15px;
-    padding: 30px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-    margin-bottom: 30px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    margin-bottom: 40px;
+    border: 1px solid #f0f0f0;
+    transition: all 0.3s ease;
+}
+
+.content-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    border-color: #667eea;
 }
 
 .content-card h3 {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
     border-bottom: 3px solid #667eea;
+    position: relative;
+    letter-spacing: 0.5px;
+}
+
+.content-card h3::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 .content-card h4 {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
     color: #667eea;
-    margin: 25px 0 15px;
+    margin: 30px 0 18px;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #f8f9ff 0%, #e8f4ff 100%);
+    border-radius: 12px;
+    border-left: 4px solid #667eea;
 }
 
 .content-card p {
-    color: #666;
+    color: #495057;
     line-height: 1.8;
-    margin-bottom: 15px;
-    font-size: 15px;
+    margin-bottom: 18px;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: justify;
 }
 
 .content-card ul {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 25px 0;
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 25px;
+    border: 1px solid #e9ecef;
 }
 
 .content-card li {
     position: relative;
-    padding: 10px 0 10px 25px;
-    color: #666;
-    border-bottom: 1px solid #f0f0f0;
+    padding: 12px 0 12px 35px;
+    color: #495057;
+    border-bottom: 1px solid #e9ecef;
+    font-size: 15px;
+    line-height: 1.6;
+    font-weight: 500;
 }
 
 .content-card li:last-child {
@@ -238,118 +631,197 @@
 }
 
 .content-card li::before {
-    content: '•';
+    content: '🎯';
     position: absolute;
     left: 0;
-    color: #667eea;
-    font-weight: bold;
+    top: 12px;
     font-size: 18px;
 }
 
-/* 信息框 */
+/* 信息框优化 */
 .tips-box {
     background: linear-gradient(135deg, #f8f9ff 0%, #e8f4ff 100%);
     border: 2px solid #667eea;
-    border-radius: 15px;
-    padding: 25px;
-    margin: 25px 0;
+    border-radius: 20px;
+    padding: 30px;
+    margin: 30px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.tips-box::before {
+    content: '💡';
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    opacity: 0.7;
 }
 
 .tips-box h4 {
     color: #667eea;
-    margin-bottom: 15px;
-    font-size: 18px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tips-box h4::before {
+    content: '📋';
+    font-size: 22px;
 }
 
 .tips-box p {
-    margin-bottom: 10px;
-    color: #555;
+    margin-bottom: 15px;
+    color: #495057;
+    font-size: 16px;
+    line-height: 1.7;
+    font-weight: 400;
 }
 
 .tips-box ul {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 20px 0;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 12px;
+    padding: 20px;
 }
 
 .tips-box li {
     position: relative;
-    padding: 8px 0 8px 25px;
-    color: #555;
+    padding: 10px 0 10px 30px;
+    color: #495057;
+    font-size: 15px;
+    line-height: 1.6;
+    font-weight: 500;
 }
 
 .tips-box li::before {
-    content: '✓';
+    content: '✅';
     position: absolute;
     left: 0;
-    color: #27ae60;
-    font-weight: bold;
+    top: 10px;
+    font-size: 16px;
 }
 
-/* 侧边栏组件 */
+/* 侧边栏组件优化 */
 .sidebar-card {
-    background: white;
-    border-radius: 15px;
-    padding: 25px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    border: 1px solid #f0f0f0;
+    transition: all 0.3s ease;
+}
+
+.sidebar-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+    border-color: #667eea;
 }
 
 .sidebar-card h3,
 .sidebar-card h4 {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
+    font-size: 20px;
+    font-weight: 700;
+    color: #2c3e50;
     margin-bottom: 20px;
-    text-align: center;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #667eea;
+    position: relative;
 }
 
-/* 天气卡片 */
+.sidebar-card h3::after,
+.sidebar-card h4::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* 天气信息优化 */
 .weather-info {
+    background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+    color: white;
+    border-radius: 20px;
+    padding: 25px;
     text-align: center;
+    box-shadow: 0 8px 25px rgba(116, 185, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.weather-info::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(180deg); }
 }
 
 .weather-icon {
     font-size: 48px;
     margin-bottom: 15px;
+    display: block;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .temperature {
     font-size: 32px;
-    font-weight: bold;
-    color: #667eea;
-    margin-bottom: 10px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .weather-desc {
-    color: #666;
+    font-size: 16px;
+    opacity: 0.9;
     margin-bottom: 20px;
+    font-weight: 500;
 }
 
 .weather-details {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 15px;
-    text-align: center;
+    margin-top: 20px;
 }
 
 .weather-item {
-    padding: 10px;
-    background: #f8f9fa;
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 12px;
+    backdrop-filter: blur(10px);
 }
 
 .weather-label {
     font-size: 12px;
-    color: #999;
-    margin-bottom: 5px;
+    opacity: 0.8;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .weather-value {
-    font-weight: bold;
-    color: #333;
+    font-size: 16px;
+    font-weight: 600;
 }
 
-/* 快速链接 */
+/* 快速链接优化 */
 .quick-links {
     list-style: none;
     padding: 0;
@@ -357,106 +829,136 @@
 }
 
 .quick-links li {
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 .quick-links a {
     display: flex;
     align-items: center;
-    padding: 12px 15px;
-    background: #f8f9fa;
-    border-radius: 8px;
-    color: #666;
+    padding: 15px 20px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border-radius: 12px;
     text-decoration: none;
+    color: #495057;
+    font-weight: 500;
     transition: all 0.3s ease;
-}
-
-.quick-links a:hover {
-    background: #667eea;
-    color: white;
-    transform: translateX(5px);
+    border: 1px solid #e9ecef;
+    position: relative;
+    overflow: hidden;
 }
 
 .quick-links a::before {
-    content: '→';
-    margin-right: 10px;
-    font-weight: bold;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transition: left 0.3s ease;
+    z-index: 1;
 }
 
-/* 预算计算器 */
+.quick-links a span {
+    position: relative;
+    z-index: 2;
+    transition: color 0.3s ease;
+}
+
+.quick-links a:hover::before {
+    left: 0;
+}
+
+.quick-links a:hover {
+    color: white;
+    transform: translateX(5px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    border-color: #667eea;
+}
+
+.quick-links a:hover span {
+    color: white;
+}
+
+/* 预算计算器优化 */
 .calculator-box {
-    background: white;
-    border-radius: 15px;
-    padding: 25px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 20px;
+    padding: 30px;
+    border: 1px solid #e9ecef;
 }
 
 .budget-calculator {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    margin-top: 20px;
 }
 
 .calc-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    margin-bottom: 20px;
 }
 
 .calc-group label {
+    display: block;
+    margin-bottom: 8px;
     font-weight: 600;
-    color: #333;
+    color: #2c3e50;
     font-size: 14px;
 }
 
 .calc-group input,
 .calc-group select {
+    width: 100%;
     padding: 12px 15px;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
     font-size: 14px;
-    transition: border-color 0.3s ease;
+    transition: all 0.3s ease;
+    background: white;
 }
 
 .calc-group input:focus,
 .calc-group select:focus {
     outline: none;
     border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
 .calc-result {
-    background: linear-gradient(135deg, #f8f9ff 0%, #e8f4ff 100%);
-    border: 2px solid #667eea;
-    border-radius: 10px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
     padding: 20px;
+    border-radius: 15px;
     text-align: center;
+    margin-top: 20px;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
 }
 
 .calc-result p {
     margin: 0;
     font-size: 16px;
-    color: #333;
+    font-weight: 500;
 }
 
 #total-budget {
-    font-size: 24px;
-    font-weight: bold;
-    color: #667eea;
+    font-size: 28px;
+    font-weight: 700;
+    margin: 10px 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* 计算按钮 */
 .budget-calculator button {
+    width: 100%;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border: none;
     padding: 15px 25px;
     border-radius: 12px;
+    font-size: 16px;
     font-weight: 600;
-    font-size: 15px;
     cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    margin-top: 15px;
 }
 
 .budget-calculator button::before {
@@ -466,8 +968,8 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
-    transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    transition: left 0.3s ease;
     z-index: 1;
 }
 
@@ -481,77 +983,80 @@
 }
 
 .budget-calculator button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
 }
 
 .budget-calculator button:active {
-    transform: translateY(-1px);
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    transform: translateY(0);
 }
 
-/* 预算分类 */
+/* 预算分类优化 */
 .budget-categories {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 30px;
-    margin: 40px 0;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin: 25px 0;
 }
 
 .budget-category {
-    background: white;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
     border-radius: 15px;
-    padding: 30px;
-    border: 2px solid #e0e0e0;
+    padding: 20px;
+    border: 2px solid #e9ecef;
     transition: all 0.3s ease;
+    text-align: center;
 }
 
 .budget-category:hover {
     border-color: #667eea;
     transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.15);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
 }
 
 .budget-category h3 {
-    color: #333;
-    margin-bottom: 25px;
-    text-align: center;
-    font-size: 20px;
+    color: #667eea;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 15px;
 }
 
 .budget-breakdown {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .budget-item {
-    display: grid;
-    grid-template-columns: 1fr 1.5fr 1fr;
-    gap: 15px;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding: 15px;
-    background: #f8f9fa;
-    border-radius: 10px;
-}
-
-.item-name {
-    font-weight: 600;
-    color: #333;
-}
-
-.item-price {
-    color: #666;
+    padding: 10px 0;
+    border-bottom: 1px solid #e9ecef;
     font-size: 14px;
 }
 
-.item-total {
-    font-weight: bold;
-    color: #667eea;
-    text-align: right;
+.budget-item:last-child {
+    border-bottom: none;
 }
 
-/* 季节信息 */
+.item-name {
+    color: #495057;
+    font-weight: 500;
+}
+
+.item-price {
+    color: #667eea;
+    font-weight: 600;
+}
+
+.item-total {
+    color: #e74c3c;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+/* 季节卡片优化 */
 .season-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -560,17 +1065,36 @@
 }
 
 .season-card {
-    background: white;
-    border-radius: 15px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 20px;
     padding: 25px;
-    border: 2px solid #e0e0e0;
-    transition: all 0.3s ease;
+    border: 2px solid #e9ecef;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.season-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+}
+
+.season-card:hover::before {
+    transform: scaleX(1);
 }
 
 .season-card:hover {
     border-color: #667eea;
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.15);
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.2);
+    background: white;
 }
 
 .season-header {
@@ -581,27 +1105,30 @@
 .season-icon {
     font-size: 48px;
     margin-bottom: 10px;
+    display: block;
 }
 
 .season-title {
     font-size: 20px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 5px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 8px;
 }
 
 .season-rating {
-    color: #666;
+    color: #f39c12;
+    font-size: 18px;
 }
 
 .season-highlights {
-    margin: 20px 0;
+    margin-bottom: 20px;
 }
 
 .season-highlights h4 {
-    color: #667eea;
     font-size: 16px;
-    margin-bottom: 15px;
+    font-weight: 600;
+    color: #667eea;
+    margin-bottom: 12px;
 }
 
 .season-highlights ul {
@@ -611,22 +1138,33 @@
 }
 
 .season-highlights li {
-    padding: 8px 0;
-    color: #666;
+    padding: 6px 0 6px 20px;
+    position: relative;
+    color: #495057;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.season-highlights li::before {
+    content: '🌟';
+    position: absolute;
+    left: 0;
     font-size: 14px;
 }
 
 .season-tips {
-    background: #f8f9fa;
+    background: linear-gradient(135deg, #f8f9ff 0%, #e8f4ff 100%);
+    border-radius: 12px;
     padding: 15px;
-    border-radius: 10px;
-    margin-top: 20px;
+    border-left: 4px solid #667eea;
 }
 
 .season-tips p {
     margin: 0;
-    color: #555;
+    color: #495057;
     font-size: 14px;
+    line-height: 1.6;
+    font-weight: 500;
 }
 
 /* 响应式设计 */
@@ -756,4 +1294,435 @@
 
 .nav-tabs::-webkit-scrollbar-thumb:hover {
     background: #764ba2;
+}
+
+/* 推荐住宿区域优化 */
+.accommodation-section {
+    margin-bottom: 50px;
+}
+
+.accommodation-section h3 {
+    font-size: 28px;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 3px solid #667eea;
+    position: relative;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.accommodation-section h3::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.area-recommendations {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin: 40px 0;
+}
+
+.area-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border: 2px solid #e9ecef;
+    border-radius: 20px;
+    padding: 30px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.area-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+}
+
+.area-card:hover::before {
+    transform: scaleX(1);
+}
+
+.area-card:hover {
+    border-color: #667eea;
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.2);
+    background: white;
+}
+
+.area-card h4 {
+    color: #2c3e50;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.area-card h4::before {
+    content: '🏨';
+    font-size: 22px;
+}
+
+.area-card p {
+    color: #495057;
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 12px;
+    font-weight: 500;
+    padding: 10px 15px;
+    background: linear-gradient(135deg, #f8f9ff 0%, #e8f4ff 100%);
+    border-radius: 10px;
+    border-left: 3px solid #667eea;
+}
+
+.area-card p:last-child {
+    margin-bottom: 0;
+}
+
+/* 节庆活动优化 */
+.calendar-box {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    border: 1px solid #f0f0f0;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.calendar-box::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(102, 126, 234, 0.05) 0%, transparent 70%);
+    animation: float 8s ease-in-out infinite;
+}
+
+.calendar-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+    border-color: #667eea;
+}
+
+.calendar-box h4 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #667eea;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 2;
+}
+
+.calendar-box h4::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.festival-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    z-index: 2;
+    position: relative;
+}
+
+.festival-list li {
+    padding: 15px 20px;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, #f8f9ff 0%, #e8f4ff 100%);
+    border-radius: 15px;
+    border-left: 4px solid #667eea;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.festival-list li::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    transition: left 0.3s ease;
+    z-index: 1;
+}
+
+.festival-list li:hover::before {
+    left: 0;
+}
+
+.festival-list li:hover {
+    transform: translateX(8px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+    border-left-color: #764ba2;
+}
+
+.festival-list li strong {
+    color: #667eea;
+    font-weight: 700;
+    font-size: 16px;
+    position: relative;
+    z-index: 2;
+}
+
+.festival-list li:last-child {
+    margin-bottom: 0;
+}
+
+/* 省钱小贴士优化 */
+.saving-tips {
+    margin-top: 50px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 20px;
+    padding: 40px;
+    border: 2px solid #e9ecef;
+    position: relative;
+    overflow: hidden;
+}
+
+.saving-tips::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+}
+
+.saving-tips:hover::before {
+    transform: scaleX(1);
+}
+
+.saving-tips:hover {
+    border-color: #f39c12;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(243, 156, 18, 0.2);
+    background: white;
+}
+
+.saving-tips h3 {
+    font-size: 26px;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 3px solid #f39c12;
+    position: relative;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.saving-tips h3::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 70px;
+    height: 3px;
+    background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+}
+
+.savings-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.savings-list li {
+    position: relative;
+    padding: 18px 20px 18px 50px;
+    background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+    border-radius: 15px;
+    border-left: 4px solid #f39c12;
+    color: #2c3e50;
+    font-size: 15px;
+    line-height: 1.6;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.savings-list li::before {
+    content: '💰';
+    position: absolute;
+    left: 15px;
+    top: 18px;
+    font-size: 20px;
+    transition: transform 0.3s ease;
+}
+
+.savings-list li::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(243, 156, 18, 0.1) 0%, rgba(230, 126, 34, 0.1) 100%);
+    transition: left 0.3s ease;
+    z-index: 1;
+}
+
+.savings-list li:hover::after {
+    left: 0;
+}
+
+.savings-list li:hover {
+    transform: translateX(8px);
+    box-shadow: 0 8px 25px rgba(243, 156, 18, 0.2);
+    border-left-color: #e67e22;
+    background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+}
+
+.savings-list li:hover::before {
+    transform: scale(1.2) rotate(10deg);
+}
+
+/* 住宿小贴士框优化 */
+.tips-box {
+    background: linear-gradient(135deg, #f8f9ff 0%, #e8f4ff 100%);
+    border: 2px solid #667eea;
+    border-radius: 20px;
+    padding: 30px;
+    margin: 30px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.tips-box::before {
+    content: '💡';
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    opacity: 0.7;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.1); opacity: 1; }
+}
+
+.tips-box h4 {
+    color: #667eea;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+}
+
+.tips-box ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 15px;
+    padding: 25px;
+}
+
+.tips-box li {
+    position: relative;
+    padding: 12px 0 12px 35px;
+    color: #495057;
+    font-size: 15px;
+    line-height: 1.6;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+    transition: all 0.3s ease;
+}
+
+.tips-box li:last-child {
+    border-bottom: none;
+}
+
+.tips-box li::before {
+    content: '✅';
+    position: absolute;
+    left: 0;
+    top: 12px;
+    font-size: 16px;
+    transition: transform 0.3s ease;
+}
+
+.tips-box li:hover {
+    color: #667eea;
+    transform: translateX(5px);
+    background: rgba(102, 126, 234, 0.05);
+    border-radius: 8px;
+    margin: 0 -15px;
+    padding-left: 50px;
+    padding-right: 15px;
+}
+
+.tips-box li:hover::before {
+    transform: scale(1.2);
+}
+
+/* 响应式优化 */
+@media (max-width: 768px) {
+    .area-recommendations {
+        grid-template-columns: 1fr;
+    }
+    
+    .savings-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .area-card,
+    .saving-tips {
+        padding: 25px 20px;
+    }
+    
+    .calendar-box {
+        padding: 25px 20px;
+    }
 } 

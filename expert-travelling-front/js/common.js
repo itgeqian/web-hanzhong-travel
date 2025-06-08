@@ -660,18 +660,18 @@ function createBackToTopButton() {
     const style = document.createElement('style');
     style.textContent = `
         .favorites-btn, .back-to-top {
-            position: fixed;
-            right: 30px;
+        position: fixed;
+        right: 30px;
             width: 60px;
             height: 60px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
             box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
-            transition: all 0.3s ease;
-            z-index: 1000;
+        transition: all 0.3s ease;
+        z-index: 1000;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -1042,7 +1042,7 @@ const Utils = {
 };
 
 // 全局暴露工具函数
-window.Utils = Utils;
+window.Utils = Utils; 
 
 // 全局函数导出
 window.handleGlobalLogout = handleGlobalLogout;

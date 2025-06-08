@@ -66,7 +66,7 @@
 
 .card-image {
     position: relative;
-    height: 250px;
+    height: 400px;
     overflow: hidden;
 }
 
@@ -378,7 +378,7 @@
     }
     
     .card-image {
-        height: 200px;
+        height: 300px;
     }
     
     .card-content {

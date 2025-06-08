@@ -120,10 +120,10 @@ function initLoginForm() {
     if (!loginForm) return;
     
     // 表单提交事件
-    loginForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        handleLogin();
-    });
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            handleLogin();
+        });
     
     // 实时验证
     accountInput.addEventListener('input', function() {
@@ -893,7 +893,7 @@ function showMessage(message, type = 'info') {
     // 自动隐藏
     setTimeout(() => {
         messageElement.classList.remove('show');
-        setTimeout(() => {
+                setTimeout(() => {
             if (messageElement.parentNode) {
                 messageElement.remove();
             }
