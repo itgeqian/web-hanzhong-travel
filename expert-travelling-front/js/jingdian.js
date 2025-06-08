@@ -1,6 +1,9 @@
 // 景点介绍页面JavaScript功能
 
 document.addEventListener('DOMContentLoaded', function() {
+    // 首先检查用户登录状态
+    checkGlobalUserStatus();
+    
     // 首先初始化景点卡片（如果需要动态生成）
     // initAttractionCards();
     
@@ -11,87 +14,108 @@ document.addEventListener('DOMContentLoaded', function() {
     initRankingList();
     initAttractionModal();
     initSearchFunction();
+    
+    // 初始化收藏状态 - 确保在页面加载完成后执行
+    setTimeout(() => {
+        initAttractionFavoriteStatus();
+        // 同时调用全局状态更新函数
+        if (typeof updateAllFavoriteButtonsStatus === 'function') {
+            updateAllFavoriteButtonsStatus();
+        }
+    }, 100);
 });
 
 // 景点数据
 const attractionsData = [
     {
-        id: 1,
+        id: 'zhuyu-liyuan',
         name: '朱鹮梨园',
-        category: 'nature',
+        category: '自然生态',
         image: 'img/zhuyu-liyuan.jpg',
         rating: 4.8,
         price: 60,
-        openTime: '8:00-18:00',
-        address: '汉中市洋县草庙村',
         description: '世界朱鹮之乡，万亩梨花海洋。每年春季，梨花盛开如雪，与朱鹮飞舞形成绝美画卷。',
-        features: ['生态保护', '珍稀动物', '自然教育', '梨花观赏'],
-        details: '朱鹮梨园是朱鹮国家级自然保护区的核心区域。这里不仅是朱鹮的栖息地，还是万亩梨园的所在地。每年春季梨花盛开时，景色格外美丽。'
+        openTime: '8:00-18:00',
+        address: '汉中市洋县朱鹮梨园景区',
+        phone: '0916-8212345',
+        duration: '2-3小时',
+        highlights: ['朱鹮观赏', '梨花海洋', '生态摄影', '自然教育'],
+        tips: ['春季梨花盛开最美', '携带望远镜观鸟', '注意保护环境', '适合亲子游览']
     },
     {
-        id: 2,
+        id: 'shimen-zhandao',
         name: '石门栈道',
-        category: 'history',
+        category: '历史文化',
         image: 'img/shimen-zhandao.jpg',
         rating: 4.7,
         price: 80,
+        description: '古代蜀道遗址，见证汉中历史变迁。栈道依山而建，惊险壮观，是古代交通的奇迹。',
         openTime: '8:30-17:30',
         address: '汉中市汉台区河东店镇',
-        description: '古代蜀道遗址，见证汉中历史变迁。栈道依山而建，惊险壮观，是古代交通的奇迹。',
-        features: ['古代栈道', '自然风光', '历史遗迹', '摄影胜地'],
-        details: '石门栈道开凿于秦汉时期，是古代川陕交通要道。栈道沿嘉陵江而建，全长234.3公里。这里不仅有丰富的历史文化内涵，还有壮美的自然风光。'
+        phone: '0916-2345678',
+        duration: '3-4小时',
+        highlights: ['古栈道遗址', '石门十三品', '褒斜道文化', '山水风光'],
+        tips: ['穿着舒适的登山鞋', '注意安全防护', '了解历史背景', '适合历史爱好者']
     },
     {
-        id: 3,
+        id: 'wuhou-ci',
         name: '勉县武侯祠',
-        category: 'history',
+        category: '历史文化',
         image: 'img/wuhou-ci.jpg',
         rating: 4.9,
         price: 50,
-        openTime: '8:00-18:00',
-        address: '汉中市勉县108国道',
         description: '纪念诸葛亮的历史名胜，三国文化圣地。祠内古柏参天，文物众多。',
-        features: ['三国文化', '古建筑', '历史名人', '文化体验'],
-        details: '武侯祠是全国重点文物保护单位，始建于蜀汉景耀六年。祠内有诸葛亮塑像和众多碑刻，是研究三国文化的重要场所。'
+        openTime: '8:00-18:00',
+        address: '汉中市勉县武侯镇',
+        phone: '0916-3456789',
+        duration: '2-3小时',
+        highlights: ['诸葛亮墓', '古柏森林', '三国文物', '历史建筑'],
+        tips: ['了解三国历史', '参观文物展览', '感受古柏神韵', '适合文化游']
     },
     {
-        id: 4,
+        id: 'hanshui-yuan',
         name: '汉水源头',
-        category: 'water',
+        category: '自然风光',
         image: 'img/hanshui-yuan.jpg',
         rating: 4.6,
         price: 0,
+        description: '汉江发源地，山清水秀，风景如画。水质清澈，环境优美。',
         openTime: '全天开放',
-        address: '汉中市宁强县',
-        description: '汉江发源地，山清水秀，风景如画。这里水质清澈，环境优美。',
-        features: ['水源地', '自然风光', '生态环境', '文化内涵'],
-        details: '汉水源头位于秦岭南麓，是汉江的发源地。这里山清水秀，生态环境优美，是感受自然纯净和汉文化源头的绝佳场所。'
+        address: '汉中市宁强县汉水源头',
+        phone: '0916-4567890',
+        duration: '1-2小时',
+        highlights: ['汉江源头', '原始森林', '清澈泉水', '生态环境'],
+        tips: ['保护水源环境', '适合徒步探索', '带好饮用水', '注意安全']
     },
     {
-        id: 5,
+        id: 'baohe-zhandao',
         name: '褒河栈道',
-        category: 'mountain',
+        category: '自然风光',
         image: 'img/baohe-zhandao.jpg',
         rating: 4.5,
         price: 30,
-        openTime: '7:00-19:00',
-        address: '汉中市汉台区褒城镇',
         description: '沿褒河而建的现代栈道，集观光、健身于一体。栈道蜿蜒曲折，沿途风光秀美。',
-        features: ['现代栈道', '观光健身', '山水风光', '摄影胜地'],
-        details: '褒河栈道是现代建设的观光栈道，沿褒河而建，全长约10公里。栈道设计精巧，与自然环境完美融合。'
+        openTime: '7:00-19:00',
+        address: '汉中市汉台区褒河沿岸',
+        phone: '0916-5678901',
+        duration: '2-4小时',
+        highlights: ['河岸风光', '健身步道', '观景平台', '生态环境'],
+        tips: ['适合晨练健身', '沿途风景优美', '注意防滑', '适合全家游览']
     },
     {
-        id: 6,
+        id: 'zhangliang-miao',
         name: '张良庙',
-        category: 'history',
+        category: '历史文化',
         image: 'img/zhangliang-miao.jpg',
         rating: 4.4,
         price: 40,
-        openTime: '8:00-17:30',
-        address: '汉中市留坝县庙台子街',
         description: '纪念汉初三杰之一张良的古建筑群，建筑古朴典雅，环境清幽。',
-        features: ['历史名人', '古建筑群', '道教文化', '山水结合'],
-        details: '张良庙始建于东汉末年，是为纪念"汉初三杰"之一的张良而建。庙宇依山而建，与自然环境融为一体，建筑风格独特。'
+        openTime: '8:00-17:30',
+        address: '汉中市留坝县留侯镇',
+        phone: '0916-6789012',
+        duration: '1-2小时',
+        highlights: ['古建筑群', '张良文化', '园林景观', '历史故事'],
+        tips: ['了解张良生平', '欣赏古建筑', '感受历史氛围', '适合文化游']
     }
 ];
 
@@ -282,9 +306,9 @@ function getCategoryName(category) {
 
 // 生成星级评分
 function generateStars(rating) {
-    let stars = '';
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 >= 0.5;
+    let stars = '';
     
     for (let i = 0; i < fullStars; i++) {
         stars += '★';
@@ -294,7 +318,8 @@ function generateStars(rating) {
         stars += '☆';
     }
     
-    while (stars.length < 5) {
+    const emptyStars = 5 - Math.ceil(rating);
+    for (let i = 0; i < emptyStars; i++) {
         stars += '☆';
     }
     
@@ -686,4 +711,542 @@ function searchAttractions(keyword) {
 
 // 全局函数
 window.showAttractionModal = showAttractionModal;
-window.addToFavorites = addToFavorites; 
+window.addToFavorites = addToFavorites;
+
+// 初始化景点收藏状态
+function initAttractionFavoriteStatus() {
+    // 检查用户是否登录
+    const userData = getGlobalUserData();
+    
+    // 检查所有收藏按钮的状态
+    const favoriteButtons = document.querySelectorAll('[data-favorite-id]');
+    favoriteButtons.forEach(button => {
+        const attractionId = button.getAttribute('data-favorite-id');
+        const favoriteType = button.getAttribute('data-favorite-type');
+        
+        if (attractionId && (favoriteType === 'attraction' || !favoriteType)) {
+            if (!userData) {
+                // 用户未登录，重置按钮状态
+                updateSingleAttractionFavoriteButton(button, false);
+            } else {
+                // 用户已登录，检查收藏状态
+                const isFavorited = checkAttractionFavoriteStatus(attractionId);
+                updateSingleAttractionFavoriteButton(button, isFavorited);
+            }
+        }
+    });
+}
+
+// 更新单个收藏按钮状态
+function updateSingleAttractionFavoriteButton(button, isFavorited) {
+    if (isFavorited) {
+        button.textContent = '已收藏';
+        button.classList.add('favorited');
+    } else {
+        button.textContent = '收藏';
+        button.classList.remove('favorited');
+    }
+}
+
+// 修改收藏景点功能
+function collectAttraction(attractionId) {
+    // 检查用户登录状态
+    const userData = getGlobalUserData();
+    if (!userData) {
+        showCustomConfirm(
+            '您需要先登录才能收藏景点，是否前往登录？',
+            '需要登录',
+            function() {
+                window.location.href = 'login.html?return=' + encodeURIComponent(window.location.href);
+            }
+        );
+        return;
+    }
+
+    // 获取当前收藏列表
+    let favorites = JSON.parse(localStorage.getItem('hanzhong_favorites') || '[]');
+    
+    // 查找景点信息
+    const attraction = attractionsData.find(a => a.id === attractionId);
+    if (!attraction) {
+        showGlobalMessage('景点信息未找到', 'error');
+        return;
+    }
+
+    // 检查是否已收藏
+    const existingIndex = favorites.findIndex(fav => fav.id === attractionId && fav.type === 'attraction');
+    
+    if (existingIndex !== -1) {
+        // 已收藏，取消收藏
+        favorites.splice(existingIndex, 1);
+        localStorage.setItem('hanzhong_favorites', JSON.stringify(favorites));
+        showGlobalMessage('已取消收藏', 'info');
+        
+        // 更新按钮状态
+        updateAttractionFavoriteButtons(attractionId, false);
+    } else {
+        // 未收藏，添加收藏
+        const favoriteItem = {
+            id: attractionId,
+            type: 'attraction',
+            title: attraction.name,
+            description: attraction.description,
+            image: attraction.image,
+            rating: attraction.rating,
+            price: `￥${attraction.price}`,
+            url: `jingdian.html#attraction-${attractionId}`,
+            addTime: new Date().toISOString()
+        };
+        
+        favorites.push(favoriteItem);
+        localStorage.setItem('hanzhong_favorites', JSON.stringify(favorites));
+        showGlobalMessage('收藏成功！', 'success');
+        
+        // 更新按钮状态
+        updateAttractionFavoriteButtons(attractionId, true);
+    }
+}
+
+// 更新收藏按钮状态
+function updateAttractionFavoriteButtons(attractionId, isFavorited) {
+    // 更新所有相关的收藏按钮
+    const cardButtons = document.querySelectorAll(`[data-favorite-id="${attractionId}"]`);
+    cardButtons.forEach(button => {
+        updateSingleAttractionFavoriteButton(button, isFavorited);
+    });
+    
+    // 更新详情页面的收藏按钮
+    const detailButton = document.querySelector('.attraction-detail .collect-btn');
+    if (detailButton) {
+        updateSingleAttractionFavoriteButton(detailButton, isFavorited);
+    }
+}
+
+// 检查景点收藏状态
+function checkAttractionFavoriteStatus(attractionId) {
+    const favorites = JSON.parse(localStorage.getItem('hanzhong_favorites') || '[]');
+    return favorites.some(fav => fav.id === attractionId && fav.type === 'attraction');
+}
+
+// 显示景点详情（修改版本，移除立即订购按钮）
+function showAttractionDetail(attractionId) {
+    const attraction = attractionsData.find(a => a.id === attractionId);
+    if (!attraction) {
+        showGlobalMessage('景点信息未找到', 'error');
+        return;
+    }
+
+    // 检查收藏状态
+    const isFavorited = checkAttractionFavoriteStatus(attractionId);
+
+    // 确保highlights和tips是数组
+    const highlights = Array.isArray(attraction.highlights) ? attraction.highlights : [];
+    const tips = Array.isArray(attraction.tips) ? attraction.tips : [];
+
+    const modal = document.createElement('div');
+    modal.className = 'attraction-detail-modal';
+    modal.innerHTML = `
+        <div class="modal-overlay" onclick="closeAttractionDetail()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>${attraction.name}</h2>
+                <button class="modal-close" onclick="closeAttractionDetail()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="attraction-detail">
+                    <div class="detail-image">
+                        <img src="${attraction.image}" alt="${attraction.name}">
+                        <div class="image-overlay">
+                            <div class="rating-badge">
+                                <span class="stars">${generateStars(attraction.rating)}</span>
+                                <span class="rating-score">${attraction.rating}分</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="detail-content">
+                        <div class="basic-info">
+                            <div class="info-item">
+                                <span class="label">🎫 门票价格：</span>
+                                <span class="value price">￥${attraction.price}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">⏰ 开放时间：</span>
+                                <span class="value">${attraction.openTime}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">📍 景点地址：</span>
+                                <span class="value">${attraction.address}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">📞 联系电话：</span>
+                                <span class="value">${attraction.phone}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">⏱️ 游览时长：</span>
+                                <span class="value">${attraction.duration}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="description-section">
+                            <h3>景点介绍</h3>
+                            <p>${attraction.description}</p>
+                        </div>
+                        
+                        ${highlights.length > 0 ? `
+                        <div class="features-section">
+                            <h3>景点特色</h3>
+                            <div class="features-grid">
+                                ${highlights.map(highlight => `
+                                    <div class="feature-tag">${highlight}</div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        ` : ''}
+                        
+                        ${tips.length > 0 ? `
+                        <div class="tips-section">
+                            <h3>游览贴士</h3>
+                            <ul class="tips-list">
+                                ${tips.map(tip => `
+                                    <li>${tip}</li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                        ` : ''}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeAttractionDetail()">关闭</button>
+                <button class="btn btn-primary collect-btn ${isFavorited ? 'favorited' : ''}" 
+                        data-favorite-id="${attractionId}"
+                        onclick="collectAttraction('${attractionId}')">
+                    ${isFavorited ? '已收藏' : '收藏景点'}
+                </button>
+            </div>
+        </div>
+    `;
+
+    // 添加样式
+    addAttractionDetailStyles();
+    
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+    
+    // 添加显示动画
+    setTimeout(() => {
+        modal.classList.add('show');
+    }, 10);
+}
+
+// 关闭景点详情弹窗
+function closeAttractionDetail() {
+    const modal = document.querySelector('.attraction-detail-modal');
+    if (modal) {
+        modal.classList.remove('show');
+        setTimeout(() => {
+            modal.remove();
+            document.body.style.overflow = 'auto';
+        }, 300);
+    }
+}
+
+// 添加景点详情弹窗样式
+function addAttractionDetailStyles() {
+    if (document.querySelector('#attraction-detail-styles')) return;
+    
+    const style = document.createElement('style');
+    style.id = 'attraction-detail-styles';
+    style.textContent = `
+        .attraction-detail-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .attraction-detail-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .attraction-detail-modal .modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+        
+        .attraction-detail-modal .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 80vh;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .attraction-detail-modal .modal-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .attraction-detail-modal .modal-header h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+        
+        .attraction-detail-modal .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+        
+        .attraction-detail-modal .modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .attraction-detail-modal .modal-body {
+            padding: 0;
+            flex: 1;
+            overflow-y: auto;
+            min-height: 0;
+        }
+        
+        .attraction-detail-modal .detail-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .attraction-detail-modal .detail-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .attraction-detail-modal .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 100%);
+            display: flex;
+            align-items: flex-end;
+            padding: 16px;
+        }
+        
+        .attraction-detail-modal .rating-badge {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 6px 12px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .attraction-detail-modal .stars {
+            color: #ff6b35;
+            font-size: 14px;
+        }
+        
+        .attraction-detail-modal .rating-score {
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+        
+        .attraction-detail-modal .detail-content {
+            padding: 20px;
+        }
+        
+        .attraction-detail-modal .basic-info {
+            margin-bottom: 20px;
+        }
+        
+        .attraction-detail-modal .info-item {
+            display: flex;
+            margin-bottom: 10px;
+            align-items: flex-start;
+        }
+        
+        .attraction-detail-modal .label {
+            min-width: 90px;
+            font-weight: 500;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .attraction-detail-modal .value {
+            color: #333;
+            flex: 1;
+            font-size: 14px;
+        }
+        
+        .attraction-detail-modal .value.price {
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        .attraction-detail-modal .description-section,
+        .attraction-detail-modal .features-section,
+        .attraction-detail-modal .tips-section {
+            margin-bottom: 20px;
+        }
+        
+        .attraction-detail-modal h3 {
+            margin: 0 0 12px 0;
+            font-size: 16px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .attraction-detail-modal p {
+            margin: 0;
+            line-height: 1.6;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .attraction-detail-modal .features-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .attraction-detail-modal .feature-tag {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .attraction-detail-modal .tips-list {
+            margin: 0;
+            padding-left: 16px;
+        }
+        
+        .attraction-detail-modal .tips-list li {
+            margin-bottom: 6px;
+            color: #666;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+        
+        .attraction-detail-modal .modal-footer {
+            padding: 16px 20px;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            flex-shrink: 0;
+            background: white;
+        }
+        
+        .attraction-detail-modal .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .attraction-detail-modal .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .attraction-detail-modal .btn-primary:hover {
+            background: #5a6fd8;
+        }
+        
+        .attraction-detail-modal .btn-primary.favorited {
+            background: #28a745;
+        }
+        
+        .attraction-detail-modal .btn-primary.favorited:hover {
+            background: #218838;
+        }
+        
+        .attraction-detail-modal .btn-outline {
+            background: transparent;
+            color: #667eea;
+            border: 1px solid #667eea;
+        }
+        
+        .attraction-detail-modal .btn-outline:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .attraction-detail-modal .modal-content {
+                width: 95%;
+                max-height: 85vh;
+                margin: 0;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+            
+            .attraction-detail-modal .detail-image {
+                height: 180px;
+            }
+            
+            .attraction-detail-modal .detail-content {
+                padding: 16px;
+            }
+            
+            .attraction-detail-modal .modal-footer {
+                flex-direction: column;
+                padding: 12px 16px;
+            }
+            
+            .attraction-detail-modal .btn {
+                width: 100%;
+                padding: 12px;
+            }
+        }
+    `;
+    
+    document.head.appendChild(style);
+}
+
+// 导出全局函数
+window.collectAttraction = collectAttraction; 

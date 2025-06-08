@@ -112,39 +112,61 @@
 
 .activity-actions {
     display: flex;
-    gap: 15px;
+    gap: 12px;
+    margin-top: 20px;
 }
 
-.btn-join {
+.activity-actions .book-btn {
     flex: 1;
-    background: linear-gradient(135deg, #ff9a56 0%, #ff6b9d 100%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border: none;
-    padding: 12px 24px;
+    padding: 12px 20px;
     border-radius: 8px;
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
+    text-align: center;
 }
 
-.btn-join:hover {
+.activity-actions .book-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(255, 154, 86, 0.4);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
 }
 
-.btn-favorite {
-    padding: 12px 15px;
-    background: white;
-    border: 2px solid #e0e0e0;
+.activity-actions .favorite-btn {
+    flex: 1;
+    background: transparent;
+    color: #667eea;
+    border: 2px solid #667eea;
+    padding: 10px 20px;
     border-radius: 8px;
-    color: #666;
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
+    text-align: center;
 }
 
-.btn-favorite:hover {
-    border-color: #ff9a56;
-    color: #ff9a56;
+.activity-actions .favorite-btn:hover {
+    background: #667eea;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+}
+
+.activity-actions .favorite-btn.favorited {
+    background: #ff6b35;
+    color: white;
+    border-color: #ff6b35;
+}
+
+.activity-actions .favorite-btn.favorited:hover {
+    background: #e55a2b;
+    border-color: #e55a2b;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
 }
 
 /* 活动日历区域 */
@@ -431,6 +453,16 @@
     .activity-info {
         grid-template-columns: 1fr;
         gap: 10px;
+    }
+    
+    .activity-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .activity-actions .book-btn,
+    .activity-actions .favorite-btn {
+        flex: none;
     }
 }
 

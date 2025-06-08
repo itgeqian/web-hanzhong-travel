@@ -98,6 +98,67 @@
     color: #ff6b35;
 }
 
+/* 修改按钮布局 - 立即预订和收藏各占50% */
+.activity-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.activity-actions .book-btn {
+    flex: 1;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.activity-actions .book-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+}
+
+.activity-actions .favorite-btn {
+    flex: 1;
+    background: transparent;
+    color: #667eea;
+    border: 2px solid #667eea;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.activity-actions .favorite-btn:hover {
+    background: #667eea;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+}
+
+.activity-actions .favorite-btn.favorited {
+    background: #ff6b35;
+    color: white;
+    border-color: #ff6b35;
+}
+
+.activity-actions .favorite-btn.favorited:hover {
+    background: #e55a2b;
+    border-color: #e55a2b;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
+}
+
+/* 保留原有的单个按钮样式作为备用 */
 .book-btn {
     width: 100%;
     background: linear-gradient(45deg, #ff6b35, #f7931e);

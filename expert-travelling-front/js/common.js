@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initSmoothScroll();
     initSearch();
     checkGlobalUserStatus(); // 检查全局用户状态
+    initFavorites();
 });
 
 // 全局用户状态检查
@@ -70,22 +71,111 @@ function updateGlobalUserInterface(userData) {
 // 处理全局退出登录
 function handleGlobalLogout() {
     showCustomConfirm('确定要退出登录吗？', '退出登录', function() {
-        clearGlobalUserData();
-        showGlobalMessage('已成功退出登录', 'info');
+        // 执行退出登录操作
+        performLogout();
+    });
+}
+
+// 执行退出登录操作
+function performLogout() {
+    // 清除用户数据
+    clearGlobalUserData();
+    
+    // 清除收藏数据（用户退出登录后应该清空收藏）
+    localStorage.removeItem('hanzhong_favorites');
+    
+    // 重置所有收藏按钮状态
+    resetAllFavoriteButtons();
+    
+    // 显示退出成功消息
+    showGlobalMessage('已成功退出登录', 'success');
+    
+    // 恢复登录注册按钮
+    const userActions = document.getElementById('userActions');
+    if (userActions) {
+        userActions.innerHTML = `
+            <a href="register.html" class="btn btn-outline">注册</a>
+            <a href="login.html" class="btn btn-primary">登录</a>
+        `;
+    }
+    
+    // 延迟跳转到首页
+    setTimeout(() => {
+        window.location.href = 'index.html';
+    }, 1000);
+}
+
+// 重置所有收藏按钮状态
+function resetAllFavoriteButtons() {
+    // 重置景点收藏按钮
+    const attractionButtons = document.querySelectorAll('[data-favorite-type="attraction"]');
+    attractionButtons.forEach(button => {
+        button.textContent = '收藏';
+        button.classList.remove('favorited');
+    });
+    
+    // 重置美食收藏按钮
+    const foodButtons = document.querySelectorAll('[data-favorite-type="food"]');
+    foodButtons.forEach(button => {
+        button.textContent = '收藏';
+        button.classList.remove('favorited');
+    });
+    
+    // 重置汉文化收藏按钮
+    const cultureButtons = document.querySelectorAll('[data-favorite-type="culture"]');
+    cultureButtons.forEach(button => {
+        button.textContent = '收藏';
+        button.classList.remove('favorited');
+    });
+    
+    // 重置通用收藏按钮（没有特定类型的）
+    const genericButtons = document.querySelectorAll('.favorite-btn:not([data-favorite-type])');
+    genericButtons.forEach(button => {
+        button.textContent = '收藏';
+        button.classList.remove('favorited');
+    });
+    
+    // 重置详情页面的收藏按钮
+    const detailButtons = document.querySelectorAll('.collect-btn');
+    detailButtons.forEach(button => {
+        button.textContent = button.textContent.includes('景点') ? '收藏景点' : 
+                           button.textContent.includes('美食') ? '收藏美食' : 
+                           button.textContent.includes('文化') ? '收藏文化' : '收藏';
+        button.classList.remove('favorited');
+    });
+}
+
+// 更新所有页面的收藏按钮状态
+function updateAllFavoriteButtonsStatus() {
+    // 检查用户登录状态
+    const userData = getGlobalUserData();
+    
+    if (!userData) {
+        // 用户未登录，重置所有按钮
+        resetAllFavoriteButtons();
+        return;
+    }
+    
+    // 用户已登录，根据收藏数据更新按钮状态
+    const favorites = JSON.parse(localStorage.getItem('hanzhong_favorites') || '[]');
+    
+    // 更新所有收藏按钮
+    const allFavoriteButtons = document.querySelectorAll('[data-favorite-id]');
+    allFavoriteButtons.forEach(button => {
+        const itemId = button.getAttribute('data-favorite-id');
+        const itemType = button.getAttribute('data-favorite-type');
         
-        // 恢复登录注册按钮
-        const userActions = document.getElementById('userActions');
-        if (userActions) {
-            userActions.innerHTML = `
-                <a href="register.html" class="btn btn-outline">注册</a>
-                <a href="login.html" class="btn btn-primary">登录</a>
-            `;
+        if (itemId && itemType) {
+            const isFavorited = favorites.some(fav => fav.id === itemId && fav.type === itemType);
+            
+            if (isFavorited) {
+                button.textContent = '已收藏';
+                button.classList.add('favorited');
+            } else {
+                button.textContent = '收藏';
+                button.classList.remove('favorited');
+            }
         }
-        
-        // 如果在需要登录的页面，跳转到首页
-        setTimeout(() => {
-            window.location.href = 'index.html';
-        }, 1000);
     });
 }
 
@@ -530,22 +620,6 @@ function initScrollEffects() {
             header.classList.remove('scrolled');
         }
         
-        // 返回顶部按钮
-        const backToTop = document.querySelector('.back-to-top');
-        if (backToTop) {
-            if (scrollTop > 300) {
-                backToTop.style.display = 'block';
-                backToTop.style.opacity = '1';
-            } else {
-                backToTop.style.opacity = '0';
-                setTimeout(() => {
-                    if (scrollTop <= 300) {
-                        backToTop.style.display = 'none';
-                    }
-                }, 300);
-            }
-        }
-        
         lastScrollTop = scrollTop;
     });
     
@@ -555,44 +629,128 @@ function initScrollEffects() {
 
 // 创建返回顶部按钮
 function createBackToTopButton() {
-    const backToTop = document.createElement('button');
-    backToTop.className = 'back-to-top';
-    backToTop.innerHTML = '↑';
-    backToTop.style.cssText = `
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        width: 50px;
-        height: 50px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        border: none;
-        border-radius: 50%;
-        font-size: 24px;
-        cursor: pointer;
-        display: none;
-        opacity: 0;
-        transition: all 0.3s ease;
-        z-index: 1000;
-        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    // 创建收藏夹按钮
+    const favoritesBtn = document.createElement('button');
+    favoritesBtn.className = 'favorites-btn';
+    favoritesBtn.innerHTML = `
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+        </svg>
+        <span class="btn-text">收藏夹</span>
     `;
+    favoritesBtn.onclick = showFavoritesModal;
     
-    backToTop.addEventListener('click', function() {
+    // 创建回到顶部按钮
+    const backToTopBtn = document.createElement('button');
+    backToTopBtn.className = 'back-to-top';
+    backToTopBtn.innerHTML = `
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 15l-6-6-6 6"></path>
+        </svg>
+        <span class="btn-text">回到顶部</span>
+    `;
+    backToTopBtn.onclick = () => {
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
-    });
+    };
+
+    // 添加样式
+    const style = document.createElement('style');
+    style.textContent = `
+        .favorites-btn, .back-to-top {
+            position: fixed;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+        }
+        
+        .favorites-btn {
+            bottom: 120px;
+        }
+        
+        .back-to-top {
+            bottom: 50px;
+        }
+        
+        .favorites-btn.show, .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .favorites-btn:hover, .back-to-top:hover {
+            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .favorites-btn .btn-text, .back-to-top .btn-text {
+            margin-top: 2px;
+            font-size: 10px;
+            line-height: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .favorites-btn, .back-to-top {
+                width: 50px;
+                height: 50px;
+                right: 20px;
+            }
+            
+            .favorites-btn {
+                bottom: 100px;
+            }
+            
+            .back-to-top {
+                bottom: 40px;
+            }
+            
+            .favorites-btn .btn-text, .back-to-top .btn-text {
+                font-size: 9px;
+            }
+        }
+    `;
     
-    backToTop.addEventListener('mouseenter', function() {
-        this.style.transform = 'scale(1.1)';
-    });
-    
-    backToTop.addEventListener('mouseleave', function() {
-        this.style.transform = 'scale(1)';
-    });
-    
-    document.body.appendChild(backToTop);
+    document.head.appendChild(style);
+    document.body.appendChild(favoritesBtn);
+    document.body.appendChild(backToTopBtn);
+
+    // 初始检查滚动位置
+    function checkScrollPosition() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollTop > 300) {
+            favoritesBtn.classList.add('show');
+            backToTopBtn.classList.add('show');
+        } else {
+            favoritesBtn.classList.remove('show');
+            backToTopBtn.classList.remove('show');
+        }
+    }
+
+    // 立即检查一次
+    checkScrollPosition();
+
+    // 滚动显示/隐藏按钮
+    window.addEventListener('scroll', Utils.debounce(checkScrollPosition, 100));
 }
 
 // 初始化动画
@@ -891,4 +1049,558 @@ window.handleGlobalLogout = handleGlobalLogout;
 window.getGlobalUserData = getGlobalUserData;
 window.updateGlobalUserInterface = updateGlobalUserInterface;
 window.showGlobalMessage = showGlobalMessage;
-window.checkGlobalUserStatus = checkGlobalUserStatus; 
+window.checkGlobalUserStatus = checkGlobalUserStatus;
+
+// ==================== 收藏夹功能 ====================
+
+// 获取收藏夹数据
+function getFavoritesData() {
+    const userData = getGlobalUserData();
+    if (!userData) return [];
+    
+    // 统一使用 hanzhong_favorites 存储键
+    const favorites = localStorage.getItem('hanzhong_favorites');
+    return favorites ? JSON.parse(favorites) : [];
+}
+
+// 保存收藏夹数据
+function saveFavoritesData(favorites) {
+    const userData = getGlobalUserData();
+    if (!userData) return false;
+    
+    // 统一使用 hanzhong_favorites 存储键
+    localStorage.setItem('hanzhong_favorites', JSON.stringify(favorites));
+    return true;
+}
+
+// 添加到收藏夹
+function addToFavorites(item) {
+    const userData = getGlobalUserData();
+    if (!userData) {
+        showLoginPrompt();
+        return false;
+    }
+    
+    const favorites = getFavoritesData();
+    
+    // 检查是否已收藏
+    const existingIndex = favorites.findIndex(fav => fav.id === item.id && fav.type === item.type);
+    if (existingIndex !== -1) {
+        showGlobalMessage('该项目已在收藏夹中', 'warning');
+        return false;
+    }
+    
+    // 添加收藏项
+    const favoriteItem = {
+        id: item.id,
+        type: item.type, // 'attraction', 'food', 'culture'
+        title: item.title,
+        description: item.description,
+        image: item.image,
+        rating: item.rating,
+        price: item.price,
+        addTime: new Date().toISOString(),
+        url: item.url
+    };
+    
+    favorites.push(favoriteItem);
+    saveFavoritesData(favorites);
+    
+    showGlobalMessage(`已将"${item.title}"添加到收藏夹`, 'success');
+    updateFavoriteButtons();
+    return true;
+}
+
+// 从收藏夹移除
+function removeFromFavorites(itemId, itemType) {
+    const favorites = getFavoritesData();
+    const newFavorites = favorites.filter(fav => !(fav.id === itemId && fav.type === itemType));
+    
+    if (newFavorites.length < favorites.length) {
+        saveFavoritesData(newFavorites);
+        showGlobalMessage('已从收藏夹中移除', 'info');
+        updateFavoriteButtons();
+        return true;
+    }
+    
+    return false;
+}
+
+// 检查是否已收藏
+function isFavorited(itemId, itemType) {
+    const favorites = getFavoritesData();
+    return favorites.some(fav => fav.id === itemId && fav.type === itemType);
+}
+
+// 显示登录提示
+function showLoginPrompt() {
+    showCustomConfirm(
+        '您需要先登录才能使用收藏功能，是否前往登录？',
+        '需要登录',
+        function() {
+            window.location.href = 'login.html?return=' + encodeURIComponent(window.location.href);
+        }
+    );
+}
+
+// 显示收藏夹弹窗
+function showFavoritesModal() {
+    const userData = getGlobalUserData();
+    if (!userData) {
+        showLoginPrompt();
+        return;
+    }
+    
+    const favorites = getFavoritesData();
+    
+    // 移除已存在的弹窗
+    const existingModal = document.querySelector('.favorites-modal');
+    if (existingModal) {
+        existingModal.remove();
+    }
+    
+    const modal = document.createElement('div');
+    modal.className = 'favorites-modal';
+    modal.innerHTML = `
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>我的收藏夹</h2>
+                <button class="modal-close" onclick="closeFavoritesModal()">×</button>
+            </div>
+            <div class="modal-body">
+                ${favorites.length === 0 ? 
+                    '<div class="empty-favorites"><p>您还没有收藏任何内容</p><p>快去收藏您喜欢的景点、美食和文化活动吧！</p></div>' :
+                    generateFavoritesHTML(favorites)
+                }
+            </div>
+        </div>
+    `;
+    
+    // 添加样式
+    addFavoritesModalStyles();
+    
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+    
+    // 添加动画
+    setTimeout(() => {
+        modal.classList.add('show');
+    }, 10);
+}
+
+// 关闭收藏夹弹窗
+function closeFavoritesModal() {
+    const modal = document.querySelector('.favorites-modal');
+    if (modal) {
+        modal.classList.remove('show');
+        setTimeout(() => {
+            modal.remove();
+            document.body.style.overflow = 'auto';
+        }, 300);
+    }
+}
+
+// 生成收藏夹HTML
+function generateFavoritesHTML(favorites) {
+    const groupedFavorites = {
+        attraction: favorites.filter(fav => fav.type === 'attraction'),
+        food: favorites.filter(fav => fav.type === 'food'),
+        culture: favorites.filter(fav => fav.type === 'culture')
+    };
+    
+    let html = '<div class="favorites-tabs">';
+    html += '<button class="tab-btn active" data-tab="all">全部 (' + favorites.length + ')</button>';
+    html += '<button class="tab-btn" data-tab="attraction">景点 (' + groupedFavorites.attraction.length + ')</button>';
+    html += '<button class="tab-btn" data-tab="food">美食 (' + groupedFavorites.food.length + ')</button>';
+    html += '<button class="tab-btn" data-tab="culture">文化 (' + groupedFavorites.culture.length + ')</button>';
+    html += '</div>';
+    
+    html += '<div class="favorites-content">';
+    html += '<div class="favorites-list" data-content="all">';
+    favorites.forEach(fav => {
+        html += generateFavoriteItemHTML(fav);
+    });
+    html += '</div>';
+    
+    Object.keys(groupedFavorites).forEach(type => {
+        html += '<div class="favorites-list" data-content="' + type + '" style="display: none;">';
+        groupedFavorites[type].forEach(fav => {
+            html += generateFavoriteItemHTML(fav);
+        });
+        html += '</div>';
+    });
+    
+    html += '</div>';
+    
+    return html;
+}
+
+// 生成单个收藏项HTML
+function generateFavoriteItemHTML(fav) {
+    const typeNames = {
+        attraction: '景点',
+        food: '美食',
+        culture: '文化'
+    };
+    
+    return `
+        <div class="favorite-item" data-type="${fav.type}">
+            <div class="item-image">
+                <img src="${fav.image}" alt="${fav.title}" onerror="this.src='img/default-image.jpg'">
+                <span class="item-type">${typeNames[fav.type]}</span>
+            </div>
+            <div class="item-content">
+                <h4 class="item-title">${fav.title}</h4>
+                <p class="item-description">${fav.description}</p>
+                ${fav.rating ? '<div class="item-rating">★★★★★ ' + fav.rating + '分</div>' : ''}
+                ${fav.price ? '<div class="item-price">' + fav.price + '</div>' : ''}
+                <div class="item-time">收藏时间：${new Date(fav.addTime).toLocaleDateString()}</div>
+            </div>
+            <div class="item-actions">
+                <button class="btn btn-primary btn-sm" onclick="visitFavoriteItem('${fav.url}')">查看详情</button>
+                <button class="btn btn-outline btn-sm" onclick="removeFromFavoritesModal('${fav.id}', '${fav.type}')">移除</button>
+            </div>
+        </div>
+    `;
+}
+
+// 访问收藏项
+function visitFavoriteItem(url) {
+    if (url && url !== 'undefined') {
+        window.open(url, '_blank');
+    }
+}
+
+// 从收藏夹弹窗中移除项目
+function removeFromFavoritesModal(itemId, itemType) {
+    if (removeFromFavorites(itemId, itemType)) {
+        // 重新显示收藏夹
+        setTimeout(() => {
+            showFavoritesModal();
+        }, 500);
+    }
+}
+
+// 添加收藏夹弹窗样式
+function addFavoritesModalStyles() {
+    if (document.querySelector('#favorites-modal-styles')) return;
+    
+    const style = document.createElement('style');
+    style.id = 'favorites-modal-styles';
+    style.textContent = `
+        .favorites-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .favorites-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .favorites-modal .modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+        
+        .favorites-modal .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .favorites-modal .modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .favorites-modal .modal-header h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+        
+        .favorites-modal .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+        
+        .favorites-modal .modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .favorites-modal .modal-body {
+            padding: 0;
+            max-height: calc(80vh - 80px);
+            overflow-y: auto;
+        }
+        
+        .favorites-modal .empty-favorites {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+        
+        .favorites-modal .empty-favorites p {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        
+        .favorites-modal .favorites-tabs {
+            display: flex;
+            border-bottom: 1px solid #eee;
+            background: #f8f9fa;
+        }
+        
+        .favorites-modal .tab-btn {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 14px;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+        
+        .favorites-modal .tab-btn.active {
+            color: #667eea;
+            background: white;
+            border-bottom: 2px solid #667eea;
+        }
+        
+        .favorites-modal .favorites-content {
+            padding: 20px;
+        }
+        
+        .favorites-modal .favorites-list {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .favorites-modal .favorite-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .favorites-modal .favorite-item:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .favorites-modal .item-image {
+            position: relative;
+            width: 120px;
+            height: 90px;
+            border-radius: 8px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .favorites-modal .item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .favorites-modal .item-type {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        
+        .favorites-modal .item-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .favorites-modal .item-title {
+            margin: 0;
+            font-size: 16px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .favorites-modal .item-description {
+            margin: 0;
+            color: #666;
+            font-size: 14px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .favorites-modal .item-rating {
+            color: #ff6b35;
+            font-size: 14px;
+        }
+        
+        .favorites-modal .item-price {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .favorites-modal .item-time {
+            color: #999;
+            font-size: 12px;
+        }
+        
+        .favorites-modal .item-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: flex-end;
+        }
+        
+        .favorites-modal .btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+            min-width: 70px;
+        }
+        
+        @media (max-width: 768px) {
+            .favorites-modal .modal-content {
+                width: 95%;
+                max-height: 90vh;
+            }
+            
+            .favorites-modal .favorite-item {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .favorites-modal .item-image {
+                width: 100%;
+                height: 150px;
+            }
+            
+            .favorites-modal .item-actions {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            .favorites-modal .favorites-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .favorites-modal .tab-btn {
+                flex: 1;
+                min-width: 50%;
+                font-size: 12px;
+                padding: 12px 10px;
+            }
+        }
+    `;
+    
+    document.head.appendChild(style);
+}
+
+// 更新收藏按钮状态
+function updateFavoriteButtons() {
+    const favoriteButtons = document.querySelectorAll('[data-favorite-id]');
+    favoriteButtons.forEach(button => {
+        const itemId = button.getAttribute('data-favorite-id');
+        const itemType = button.getAttribute('data-favorite-type');
+        const isFav = isFavorited(itemId, itemType);
+        
+        if (isFav) {
+            button.textContent = '已收藏';
+            button.classList.add('favorited');
+        } else {
+            button.textContent = '收藏';
+            button.classList.remove('favorited');
+        }
+    });
+}
+
+// 处理收藏按钮点击
+function handleFavoriteClick(button, itemData) {
+    const itemId = itemData.id;
+    const itemType = itemData.type;
+    
+    if (isFavorited(itemId, itemType)) {
+        removeFromFavorites(itemId, itemType);
+    } else {
+        addToFavorites(itemData);
+    }
+}
+
+// 初始化收藏夹功能
+function initFavorites() {
+    // 为收藏夹弹窗添加事件委托
+    document.addEventListener('click', function(e) {
+        // 处理收藏夹标签切换
+        if (e.target.classList.contains('tab-btn')) {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const contents = document.querySelectorAll('.favorites-list');
+            const targetTab = e.target.getAttribute('data-tab');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            contents.forEach(content => content.style.display = 'none');
+            
+            e.target.classList.add('active');
+            const targetContent = document.querySelector(`[data-content="${targetTab}"]`);
+            if (targetContent) {
+                targetContent.style.display = 'grid';
+            }
+        }
+        
+        // 处理弹窗外部点击关闭
+        if (e.target.classList.contains('modal-overlay')) {
+            closeFavoritesModal();
+        }
+    });
+    
+    // 更新现有的收藏按钮状态
+    updateFavoriteButtons();
+} 

@@ -1,137 +1,128 @@
 // 美食页面JavaScript功能
 
 document.addEventListener('DOMContentLoaded', function() {
-    // initFoodCategories(); // 注释掉这个函数，保持HTML中的分类区域结构
+    // 检查用户登录状态
+    checkGlobalUserStatus();
+    
+    // 初始化美食分类
+    initFoodCategories();
+    
+    // 初始化美食卡片
     initFoodCards();
+    
+    // 初始化餐厅地图
     initRestaurantMap();
+    
+    // 初始化搜索功能
     initFoodSearch();
+    
+    // 初始化评价系统
     initReviewSystem();
+    
+    // 初始化分类标签
     initCategoryTabs();
+    
+    // 初始化滚动动画
     initScrollAnimations();
+    
+    // 初始化悬浮效果
     initHoverEffects();
+    
+    // 初始化收藏状态 - 确保在页面加载完成后执行
+    setTimeout(() => {
+        initFoodFavoriteStatus();
+        // 同时调用全局状态更新函数
+        if (typeof updateAllFavoriteButtonsStatus === 'function') {
+            updateAllFavoriteButtonsStatus();
+        }
+    }, 100);
 });
 
 // 美食数据
 const foodData = [
     {
-        id: 1,
-        name: '汉中面皮',
-        category: 'noodles',
-        image: 'img/food1.jpg',
+        id: 'remianpi',
+        name: '汉中热面皮',
+        category: '面食类',
+        image: 'img/remianpi.jpg',
         rating: 4.9,
-        price: 15,
-        description: '汉中最著名的小吃，面皮爽滑筋道，配以特制辣椒油和蒜蓉，酸辣开胃，回味无穷。',
-        ingredients: ['面皮', '豆芽菜', '胡萝卜丝', '黄瓜丝', '辣椒油', '蒜蓉', '醋'],
-        restaurants: ['老李面皮店', '汉江面皮', '传统美食坊'],
+        price: '10-15',
+        description: '汉中最著名的小吃，面皮爽滑筋道，配以特制辣椒油和蒜蓉，酸辣开胃，回味无穷。选用优质面粉制作，经过特殊工艺处理，口感独特。',
+        ingredients: ['优质面粉', '豆芽菜', '胡萝卜丝', '黄瓜丝', '特制辣椒油', '蒜蓉', '香醋', '生抽'],
         nutrition: { calories: 280, protein: 8, carbs: 45, fat: 6 },
-        tags: ['经典', '必尝', '素食'],
         cookingTime: '现做现卖',
-        origin: '汉中传统小吃，历史悠久'
+        origin: '汉中传统小吃，历史悠久',
+        restaurants: ['老李面皮店', '汉江面皮', '传统美食坊']
     },
     {
-        id: 2,
-        name: '菜豆腐',
-        category: 'soup',
-        image: 'img/food2.jpg',
+        id: 'caidoufu',
+        name: '汉中菜豆腐',
+        category: '汤品类',
+        image: 'img/caidoufu.jpg',
         rating: 4.7,
-        price: 12,
-        description: '汉中特色汤品，选用优质黄豆制作，配以时令蔬菜，营养丰富，口感清香。',
-        ingredients: ['嫩豆腐', '青菜', '胡萝卜', '木耳', '香菇', '葱花'],
-        restaurants: ['老味道', '汉中人家', '绿色食府'],
+        price: '12-18',
+        description: '汉中传统家常菜，将豆腐与时令蔬菜完美结合，营养丰富，口味清香。选用优质黄豆制作的嫩豆腐，配以新鲜蔬菜。',
+        ingredients: ['嫩豆腐', '青菜', '胡萝卜', '木耳', '香菇', '葱花', '生姜', '香油'],
         nutrition: { calories: 180, protein: 12, carbs: 15, fat: 8 },
-        tags: ['健康', '营养', '清淡'],
         cookingTime: '15分钟',
-        origin: '汉中民间传统汤品'
+        origin: '汉中民间传统汤品',
+        restaurants: ['老味道餐厅', '汉中人家', '绿色食府']
     },
     {
-        id: 3,
+        id: 'jiangshuimian',
         name: '浆水面',
-        category: 'noodles',
-        image: 'img/food3.jpg',
+        category: '面食类',
+        image: 'img/jiangshuimian.jpg',
         rating: 4.6,
-        price: 18,
-        description: '夏日消暑佳品，酸汤爽口，面条劲道，配菜丰富，是汉中人夏天的最爱。',
-        ingredients: ['手工面条', '浆水', '韭菜', '胡萝卜', '土豆丝', '辣椒油'],
-        restaurants: ['浆水面馆', '老字号', '汉中味道'],
+        price: '8-12',
+        description: '陕南特色面食，以酸菜浆水为汤底，清香开胃，是夏日消暑的绝佳选择，也是汉中人的家常美味。',
+        ingredients: ['手工面条', '浆水', '韭菜', '胡萝卜', '土豆丝', '辣椒油', '蒜苗', '香菜'],
         nutrition: { calories: 320, protein: 10, carbs: 55, fat: 5 },
-        tags: ['消暑', '酸爽', '传统'],
         cookingTime: '10分钟',
-        origin: '汉中夏季特色面食'
+        origin: '汉中夏季特色面食',
+        restaurants: ['张记浆水面', '老字号面馆', '汉中味道']
     },
     {
-        id: 4,
-        name: '粉皮子',
-        category: 'cold',
-        image: 'img/food4.jpg',
-        rating: 4.5,
-        price: 20,
-        description: '劲道有嚼劲的粉皮，配以多种蔬菜丝和特制调料，口感丰富，营养均衡。',
-        ingredients: ['红薯粉皮', '豆芽', '胡萝卜丝', '黄瓜丝', '香菜', '花生米'],
-        restaurants: ['粉皮专家', '巷子深处', '传统小吃'],
-        nutrition: { calories: 250, protein: 6, carbs: 40, fat: 8 },
-        tags: ['劲道', '爽口', '配菜丰富'],
-        cookingTime: '现拌现吃',
-        origin: '汉中传统凉拌食品'
-    },
-    {
-        id: 5,
-        name: '略阳乌鸡汤',
-        category: 'soup',
-        image: 'img/food5.jpg',
+        id: 'larou',
+        name: '汉中腊肉',
+        category: '肉类',
+        image: 'img/larou.jpg',
         rating: 4.8,
-        price: 58,
-        description: '选用略阳特产乌鸡炖制，肉质鲜美，营养价值极高，是滋补养生的佳品。',
-        ingredients: ['略阳乌鸡', '山药', '枸杞', '红枣', '党参', '当归'],
-        restaurants: ['乌鸡王', '养生餐厅', '滋补堂'],
-        nutrition: { calories: 380, protein: 35, carbs: 8, fat: 20 },
-        tags: ['滋补', '营养', '特产'],
-        cookingTime: '2小时慢炖',
-        origin: '略阳县特色养生汤品'
+        price: '60-80',
+        description: '选用优质猪肉，经传统工艺腌制风干，肉质紧实，香味浓郁，是汉中人过年必备的传统美食。',
+        ingredients: ['优质猪肉', '粗盐', '花椒', '八角', '桂皮', '丁香', '白酒'],
+        nutrition: { calories: 450, protein: 25, carbs: 2, fat: 35 },
+        cookingTime: '腌制15天，风干30天',
+        origin: '汉中传统腌制工艺',
+        restaurants: ['汉中特产店', '老字号腊味', '山区农家']
     },
     {
-        id: 6,
-        name: '洋县黑米粥',
-        category: 'dessert',
-        image: 'img/food6.jpg',
+        id: 'huangjiu',
+        name: '汉中黄酒',
+        category: '饮品类',
+        image: 'img/huangjiu.jpg',
+        rating: 4.5,
+        price: '30-50',
+        description: '采用汉中优质糯米酿制，口感甘甜醇厚，酒精度适中，是汉中地区传统的特色酒类。',
+        ingredients: ['优质糯米', '酒曲', '山泉水', '红糖'],
+        nutrition: { calories: 120, protein: 2, carbs: 8, fat: 0 },
+        cookingTime: '发酵45天',
+        origin: '汉中传统酿造工艺',
+        restaurants: ['汉中酒厂', '传统酿酒坊', '特产专卖店']
+    },
+    {
+        id: 'hetaomo',
+        name: '核桃馍',
+        category: '糕点类',
+        image: 'img/hetaomo.jpg',
         rating: 4.4,
-        price: 25,
-        description: '选用洋县优质黑米熬制，富含花青素和多种维生素，既美味又健康。',
-        ingredients: ['洋县黑米', '红枣', '桂圆', '冰糖', '枸杞'],
-        restaurants: ['养生粥铺', '健康食府', '黑米专家'],
-        nutrition: { calories: 220, protein: 8, carbs: 45, fat: 2 },
-        tags: ['养生', '抗氧化', '美容'],
-        cookingTime: '1小时慢煮',
-        origin: '洋县特产黑米制品'
-    },
-    {
-        id: 7,
-        name: '汉中热米皮',
-        category: 'noodles',
-        image: 'img/food7.jpg',
-        rating: 4.7,
-        price: 16,
-        description: '热腾腾的米皮配以鲜美汤汁，温暖的口感适合寒冷季节享用。',
-        ingredients: ['米皮', '豆芽', '韭菜', '肉丝', '高汤', '辣椒油'],
-        restaurants: ['热米皮专家', '温暖小吃', '汉中特色'],
-        nutrition: { calories: 300, protein: 12, carbs: 48, fat: 7 },
-        tags: ['温热', '鲜美', '冬季首选'],
-        cookingTime: '现做现吃',
-        origin: '汉中冬季特色小吃'
-    },
-    {
-        id: 8,
-        name: '城固蜜桔',
-        category: 'fruit',
-        image: 'img/food8.jpg',
-        rating: 4.6,
-        price: 30,
-        description: '城固特产蜜桔，甜美多汁，富含维生素C，是天然的健康水果。',
-        ingredients: ['新鲜蜜桔'],
-        restaurants: ['水果超市', '农家直销', '特产店'],
-        nutrition: { calories: 60, protein: 1, carbs: 15, fat: 0 },
-        tags: ['新鲜', '维C丰富', '特产'],
-        cookingTime: '即食',
-        origin: '城固县特产水果'
+        price: '15-25',
+        description: '汉中传统糕点，选用当地优质核桃仁，香甜可口，营养丰富，是馈赠亲友的佳品。',
+        ingredients: ['面粉', '核桃仁', '白糖', '鸡蛋', '植物油', '泡打粉', '芝麻'],
+        nutrition: { calories: 380, protein: 8, carbs: 45, fat: 18 },
+        cookingTime: '制作2小时',
+        origin: '汉中传统糕点工艺',
+        restaurants: ['老字号糕点店', '传统手工坊', '特色烘焙店']
     }
 ];
 
@@ -147,30 +138,36 @@ const categoryData = [
 
 // 初始化分类筛选
 function initFoodCategories() {
-    const categoryContainer = document.querySelector('.food-categories');
+    const categoryContainer = document.querySelector('.category-tabs');
     if (!categoryContainer) return;
     
+    // 清空现有内容
     categoryContainer.innerHTML = '';
     
-    categoryData.forEach(category => {
-        const categoryItem = document.createElement('div');
-        categoryItem.className = 'category-item';
-        categoryItem.dataset.category = category.key;
+    // 创建分类按钮
+    const categories = [
+        { key: 'all', name: '全部美食', count: foodData.length },
+        { key: '面食类', name: '面食类', count: foodData.filter(f => f.category === '面食类').length },
+        { key: '汤品类', name: '汤品类', count: foodData.filter(f => f.category === '汤品类').length },
+        { key: '肉类', name: '肉类', count: foodData.filter(f => f.category === '肉类').length },
+        { key: '饮品类', name: '饮品类', count: foodData.filter(f => f.category === '饮品类').length },
+        { key: '糕点类', name: '糕点类', count: foodData.filter(f => f.category === '糕点类').length }
+    ];
+    
+    categories.forEach((category, index) => {
+        const button = document.createElement('button');
+        button.className = 'category-tab';
+        button.dataset.category = category.key;
+        button.textContent = `${category.name} (${category.count})`;
         
-        if (category.key === 'all') {
-            categoryItem.classList.add('active');
+        if (index === 0) {
+            button.classList.add('active');
         }
         
-        categoryItem.innerHTML = `
-            <span class="category-icon">${category.icon}</span>
-            <span class="category-name">${category.name}</span>
-            <span class="category-count">(${getCountByCategory(category.key)})</span>
-        `;
-        
-        categoryItem.addEventListener('click', function() {
+        button.addEventListener('click', function() {
             // 更新活动状态
-            document.querySelectorAll('.category-item').forEach(item => {
-                item.classList.remove('active');
+            document.querySelectorAll('.category-tab').forEach(btn => {
+                btn.classList.remove('active');
             });
             this.classList.add('active');
             
@@ -178,7 +175,7 @@ function initFoodCategories() {
             filterFoodByCategory(category.key);
         });
         
-        categoryContainer.appendChild(categoryItem);
+        categoryContainer.appendChild(button);
     });
 }
 
@@ -191,21 +188,51 @@ function getCountByCategory(category) {
 // 按分类筛选美食
 function filterFoodByCategory(category) {
     const foodCards = document.querySelectorAll('.food-card');
+    const foodItems = document.querySelectorAll('.food-item');
     
+    // 筛选特色美食卡片
     foodCards.forEach((card, index) => {
-        const food = foodData[index];
+        if (index < foodData.length) {
+            const food = foodData[index];
+            
+            if (category === 'all' || food.category === category) {
+                card.style.display = 'block';
+                card.classList.remove('hidden');
+                setTimeout(() => {
+                    card.classList.add('show');
+                }, 100);
+            } else {
+                card.classList.remove('show');
+                card.classList.add('hidden');
+                setTimeout(() => {
+                    card.style.display = 'none';
+                }, 300);
+            }
+        }
+    });
+    
+    // 筛选美食列表项
+    foodItems.forEach(item => {
+        const itemCategory = item.dataset.category;
         
-        if (category === 'all' || food.category === category) {
-            card.style.display = 'block';
-            card.classList.remove('hidden');
+        if (category === 'all' || 
+            (category === '面食类' && (itemCategory === 'noodles')) ||
+            (category === '汤品类' && (itemCategory === 'snacks')) ||
+            (category === '肉类' && (itemCategory === 'meat')) ||
+            (category === '饮品类' && (itemCategory === 'drinks')) ||
+            (category === '糕点类' && (itemCategory === 'desserts'))) {
+            
+            item.style.display = 'flex';
+            item.style.opacity = '0';
             setTimeout(() => {
-                card.classList.add('show');
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0)';
             }, 100);
         } else {
-            card.classList.remove('show');
-            card.classList.add('hidden');
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
             setTimeout(() => {
-                card.style.display = 'none';
+                item.style.display = 'none';
             }, 300);
         }
     });
@@ -483,7 +510,7 @@ function addToFavorites(foodId) {
     const food = foodData.find(item => item.id === foodId);
     if (!food) return;
     
-    let favorites = JSON.parse(localStorage.getItem('hanzhong_food_favorites') || '[]');
+    let favorites = JSON.parse(localStorage.getItem('hanzhong_favorites') || '[]');
     
     if (favorites.includes(foodId)) {
         Utils.showMessage('已经收藏过该美食了', 'info');
@@ -491,7 +518,7 @@ function addToFavorites(foodId) {
     }
     
     favorites.push(foodId);
-    localStorage.setItem('hanzhong_food_favorites', JSON.stringify(favorites));
+    localStorage.setItem('hanzhong_favorites', JSON.stringify(favorites));
     
     Utils.showMessage(`已收藏 ${food.name}`, 'success');
 }
@@ -1261,3 +1288,626 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style); 
+
+// 初始化美食收藏状态
+function initFoodFavoriteStatus() {
+    // 检查用户是否登录
+    const userData = getGlobalUserData();
+    
+    // 检查所有收藏按钮的状态
+    const favoriteButtons = document.querySelectorAll('[data-favorite-id]');
+    favoriteButtons.forEach(button => {
+        const foodId = button.getAttribute('data-favorite-id');
+        const favoriteType = button.getAttribute('data-favorite-type');
+        
+        if (foodId && (favoriteType === 'food' || !favoriteType)) {
+            if (!userData) {
+                // 用户未登录，重置按钮状态
+                updateSingleFoodFavoriteButton(button, false);
+            } else {
+                // 用户已登录，检查收藏状态
+                const isFavorited = checkFoodFavoriteStatus(foodId);
+                updateSingleFoodFavoriteButton(button, isFavorited);
+            }
+        }
+    });
+}
+
+// 更新单个收藏按钮状态
+function updateSingleFoodFavoriteButton(button, isFavorited) {
+    if (isFavorited) {
+        button.textContent = '已收藏';
+        button.classList.add('favorited');
+    } else {
+        button.textContent = '收藏';
+        button.classList.remove('favorited');
+    }
+}
+
+// 修改美食收藏功能
+function collectFood(foodId) {
+    // 检查用户登录状态
+    const userData = getGlobalUserData();
+    if (!userData) {
+        showCustomConfirm(
+            '您需要先登录才能收藏美食，是否前往登录？',
+            '需要登录',
+            function() {
+                window.location.href = 'login.html?return=' + encodeURIComponent(window.location.href);
+            }
+        );
+        return;
+    }
+
+    // 获取当前收藏列表
+    let favorites = JSON.parse(localStorage.getItem('hanzhong_favorites') || '[]');
+    
+    // 查找美食信息
+    const food = foodData.find(f => f.id === foodId);
+    if (!food) {
+        showGlobalMessage('美食信息未找到', 'error');
+        return;
+    }
+
+    // 检查是否已收藏
+    const existingIndex = favorites.findIndex(fav => fav.id === foodId && fav.type === 'food');
+    
+    if (existingIndex !== -1) {
+        // 已收藏，取消收藏
+        favorites.splice(existingIndex, 1);
+        localStorage.setItem('hanzhong_favorites', JSON.stringify(favorites));
+        showGlobalMessage('已取消收藏', 'info');
+        
+        // 更新按钮状态
+        updateFoodFavoriteButtons(foodId, false);
+    } else {
+        // 未收藏，添加收藏
+        const favoriteItem = {
+            id: foodId,
+            type: 'food',
+            title: food.name,
+            description: food.description,
+            image: food.image,
+            rating: food.rating,
+            price: `￥${food.price}`,
+            url: `meishi.html#food-${foodId}`,
+            addTime: new Date().toISOString()
+        };
+        
+        favorites.push(favoriteItem);
+        localStorage.setItem('hanzhong_favorites', JSON.stringify(favorites));
+        showGlobalMessage('收藏成功！', 'success');
+        
+        // 更新按钮状态
+        updateFoodFavoriteButtons(foodId, true);
+    }
+}
+
+// 更新美食收藏按钮状态
+function updateFoodFavoriteButtons(foodId, isFavorited) {
+    // 更新所有相关的收藏按钮
+    const cardButtons = document.querySelectorAll(`[data-favorite-id="${foodId}"]`);
+    cardButtons.forEach(button => {
+        updateSingleFoodFavoriteButton(button, isFavorited);
+    });
+    
+    // 更新详情页面的收藏按钮
+    const detailButton = document.querySelector('.food-detail .collect-btn');
+    if (detailButton) {
+        updateSingleFoodFavoriteButton(detailButton, isFavorited);
+    }
+}
+
+// 检查美食收藏状态
+function checkFoodFavoriteStatus(foodId) {
+    const favorites = JSON.parse(localStorage.getItem('hanzhong_favorites') || '[]');
+    return favorites.some(fav => fav.id === foodId && fav.type === 'food');
+}
+
+// 显示美食详情（修改版本，移除立即订购按钮）
+function showFoodDetail(foodId) {
+    const food = foodData.find(f => f.id === foodId);
+    if (!food) {
+        showGlobalMessage('美食信息未找到', 'error');
+        return;
+    }
+
+    // 检查收藏状态
+    const isFavorited = checkFoodFavoriteStatus(foodId);
+
+    const modal = document.createElement('div');
+    modal.className = 'food-detail-modal';
+    modal.innerHTML = `
+        <div class="modal-overlay" onclick="closeFoodDetail()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>${food.name}</h2>
+                <button class="modal-close" onclick="closeFoodDetail()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="food-detail">
+                    <div class="detail-image">
+                        <img src="${food.image}" alt="${food.name}">
+                        <div class="image-overlay">
+                            <div class="rating-badge">
+                                <span class="stars">${generateStars(food.rating)}</span>
+                                <span class="rating-score">${food.rating}分</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="detail-content">
+                        <div class="basic-info">
+                            <div class="info-item">
+                                <span class="label">💰 参考价格：</span>
+                                <span class="value price">￥${food.price}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">⏰ 制作时间：</span>
+                                <span class="value">${food.cookingTime}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">📍 起源：</span>
+                                <span class="value">${food.origin}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="description-section">
+                            <h3>美食介绍</h3>
+                            <p>${food.description}</p>
+                        </div>
+                        
+                        <div class="ingredients-section">
+                            <h3>主要食材</h3>
+                            <div class="ingredients-grid">
+                                ${food.ingredients.map(ingredient => `
+                                    <div class="ingredient-tag">${ingredient}</div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        
+                        <div class="nutrition-section">
+                            <h3>营养信息</h3>
+                            <div class="nutrition-grid">
+                                <div class="nutrition-item">
+                                    <span class="nutrition-label">热量</span>
+                                    <span class="nutrition-value">${food.nutrition.calories}卡</span>
+                                </div>
+                                <div class="nutrition-item">
+                                    <span class="nutrition-label">蛋白质</span>
+                                    <span class="nutrition-value">${food.nutrition.protein}g</span>
+                                </div>
+                                <div class="nutrition-item">
+                                    <span class="nutrition-label">碳水</span>
+                                    <span class="nutrition-value">${food.nutrition.carbs}g</span>
+                                </div>
+                                <div class="nutrition-item">
+                                    <span class="nutrition-label">脂肪</span>
+                                    <span class="nutrition-value">${food.nutrition.fat}g</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="restaurants-section">
+                            <h3>推荐店铺</h3>
+                            <div class="restaurants-list">
+                                ${food.restaurants.map(restaurant => `
+                                    <div class="restaurant-item">
+                                        <span class="restaurant-name">${restaurant}</span>
+                                        <span class="restaurant-rating">⭐ 4.5</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        
+                        <div class="tips-section">
+                            <h3>美食贴士</h3>
+                            <ul class="tips-list">
+                                <li>最佳食用时间：上午10点至下午2点</li>
+                                <li>建议搭配温开水或清淡汤品</li>
+                                <li>注意食材新鲜度，选择信誉好的店铺</li>
+                                <li>如有过敏史，请提前告知店家</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeFoodDetail()">关闭</button>
+                <button class="btn btn-primary collect-btn ${isFavorited ? 'favorited' : ''}" 
+                        data-favorite-id="${foodId}"
+                        onclick="collectFood('${foodId}')">
+                    ${isFavorited ? '已收藏' : '收藏美食'}
+                </button>
+            </div>
+        </div>
+    `;
+
+    // 添加样式
+    addFoodDetailStyles();
+    
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+    
+    // 添加显示动画
+    setTimeout(() => {
+        modal.classList.add('show');
+    }, 10);
+}
+
+// 关闭美食详情弹窗
+function closeFoodDetail() {
+    const modal = document.querySelector('.food-detail-modal');
+    if (modal) {
+        modal.classList.remove('show');
+        setTimeout(() => {
+            modal.remove();
+            document.body.style.overflow = 'auto';
+        }, 300);
+    }
+}
+
+// 订购美食
+function orderFood(foodId) {
+    const userData = getGlobalUserData();
+    if (!userData) {
+        showCustomConfirm(
+            '您需要先登录才能订购美食，是否前往登录？',
+            '需要登录',
+            function() {
+                window.location.href = 'login.html?return=' + encodeURIComponent(window.location.href);
+            }
+        );
+        return;
+    }
+    
+    showGlobalMessage('订购功能开发中，敬请期待！', 'info');
+}
+
+// 添加美食详情弹窗样式
+function addFoodDetailStyles() {
+    if (document.querySelector('#food-detail-styles')) return;
+    
+    const style = document.createElement('style');
+    style.id = 'food-detail-styles';
+    style.textContent = `
+        .food-detail-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .food-detail-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .food-detail-modal .modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+        
+        .food-detail-modal .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .food-detail-modal .modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+        }
+        
+        .food-detail-modal .modal-header h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+        
+        .food-detail-modal .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+        
+        .food-detail-modal .modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .food-detail-modal .modal-body {
+            padding: 0;
+            max-height: calc(90vh - 140px);
+            overflow-y: auto;
+        }
+        
+        .food-detail-modal .food-image {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+        }
+        
+        .food-detail-modal .food-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .food-detail-modal .food-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 107, 53, 0.9);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        
+        .food-detail-modal .food-info {
+            padding: 24px;
+        }
+        
+        .food-detail-modal .info-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .food-detail-modal .rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .food-detail-modal .stars {
+            color: #ff6b35;
+            font-size: 18px;
+        }
+        
+        .food-detail-modal .rating-score {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .food-detail-modal .price {
+            font-size: 20px;
+            font-weight: 600;
+            color: #ff6b35;
+        }
+        
+        .food-detail-modal .description,
+        .food-detail-modal .ingredients,
+        .food-detail-modal .nutrition,
+        .food-detail-modal .restaurants,
+        .food-detail-modal .tips {
+            margin-bottom: 24px;
+        }
+        
+        .food-detail-modal h4 {
+            margin: 0 0 12px 0;
+            font-size: 16px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .food-detail-modal p {
+            margin: 0;
+            line-height: 1.6;
+            color: #666;
+        }
+        
+        .food-detail-modal .ingredient-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .food-detail-modal .ingredient-tag {
+            background: #f8f9fa;
+            color: #495057;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .food-detail-modal .nutrition-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+        }
+        
+        .food-detail-modal .nutrition-item {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .food-detail-modal .nutrition-item .label {
+            display: block;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+        
+        .food-detail-modal .nutrition-item .value {
+            display: block;
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .food-detail-modal .restaurant-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .food-detail-modal .restaurant-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .food-detail-modal .restaurant-info h5 {
+            margin: 0 0 4px 0;
+            color: #333;
+        }
+        
+        .food-detail-modal .restaurant-info p {
+            margin: 2px 0;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .food-detail-modal .restaurant-rating {
+            text-align: right;
+        }
+        
+        .food-detail-modal .restaurant-rating .stars {
+            font-size: 14px;
+        }
+        
+        .food-detail-modal .restaurant-rating .score {
+            display: block;
+            font-size: 12px;
+            color: #666;
+            margin-top: 2px;
+        }
+        
+        .food-detail-modal ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .food-detail-modal li {
+            margin-bottom: 8px;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .food-detail-modal .modal-footer {
+            padding: 20px 24px;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+        
+        .food-detail-modal .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .food-detail-modal .btn-primary {
+            background: #ff6b35;
+            color: white;
+        }
+        
+        .food-detail-modal .btn-primary:hover {
+            background: #e55a2b;
+        }
+        
+        .food-detail-modal .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .food-detail-modal .btn-secondary:hover {
+            background: #5a6268;
+        }
+        
+        .food-detail-modal .btn-outline {
+            background: transparent;
+            color: #ff6b35;
+            border: 1px solid #ff6b35;
+        }
+        
+        .food-detail-modal .btn-outline:hover {
+            background: #ff6b35;
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .food-detail-modal .modal-content {
+                width: 95%;
+                max-height: 95vh;
+            }
+            
+            .food-detail-modal .food-image {
+                height: 200px;
+            }
+            
+            .food-detail-modal .info-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .food-detail-modal .nutrition-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .food-detail-modal .restaurant-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            
+            .food-detail-modal .restaurant-rating {
+                text-align: left;
+            }
+            
+            .food-detail-modal .modal-footer {
+                flex-direction: column;
+            }
+            
+            .food-detail-modal .btn {
+                width: 100%;
+            }
+        }
+    `;
+    
+    document.head.appendChild(style);
+} 

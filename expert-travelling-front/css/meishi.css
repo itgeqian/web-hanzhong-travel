@@ -977,4 +977,55 @@
 .food-card > * {
     position: relative;
     z-index: 2;
+}
+
+/* 美食卡片操作按钮 */
+.food-actions {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.food-actions .btn {
+    flex: 1;
+    max-width: 120px;
+}
+
+.food-actions .btn-sm {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+.favorite-btn {
+    transition: all 0.3s ease;
+}
+
+.favorite-btn.favorited {
+    background: #ff6b35;
+    color: white;
+    border-color: #ff6b35;
+}
+
+.favorite-btn.favorited:hover {
+    background: #e55a2b;
+    border-color: #e55a2b;
+}
+
+.favorite-btn:not(.favorited):hover {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .food-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .food-actions .btn {
+        max-width: none;
+    }
 } 
