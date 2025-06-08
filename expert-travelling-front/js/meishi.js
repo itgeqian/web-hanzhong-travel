@@ -19,9 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // 初始化评价系统
     initReviewSystem();
     
-    // 初始化分类标签
-    initCategoryTabs();
-    
     // 初始化滚动动画
     initScrollAnimations();
     
@@ -47,6 +44,7 @@ const foodData = [
         image: 'img/remianpi.jpg',
         rating: 4.9,
         price: '10-15',
+        tags: ['招牌美食', '非遗小吃', '必尝'],
         description: '汉中最著名的小吃，面皮爽滑筋道，配以特制辣椒油和蒜蓉，酸辣开胃，回味无穷。选用优质面粉制作，经过特殊工艺处理，口感独特。',
         ingredients: ['优质面粉', '豆芽菜', '胡萝卜丝', '黄瓜丝', '特制辣椒油', '蒜蓉', '香醋', '生抽'],
         nutrition: { calories: 280, protein: 8, carbs: 45, fat: 6 },
@@ -61,6 +59,7 @@ const foodData = [
         image: 'img/caidoufu.jpg',
         rating: 4.7,
         price: '12-18',
+        tags: ['营养健康', '家常菜', '清香'],
         description: '汉中传统家常菜，将豆腐与时令蔬菜完美结合，营养丰富，口味清香。选用优质黄豆制作的嫩豆腐，配以新鲜蔬菜。',
         ingredients: ['嫩豆腐', '青菜', '胡萝卜', '木耳', '香菇', '葱花', '生姜', '香油'],
         nutrition: { calories: 180, protein: 12, carbs: 15, fat: 8 },
@@ -75,6 +74,7 @@ const foodData = [
         image: 'img/jiangshuimian.jpg',
         rating: 4.6,
         price: '8-12',
+        tags: ['消暑佳品', '酸香开胃', '夏季特色'],
         description: '陕南特色面食，以酸菜浆水为汤底，清香开胃，是夏日消暑的绝佳选择，也是汉中人的家常美味。',
         ingredients: ['手工面条', '浆水', '韭菜', '胡萝卜', '土豆丝', '辣椒油', '蒜苗', '香菜'],
         nutrition: { calories: 320, protein: 10, carbs: 55, fat: 5 },
@@ -89,6 +89,7 @@ const foodData = [
         image: 'img/larou.jpg',
         rating: 4.8,
         price: '60-80',
+        tags: ['传统工艺', '香醇浓郁', '年货首选'],
         description: '选用优质猪肉，经传统工艺腌制风干，肉质紧实，香味浓郁，是汉中人过年必备的传统美食。',
         ingredients: ['优质猪肉', '粗盐', '花椒', '八角', '桂皮', '丁香', '白酒'],
         nutrition: { calories: 450, protein: 25, carbs: 2, fat: 35 },
@@ -103,6 +104,7 @@ const foodData = [
         image: 'img/huangjiu.jpg',
         rating: 4.5,
         price: '30-50',
+        tags: ['传统酿造', '甘甜醇厚', '文化传承'],
         description: '采用汉中优质糯米酿制，口感甘甜醇厚，酒精度适中，是汉中地区传统的特色酒类。',
         ingredients: ['优质糯米', '酒曲', '山泉水', '红糖'],
         nutrition: { calories: 120, protein: 2, carbs: 8, fat: 0 },
@@ -117,6 +119,7 @@ const foodData = [
         image: 'img/hetaomo.jpg',
         rating: 4.4,
         price: '15-25',
+        tags: ['香甜可口', '营养丰富', '馈赠佳品'],
         description: '汉中传统糕点，选用当地优质核桃仁，香甜可口，营养丰富，是馈赠亲友的佳品。',
         ingredients: ['面粉', '核桃仁', '白糖', '鸡蛋', '植物油', '泡打粉', '芝麻'],
         nutrition: { calories: 380, protein: 8, carbs: 45, fat: 18 },
@@ -141,41 +144,23 @@ function initFoodCategories() {
     const categoryContainer = document.querySelector('.category-tabs');
     if (!categoryContainer) return;
     
-    // 清空现有内容
-    categoryContainer.innerHTML = '';
+    // 不清空现有内容，直接使用HTML中已有的分类按钮
+    const categoryButtons = categoryContainer.querySelectorAll('.category-tab');
     
-    // 创建分类按钮
-    const categories = [
-        { key: 'all', name: '全部美食', count: foodData.length },
-        { key: '面食类', name: '面食类', count: foodData.filter(f => f.category === '面食类').length },
-        { key: '汤品类', name: '汤品类', count: foodData.filter(f => f.category === '汤品类').length },
-        { key: '肉类', name: '肉类', count: foodData.filter(f => f.category === '肉类').length },
-        { key: '饮品类', name: '饮品类', count: foodData.filter(f => f.category === '饮品类').length },
-        { key: '糕点类', name: '糕点类', count: foodData.filter(f => f.category === '糕点类').length }
-    ];
-    
-    categories.forEach((category, index) => {
-        const button = document.createElement('button');
-        button.className = 'category-tab';
-        button.dataset.category = category.key;
-        button.textContent = `${category.name} (${category.count})`;
-        
-        if (index === 0) {
-            button.classList.add('active');
-        }
-        
+    // 为每个分类按钮绑定点击事件
+    categoryButtons.forEach(button => {
         button.addEventListener('click', function() {
+            const category = this.dataset.category;
+            
             // 更新活动状态
-            document.querySelectorAll('.category-tab').forEach(btn => {
+            categoryButtons.forEach(btn => {
                 btn.classList.remove('active');
             });
             this.classList.add('active');
             
             // 筛选美食
-            filterFoodByCategory(category.key);
+            filterFoodByCategory(category);
         });
-        
-        categoryContainer.appendChild(button);
     });
 }
 
@@ -185,7 +170,7 @@ function getCountByCategory(category) {
     return foodData.filter(food => food.category === category).length;
 }
 
-// 按分类筛选美食
+// 按分类筛选美食 - 修复分类逻辑
 function filterFoodByCategory(category) {
     const foodCards = document.querySelectorAll('.food-card');
     const foodItems = document.querySelectorAll('.food-item');
@@ -194,16 +179,35 @@ function filterFoodByCategory(category) {
     foodCards.forEach((card, index) => {
         if (index < foodData.length) {
             const food = foodData[index];
+            let shouldShow = false;
             
-            if (category === 'all' || food.category === category) {
+            if (category === 'all') {
+                shouldShow = true;
+            } else {
+                // 统一分类映射
+                const categoryMap = {
+                    'noodles': '面食类',
+                    'snacks': '汤品类',
+                    'meat': '肉类',
+                    'drinks': '饮品类',
+                    'desserts': '糕点类'
+                };
+                
+                shouldShow = food.category === categoryMap[category];
+            }
+            
+            if (shouldShow) {
                 card.style.display = 'block';
                 card.classList.remove('hidden');
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
                 setTimeout(() => {
-                    card.classList.add('show');
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
                 }, 100);
             } else {
-                card.classList.remove('show');
-                card.classList.add('hidden');
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
                 setTimeout(() => {
                     card.style.display = 'none';
                 }, 300);
@@ -215,15 +219,10 @@ function filterFoodByCategory(category) {
     foodItems.forEach(item => {
         const itemCategory = item.dataset.category;
         
-        if (category === 'all' || 
-            (category === '面食类' && (itemCategory === 'noodles')) ||
-            (category === '汤品类' && (itemCategory === 'snacks')) ||
-            (category === '肉类' && (itemCategory === 'meat')) ||
-            (category === '饮品类' && (itemCategory === 'drinks')) ||
-            (category === '糕点类' && (itemCategory === 'desserts'))) {
-            
+        if (category === 'all' || itemCategory === category) {
             item.style.display = 'flex';
             item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
             setTimeout(() => {
                 item.style.opacity = '1';
                 item.style.transform = 'translateY(0)';
@@ -281,7 +280,7 @@ function createFoodCard(food) {
             <img src="${food.image}" alt="${food.name}" loading="lazy">
             <div class="card-overlay">
                 <div class="food-tags">
-                    ${food.tags.map(tag => `<span class="food-tag">${tag}</span>`).join('')}
+                    ${food.tags ? food.tags.map(tag => `<span class="food-tag">${tag}</span>`).join('') : ''}
                 </div>
             </div>
         </div>
@@ -313,14 +312,14 @@ function createFoodCard(food) {
                 </div>
             </div>
             <div class="card-actions">
-                <button class="btn btn-primary" onclick="showFoodModal(${food.id})">
+                <button class="btn btn-primary" onclick="showFoodDetail('${food.id}')">
                     详细介绍
                 </button>
-                <button class="btn btn-outline" onclick="addToFavorites(${food.id})">
+                <button class="btn btn-outline favorite-btn" 
+                        data-favorite-id="${food.id}"
+                        data-favorite-type="food"
+                        onclick="collectFood('${food.id}')">
                     收藏
-                </button>
-                <button class="btn btn-outline" onclick="showRestaurants(${food.id})">
-                    推荐餐厅
                 </button>
             </div>
         </div>
@@ -724,53 +723,6 @@ function markHelpful(button) {
     button.disabled = true;
     button.style.opacity = '0.6';
     Utils.showMessage('感谢您的反馈！', 'success');
-}
-
-// 初始化分类标签功能
-function initCategoryTabs() {
-    const categoryTabs = document.querySelectorAll('.category-tab');
-    const foodItems = document.querySelectorAll('.food-item');
-    
-    if (!categoryTabs.length || !foodItems.length) {
-        return;
-    }
-    
-    categoryTabs.forEach(tab => {
-        tab.addEventListener('click', function() {
-            const category = this.dataset.category;
-            
-            // 更新活动标签
-            categoryTabs.forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
-            
-            // 筛选美食项目
-            filterFoodItems(category, foodItems);
-        });
-    });
-}
-
-// 筛选美食项目
-function filterFoodItems(category, foodItems) {
-    foodItems.forEach(item => {
-        const itemCategory = item.dataset.category;
-        
-        if (category === 'all' || itemCategory === category) {
-            // 显示项目
-            item.style.display = 'flex';
-            item.style.opacity = '0';
-            setTimeout(() => {
-                item.style.opacity = '1';
-                item.style.transform = 'translateY(0)';
-            }, 100);
-        } else {
-            // 隐藏项目
-            item.style.opacity = '0';
-            item.style.transform = 'translateY(20px)';
-            setTimeout(() => {
-                item.style.display = 'none';
-            }, 300);
-        }
-    });
 }
 
 // 滚动动画

@@ -352,8 +352,8 @@ function getUserData() {
     }
     
     return null;
-}
-
+    }
+    
 // 清除用户数据
 function clearUserData() {
     localStorage.removeItem('hanzhong_user');
@@ -545,7 +545,7 @@ function showCustomConfirm(message, title, onConfirm, onCancel) {
     
     document.head.appendChild(style);
     document.body.appendChild(confirmModal);
-    
+                
     // 事件处理
     const cancelBtn = confirmModal.querySelector('.confirm-cancel');
     const okBtn = confirmModal.querySelector('.confirm-ok');
@@ -729,7 +729,7 @@ function sendVerificationCode() {
             clearInterval(verificationTimer);
             sendCodeBtn.textContent = '重新发送';
             sendCodeBtn.disabled = false;
-        }
+                }
     }, 1000);
 }
 
@@ -840,7 +840,7 @@ function showFieldError(field, message) {
     
     const errorElement = field.parentNode.querySelector('.error-message');
     if (errorElement) {
-        errorElement.textContent = message;
+    errorElement.textContent = message;
         errorElement.style.display = 'block';
     }
 }
@@ -896,7 +896,7 @@ function showMessage(message, type = 'info') {
                 setTimeout(() => {
             if (messageElement.parentNode) {
                 messageElement.remove();
-            }
+        }
         }, 300);
     }, 3000);
 }
@@ -918,7 +918,7 @@ function initPrivilegeAnimation() {
     privilegeItems.forEach((item, index) => {
         item.style.animationDelay = `${index * 0.1}s`;
         item.classList.add('animate-fade-in');
-    });
+        });
 }
 
 // 全局函数导出

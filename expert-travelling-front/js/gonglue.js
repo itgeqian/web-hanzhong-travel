@@ -314,12 +314,13 @@ function initBudgetCalculator() {
     
     // 计算预算
     function calculateBudget() {
-        const days = parseInt(inputs.days.value) || 1;
-        const people = parseInt(inputs.people.value) || 1;
-        const accommodation = inputs.accommodation.value || 'standard';
-        const transportation = inputs.transportation.value || 'public';
-        const meals = inputs.meals.value || 'standard';
-        const attractions = inputs.attractions.value || 'standard';
+        // 添加空值检查，防止访问null对象的属性
+        const days = (inputs.days && inputs.days.value) ? parseInt(inputs.days.value) : 1;
+        const people = (inputs.people && inputs.people.value) ? parseInt(inputs.people.value) : 1;
+        const accommodation = (inputs.accommodation && inputs.accommodation.value) ? inputs.accommodation.value : 'standard';
+        const transportation = (inputs.transportation && inputs.transportation.value) ? inputs.transportation.value : 'public';
+        const meals = (inputs.meals && inputs.meals.value) ? inputs.meals.value : 'standard';
+        const attractions = (inputs.attractions && inputs.attractions.value) ? inputs.attractions.value : 'standard';
         
         let totalBudget = 0;
         
@@ -351,6 +352,12 @@ function initBudgetCalculator() {
     
     // 显示预算结果
     function showBudgetResult(budget) {
+        // 检查结果元素是否存在
+        if (!resultElement) {
+            console.warn('预算结果显示区域未找到');
+            return;
+        }
+        
         const resultHTML = `
             <div class="budget-breakdown">
                 <h4>预算明细（${budget.days}天${budget.people}人）</h4>
@@ -401,7 +408,13 @@ function initBudgetCalculator() {
     // 实时计算
     Object.values(inputs).forEach(input => {
         if (input) {
-            input.addEventListener('change', Utils.debounce(calculateBudget, 500));
+            // 安全检查Utils是否存在
+            if (typeof Utils !== 'undefined' && Utils.debounce) {
+                input.addEventListener('change', Utils.debounce(calculateBudget, 500));
+            } else {
+                // 降级处理：直接添加事件监听器
+                input.addEventListener('change', calculateBudget);
+            }
         }
     });
     

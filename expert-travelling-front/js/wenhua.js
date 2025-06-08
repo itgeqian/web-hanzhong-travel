@@ -758,6 +758,7 @@ function initKnowledgeQuiz() {
         `;
     }
     
+    // 定义全局函数
     window.selectAnswer = function(selectedIndex) {
         const question = quizData[currentQuestion];
         const optionBtns = document.querySelectorAll('.option-btn');
@@ -904,20 +905,16 @@ function initKnowledgeQuiz() {
     renderQuiz();
 }
 
-// 全局函数
+// 全局函数声明 - 在函数定义之后进行
 window.showTimelineDetail = showTimelineDetail;
 window.filterSites = filterSites;
 window.showSiteDetail = showSiteDetail;
 window.collectSite = collectSite;
 window.filterMapSites = filterMapSites;
 window.showMapMarkerInfo = showMapMarkerInfo;
-window.closeMapInfo = closeMapInfo;
 window.filterGallery = filterGallery;
 window.openLightbox = openLightbox;
-window.selectAnswer = selectAnswer;
-window.nextQuestion = nextQuestion;
-window.restartQuiz = restartQuiz;
-window.showQuizReview = showQuizReview;
+// window.selectAnswer, window.nextQuestion, window.restartQuiz, window.showQuizReview 已在initKnowledgeQuiz函数内定义
 
 // 文化活动预订功能
 function bookCultureActivity(activityId) {
