@@ -362,66 +362,63 @@
                 <h2 class="section-title">个性化定制</h2>
                 <div class="custom-content">
                     <div class="custom-info">
-                        <h3>专属定制旅游线路</h3>
-                        <p>我们提供个性化的旅游线路定制服务，根据您的兴趣、时间和预算，为您量身打造独特的汉中之旅。</p>
-                        
-                        <ul class="custom-features">
-                            <li>✓ 专业旅游顾问一对一服务</li>
-                            <li>✓ 灵活的行程安排</li>
-                            <li>✓ 精选住宿和餐饮</li>
-                            <li>✓ 24小时贴心服务</li>
-                            <li>✓ 专业摄影师跟拍（可选）</li>
-                            <li>✓ 本地向导深度讲解</li>
-                        </ul>
-                        
-                        <div class="custom-actions">
-                            <button class="btn btn-primary" onclick="consultRoute()">立即咨询</button>
-                            <button class="btn btn-outline" onclick="getCustomPlan()">获取方案</button>
+                        <div class="custom-info-text">
+                            <h3>专属定制旅游线路</h3>
+                            <p>我们提供个性化的旅游线路定制服务，根据您的兴趣、时间和预算，为您量身打造独特的汉中之旅。</p>
+                            
+                            <ul class="custom-info-features">
+                                <li>专业旅游顾问一对一服务</li>
+                                <li>灵活的行程安排</li>
+                                <li>精选住宿和餐饮</li>
+                                <li>24小时贴心服务</li>
+                                <li>专业摄影师跟拍（可选）</li>
+                                <li>本地向导深度讲解</li>
+                            </ul>
+                            
+                            <div class="custom-actions">
+                                <button class="btn btn-primary" onclick="consultRoute()">立即咨询</button>
+                                <button class="btn btn-outline" onclick="getCustomPlan()">获取方案</button>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="custom-form">
-                        <h4>快速定制需求</h4>
-                        <form class="quick-custom-form">
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label>出行天数</label>
-                                    <select name="days">
-                                        <option value="">请选择</option>
-                                        <option value="1-2">1-2天</option>
-                                        <option value="3-4">3-4天</option>
-                                        <option value="5-7">5-7天</option>
-                                        <option value="7+">7天以上</option>
-                                    </select>
+                        
+                        <div class="custom-info-form">
+                            <h4>快速定制需求</h4>
+                            <form class="quick-custom-form">
+                                <div class="form-grid">
+                                    <div class="form-item">
+                                        <label>出行天数</label>
+                                        <select name="days">
+                                            <option value="">请选择</option>
+                                            <option value="1-2">1-2天</option>
+                                            <option value="3-4">3-4天</option>
+                                            <option value="5-7">5-7天</option>
+                                            <option value="7+">7天以上</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-item">
+                                        <label>预算范围</label>
+                                        <select name="budget">
+                                            <option value="">请选择</option>
+                                            <option value="500-1000">500-1000元</option>
+                                            <option value="1000-2000">1000-2000元</option>
+                                            <option value="2000+">2000元以上</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-item">
+                                        <label>联系方式</label>
+                                        <input type="tel" name="contact" placeholder="请输入手机号码">
+                                    </div>
+                                    <div class="form-item">
+                                        <label>兴趣偏好</label>
+                                        <textarea name="interests" placeholder="请描述您的兴趣偏好，如历史文化、自然风光、美食体验等"></textarea>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label>预算范围</label>
-                                    <select name="budget">
-                                        <option value="">请选择</option>
-                                        <option value="500-1000">500-1000元</option>
-                                        <option value="1000-2000">1000-2000元</option>
-                                        <option value="2000+">2000元以上</option>
-                                    </select>
+                                
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary" onclick="submitCustomRequest(event)">提交定制需求</button>
                                 </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>兴趣偏好</label>
-                                <div class="checkbox-group">
-                                    <label><input type="checkbox" value="history"> 历史文化</label>
-                                    <label><input type="checkbox" value="nature"> 自然风光</label>
-                                    <label><input type="checkbox" value="food"> 美食体验</label>
-                                    <label><input type="checkbox" value="photography"> 摄影采风</label>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>联系方式</label>
-                                <input type="tel" name="contact" placeholder="请输入手机号码">
-                            </div>
-                            
-                            <button type="submit" class="btn btn-primary btn-full" onclick="submitCustomRequest(event)">提交定制需求</button>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

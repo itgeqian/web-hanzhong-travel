@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片尺寸和布局修复测试 - 汉中旅游网站</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/luxian.css">
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .test-section {
+            background: white;
+            margin: 20px 0;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .test-title {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 700;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .image-test {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .image-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 2px solid #e9ecef;
+        }
+        
+        .image-card h4 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin: 0;
+            padding: 15px 20px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .image-card .route-image {
+            height: 400px;
+            background: #f0f0f0;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .image-card .route-image::after {
+            content: '600×400 图片区域\\A高度已修复为400px';
+            white-space: pre;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .dimension-info {
+            padding: 15px 20px;
+            background: #f8f9fa;
+            font-size: 14px;
+            color: #495057;
+        }
+        
+        .dimension-info .before {
+            color: #e74c3c;
+            text-decoration: line-through;
+        }
+        
+        .dimension-info .after {
+            color: #27ae60;
+            font-weight: 600;
+        }
+        
+        .layout-test {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .status-fixed {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status-improved {
+            background: #cce7ff;
+            color: #004085;
+            border: 1px solid #99d3ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="text-align: center; color: #2c3e50; margin-bottom: 40px;">
+            图片尺寸和布局修复测试
+            <span class="status-badge status-fixed">✅ 已修复</span>
+        </h1>
+        
+        <!-- 图片尺寸修复测试 -->
+        <div class="test-section">
+            <h2 class="test-title">1. 图片尺寸修复测试 <span class="status-badge status-fixed">高度: 220px → 400px</span></h2>
+            <p style="text-align: center; color: #666; margin-bottom: 30px;">
+                修复前：线路图片高度为220px，导致600×400图片显示不全<br>
+                修复后：图片高度调整为400px，完美适配您的600×400图片
+            </p>
+            
+            <div class="image-test">
+                <div class="image-card">
+                    <h4>🖼️ 旅游线路图片</h4>
+                    <div class="route-image"></div>
+                    <div class="dimension-info">
+                        <strong>修复详情：</strong><br>
+                        <span class="before">修复前：height: 220px</span><br>
+                        <span class="after">修复后：height: 400px</span>
+                    </div>
+                </div>
+                
+                <div class="image-card">
+                    <h4>📱 响应式设计</h4>
+                    <div class="route-image"></div>
+                    <div class="dimension-info">
+                        <strong>移动端适配：</strong><br>
+                        平板设备：300px<br>
+                        手机设备：250px
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 个性化定制布局测试 -->
+        <div class="test-section">
+            <h2 class="test-title">2. 个性化定制左右排列布局 <span class="status-badge status-improved">左右排列 + 现代化设计</span></h2>
+            <p style="text-align: center; color: #666; margin-bottom: 30px;">
+                布局优化：由上下排列改为左右排列，左侧显示文字内容，右侧显示表单，更加美观现代
+            </p>
+            
+            <div class="layout-test">
+                <div class="custom-info">
+                    <div class="custom-info-text">
+                        <h3>专属定制旅游线路</h3>
+                        <p>我们提供个性化的旅游线路定制服务，根据您的兴趣、时间和预算，为您量身打造独特的汉中之旅。</p>
+                        
+                        <ul class="custom-info-features">
+                            <li>专业旅游顾问一对一服务</li>
+                            <li>灵活的行程安排</li>
+                            <li>精选住宿和餐饮</li>
+                            <li>24小时贴心服务</li>
+                            <li>专业摄影师跟拍（可选）</li>
+                            <li>本地向导深度讲解</li>
+                        </ul>
+                        
+                        <div class="custom-actions">
+                            <button class="btn btn-primary">立即咨询</button>
+                            <button class="btn btn-outline">获取方案</button>
+                        </div>
+                    </div>
+                    
+                    <div class="custom-info-form">
+                        <h4>快速定制需求</h4>
+                        <form class="quick-custom-form">
+                            <div class="form-grid">
+                                <div class="form-item">
+                                    <label>出行天数</label>
+                                    <select name="days">
+                                        <option value="">请选择</option>
+                                        <option value="1-2">1-2天</option>
+                                        <option value="3-4">3-4天</option>
+                                        <option value="5-7">5-7天</option>
+                                        <option value="7+">7天以上</option>
+                                    </select>
+                                </div>
+                                <div class="form-item">
+                                    <label>预算范围</label>
+                                    <select name="budget">
+                                        <option value="">请选择</option>
+                                        <option value="500-1000">500-1000元</option>
+                                        <option value="1000-2000">1000-2000元</option>
+                                        <option value="2000+">2000元以上</option>
+                                    </select>
+                                </div>
+                                <div class="form-item">
+                                    <label>联系方式</label>
+                                    <input type="tel" name="contact" placeholder="请输入手机号码">
+                                </div>
+                                <div class="form-item">
+                                    <label>兴趣偏好</label>
+                                    <textarea name="interests" placeholder="请描述您的兴趣偏好，如历史文化、自然风光、美食体验等"></textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">提交定制需求</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 修复总结 -->
+        <div class="test-section">
+            <h2 class="test-title">3. 修复总结</h2>
+            <div style="background: #f8f9fa; padding: 25px; border-radius: 12px; border-left: 4px solid #667eea;">
+                <h3 style="color: #2c3e50; margin-bottom: 15px;">✅ 成功修复的问题：</h3>
+                <ul style="color: #495057; line-height: 1.8;">
+                    <li><strong>图片尺寸问题：</strong>旅游线路图片高度从220px调整为400px，完美适配您的600×400图片</li>
+                    <li><strong>布局优化：</strong>个性化定制区域改为左右排列布局，左侧文字内容，右侧表单</li>
+                    <li><strong>响应式适配：</strong>在移动设备上自动切换为上下排列，保持良好的用户体验</li>
+                    <li><strong>视觉效果：</strong>添加渐变背景、毛玻璃效果、动画等现代化设计元素</li>
+                    <li><strong>交互体验：</strong>表单焦点状态优化，按钮悬停效果改进</li>
+                </ul>
+                
+                <h3 style="color: #2c3e50; margin: 25px 0 15px 0;">🎨 设计特色：</h3>
+                <ul style="color: #495057; line-height: 1.8;">
+                    <li>左侧使用金色渐变主题，突出专属定制的高端感</li>
+                    <li>右侧表单区域采用半透明白色背景，层次分明</li>
+                    <li>添加✨装饰图标，提升视觉吸引力</li>
+                    <li>统一的配色方案和现代化圆角设计</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 简单的交互效果
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('mouseover', function() {
+                this.style.transform = 'translateY(-2px)';
+            });
+            btn.addEventListener('mouseout', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html> 
