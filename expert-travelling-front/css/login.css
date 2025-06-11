@@ -477,34 +477,34 @@
     transition: all 0.3s ease;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     max-width: 350px;
-}
+    }
 
 .message-toast.show {
     transform: translateX(0);
-}
-
+    }
+    
 .message-content {
     display: flex;
     align-items: center;
     gap: 10px;
-}
-
+    }
+    
 .message-icon {
     font-size: 16px;
-}
+    }
 
 .message-success {
     background: linear-gradient(135deg, #28a745, #20c997);
-}
-
+    }
+    
 .message-error {
     background: linear-gradient(135deg, #dc3545, #e74c3c);
-}
-
+    }
+    
 .message-warning {
     background: linear-gradient(135deg, #ffc107, #fd7e14);
-}
-
+    }
+    
 .message-info {
     background: linear-gradient(135deg, #17a2b8, #6f42c1);
 }
@@ -542,7 +542,7 @@
     0%, 100% { transform: translateX(0); }
     10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
     20%, 40%, 60%, 80% { transform: translateX(5px); }
-}
+    }
 
 /* 响应式设计 */
 @media (max-width: 768px) {
@@ -550,23 +550,23 @@
         flex-direction: column;
         gap: 30px;
         padding: 20px;
-    }
-    
-    .login-box {
+}
+
+.login-box {
         padding: 30px 20px;
         max-width: 100%;
-    }
-    
-    .login-info {
+}
+
+.login-info {
         padding: 20px;
         text-align: center;
-    }
-    
-    .privilege-list li {
+}
+
+.privilege-list li {
         font-size: 14px;
         padding: 12px 0;
-    }
-    
+}
+
     .modal-content {
         width: 95%;
         margin: 20px;

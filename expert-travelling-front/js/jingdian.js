@@ -711,7 +711,7 @@ function searchAttractions(keyword) {
 
 // 全局函数
 window.showAttractionModal = showAttractionModal;
-window.addToFavorites = addToFavorites;
+window.addToFavorites = addToFavorites; 
 
 // 初始化景点收藏状态
 function initAttractionFavoriteStatus() {

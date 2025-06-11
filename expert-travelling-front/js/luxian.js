@@ -404,9 +404,6 @@ function renderRoutes(routes) {
                     <span class="difficulty-badge ${route.difficulty}">${getDifficultyText(route.difficulty)}</span>
                 </div>
                 <div class="route-actions">
-                    <button class="action-btn favorite-btn" onclick="toggleFavorite(${route.id})" title="收藏">
-                        ❤️
-                    </button>
                     <button class="action-btn compare-btn" onclick="addToCompare(${route.id})" title="对比">
                         📊
                     </button>
@@ -771,40 +768,6 @@ function showRouteDetail(routeId) {
         if (e.target === modal) {
             modal.remove();
             document.body.style.overflow = 'auto';
-        }
-    });
-}
-
-// 收藏功能
-function toggleFavorite(routeId) {
-    let favorites = JSON.parse(localStorage.getItem('hanzhong_route_favorites') || '[]');
-    
-    if (favorites.includes(routeId)) {
-        favorites = favorites.filter(id => id !== routeId);
-        Utils.showMessage('已取消收藏', 'info');
-    } else {
-        favorites.push(routeId);
-        Utils.showMessage('收藏成功！', 'success');
-    }
-    
-    localStorage.setItem('hanzhong_route_favorites', JSON.stringify(favorites));
-    updateFavoriteButtons();
-}
-
-// 更新收藏按钮状态
-function updateFavoriteButtons() {
-    const favorites = JSON.parse(localStorage.getItem('hanzhong_route_favorites') || '[]');
-    
-    document.querySelectorAll('.favorite-btn').forEach(btn => {
-        const routeCard = btn.closest('.route-card');
-        const routeId = parseInt(routeCard.dataset.routeId);
-        
-        if (favorites.includes(routeId)) {
-            btn.style.color = '#e74c3c';
-            btn.title = '取消收藏';
-        } else {
-            btn.style.color = '#bdc3c7';
-            btn.title = '收藏';
         }
     });
 }
@@ -1439,38 +1402,6 @@ function initRouteCards() {
     routeCards.forEach(card => {
         // 移除悬停效果设置，使用CSS样式
         // 不再手动设置transform，避免与CSS冲突
-        
-        // 添加收藏功能
-        const favoriteBtn = document.createElement('button');
-        favoriteBtn.className = 'btn-icon favorite-btn';
-        favoriteBtn.innerHTML = '❤️';
-        favoriteBtn.title = '收藏路线';
-        
-        favoriteBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            this.classList.toggle('favorited');
-            
-            if (this.classList.contains('favorited')) {
-                this.innerHTML = '💖';
-                this.title = '已收藏';
-                showNotification('已添加到收藏夹！', 'success');
-            } else {
-                this.innerHTML = '❤️';
-                this.title = '收藏路线';
-                showNotification('已从收藏夹移除', 'info');
-            }
-        });
-        
-        // 将收藏按钮添加到卡片
-        const routeImage = card.querySelector('.route-image');
-        if (routeImage) {
-            favoriteBtn.style.position = 'absolute';
-            favoriteBtn.style.top = '15px';
-            favoriteBtn.style.right = '15px';
-            favoriteBtn.style.zIndex = '10';
-            routeImage.style.position = 'relative';
-            routeImage.appendChild(favoriteBtn);
-        }
     });
 }
 
@@ -1528,14 +1459,10 @@ window.consultRoute = consultRoute;
 window.getCustomPlan = getCustomPlan;
 window.submitCustomRequest = submitCustomRequest;
 window.showRouteDetail = showRouteDetail;
-window.toggleFavorite = toggleFavorite;
 window.showNotification = showNotification;
 
 // 初始化线路预订功能
 function initRouteBooking() {
-    // 恢复收藏状态
-    updateFavoriteButtons();
-    
     // 添加到页面底部的统计信息
     addRouteStatistics();
 }

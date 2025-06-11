@@ -410,7 +410,7 @@ function initBudgetCalculator() {
         if (input) {
             // 安全检查Utils是否存在
             if (typeof Utils !== 'undefined' && Utils.debounce) {
-                input.addEventListener('change', Utils.debounce(calculateBudget, 500));
+            input.addEventListener('change', Utils.debounce(calculateBudget, 500));
             } else {
                 // 降级处理：直接添加事件监听器
                 input.addEventListener('change', calculateBudget);
