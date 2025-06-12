@@ -33,6 +33,12 @@ document.addEventListener('DOMContentLoaded', function() {
             updateAllFavoriteButtonsStatus();
         }
     }, 100);
+
+    // 预约体验按钮事件
+    const bookingBtn = document.querySelector('.experience-booking .btn');
+    if (bookingBtn) {
+        bookingBtn.addEventListener('click', showBookingModal);
+    }
 });
 
 // 美食数据
@@ -795,21 +801,6 @@ function initHoverEffects() {
     });
 }
 
-// 预约体验功能
-function bookExperience(programType) {
-    const programs = {
-        'noodles': '热面皮制作体验',
-        'dumplings': '汉中饺子体验', 
-        'tofu': '菜豆腐制作体验'
-    };
-    
-    const programName = programs[programType] || '美食制作体验';
-    
-    if (confirm(`确定要预约"${programName}"吗？`)) {
-        alert(`预约成功！我们将在24小时内联系您确认具体时间。`);
-    }
-}
-
 // 查看餐厅详情
 function viewRestaurantDetails(restaurantId) {
     alert('餐厅详情页面正在开发中...');
@@ -836,7 +827,6 @@ function shareFood(foodName, description) {
 }
 
 // 全局函数（供HTML调用）
-window.bookExperience = bookExperience;
 window.viewRestaurantDetails = viewRestaurantDetails;
 window.shareFood = shareFood;
 
@@ -1861,5 +1851,155 @@ function addFoodDetailStyles() {
         }
     `;
     
+    document.head.appendChild(style);
+}
+
+// 显示自定义预约弹窗
+function showBookingModal() {
+    // 如果已存在弹窗，先移除
+    const exist = document.getElementById('foodBookingModal');
+    if (exist) exist.remove();
+
+    // 弹窗HTML
+    const modal = document.createElement('div');
+    modal.id = 'foodBookingModal';
+    modal.innerHTML = `
+        <div class="modal-overlay" onclick="closeFoodBookingModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>预约美食制作体验</h2>
+                <button class="modal-close" onclick="closeFoodBookingModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="bookingForm">
+                    <div class="form-group">
+                        <label for="program">选择体验项目：</label>
+                        <select id="program" name="program" class="form-control" required>
+                            <option value="">请选择</option>
+                            <option value="noodles">热面皮制作体验</option>
+                            <option value="dumplings">汉中饺子体验</option>
+                            <option value="tofu">菜豆腐制作体验</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">姓名：</label>
+                        <input type="text" id="name" name="name" class="form-control" placeholder="请输入您的姓名" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">联系电话：</label>
+                        <input type="tel" id="phone" name="phone" class="form-control" placeholder="请输入手机号" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="remark">备注（可选）：</label>
+                        <textarea id="remark" name="remark" class="form-control" placeholder="如有特殊需求请填写"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" onclick="closeFoodBookingModal()">取消</button>
+                        <button type="submit" class="btn btn-primary">确认预约</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+
+    // 表单提交事件
+    document.getElementById('bookingForm').onsubmit = function(e) {
+        e.preventDefault();
+        submitFoodBooking();
+    };
+
+    // 添加样式
+    addFoodBookingModalStyles();
+}
+
+// 关闭弹窗
+function closeFoodBookingModal() {
+    const modal = document.getElementById('foodBookingModal');
+    if (modal) modal.remove();
+    document.body.style.overflow = '';
+}
+
+// 提交预约
+function submitFoodBooking() {
+    const program = document.getElementById('program').value;
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const remark = document.getElementById('remark').value.trim();
+    if (!program) {
+        showGlobalMessage('请选择体验项目', 'error');
+        return;
+    }
+    if (!name) {
+        showGlobalMessage('请输入姓名', 'error');
+        return;
+    }
+    if (!phone) {
+        showGlobalMessage('请输入联系电话', 'error');
+        return;
+    }
+    const phoneRegex = /^1[3-9]\d{9}$/;
+    if (!phoneRegex.test(phone)) {
+        showGlobalMessage('请输入正确的手机号', 'error');
+        return;
+    }
+    closeFoodBookingModal();
+    showCustomConfirm(
+        `预约成功！我们将在24小时内与您联系确认具体时间。`,
+        '预约成功',
+        null,
+        '确定'
+    );
+}
+
+// 添加弹窗样式
+function addFoodBookingModalStyles() {
+    if (document.getElementById('food-booking-modal-style')) return;
+    const style = document.createElement('style');
+    style.id = 'food-booking-modal-style';
+    style.textContent = `
+    #foodBookingModal {
+        position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; z-index: 9999;
+        display: flex; align-items: center; justify-content: center;
+    }
+    #foodBookingModal .modal-overlay {
+        position: absolute; left: 0; top: 0; width: 100vw; height: 100vh;
+        background: rgba(0,0,0,0.45); backdrop-filter: blur(2px);
+    }
+    #foodBookingModal .modal-content {
+        position: relative; background: #fff; border-radius: 16px; max-width: 400px; width: 90vw;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.18); padding: 0; animation: fadeInUp 0.3s;
+    }
+    #foodBookingModal .modal-header {
+        padding: 20px 24px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; border-radius: 16px 16px 0 0;
+    }
+    #foodBookingModal .modal-header h2 { margin: 0; font-size: 20px; }
+    #foodBookingModal .modal-close {
+        background: none; border: none; color: #fff; font-size: 26px; cursor: pointer; padding: 0 6px;
+        border-radius: 50%; transition: background 0.2s;
+    }
+    #foodBookingModal .modal-close:hover { background: rgba(255,255,255,0.15); }
+    #foodBookingModal .modal-body { padding: 24px; }
+    #foodBookingModal .form-group { margin-bottom: 18px; }
+    #foodBookingModal label { display: block; margin-bottom: 6px; color: #333; font-weight: 500; }
+    #foodBookingModal .form-control {
+        width: 100%; padding: 10px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 15px;
+        transition: border 0.2s; box-sizing: border-box;
+    }
+    #foodBookingModal .form-control:focus { border-color: #667eea; outline: none; }
+    #foodBookingModal textarea.form-control { min-height: 60px; resize: vertical; }
+    #foodBookingModal .form-actions { display: flex; gap: 16px; justify-content: flex-end; margin-top: 10px; }
+    #foodBookingModal .btn { min-width: 80px; }
+    @media (max-width: 500px) {
+        #foodBookingModal .modal-content { max-width: 98vw; padding: 0; }
+        #foodBookingModal .modal-header, #foodBookingModal .modal-body { padding: 14px; }
+    }
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(40px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    `;
     document.head.appendChild(style);
 } 
