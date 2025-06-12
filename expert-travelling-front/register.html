@@ -10,29 +10,38 @@
 <body>
     <!-- 页面头部 -->
     <header class="header">
-        <div class="logo-container">
-            <img src="img/logo.png" alt="汉中旅游Logo" class="logo">
-            <h1 class="site-title">汉中旅游</h1>
-        </div>
-        
-        <nav class="navbar">
-            <ul class="nav-list">
-                <li class="nav-item"><a href="index.html" class="nav-link">首页</a></li>
-                <li class="nav-item"><a href="jingdian.html" class="nav-link">景点介绍</a></li>
-                <li class="nav-item"><a href="luxian.html" class="nav-link">旅游线路</a></li>
-                <li class="nav-item"><a href="gonglue.html" class="nav-link">旅游攻略</a></li>
-                <li class="nav-item"><a href="meishi.html" class="nav-link">美食推荐</a></li>
-                <li class="nav-item"><a href="wenhua.html" class="nav-link">汉文化活动</a></li>
-                <li class="nav-item"><a href="lianxi.html" class="nav-link">联系我们</a></li>
-                <li class="nav-item"><a href="wenti.html" class="nav-link">常见问题</a></li>
-            </ul>
+        <div class="container">
+            <div class="logo-container">
+                <img src="img/logo.png" alt="汉中旅游Logo" class="logo">
+                <h1 class="site-title">汉中旅游</h1>
+            </div>
             
             <!-- 用户操作按钮 -->
             <div class="user-actions" id="userActions">
                 <a href="register.html" class="btn btn-outline active">注册</a>
                 <a href="login.html" class="btn btn-primary">登录</a>
             </div>
-        </nav>
+            
+            <!-- 移动端菜单切换按钮 -->
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <nav class="navbar" id="navbar">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="index.html" class="nav-link">首页</a></li>
+                    <li class="nav-item"><a href="jingdian.html" class="nav-link">景点介绍</a></li>
+                    <li class="nav-item"><a href="luxian.html" class="nav-link">旅游线路</a></li>
+                    <li class="nav-item"><a href="gonglue.html" class="nav-link">旅游攻略</a></li>
+                    <li class="nav-item"><a href="meishi.html" class="nav-link">美食推荐</a></li>
+                    <li class="nav-item"><a href="wenhua.html" class="nav-link">汉文化活动</a></li>
+                    <li class="nav-item"><a href="lianxi.html" class="nav-link">联系我们</a></li>
+                    <li class="nav-item"><a href="wenti.html" class="nav-link">常见问题</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
     <!-- 主要内容 -->

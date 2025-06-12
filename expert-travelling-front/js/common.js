@@ -3,6 +3,7 @@
 // 页面加载完成后执行
 document.addEventListener('DOMContentLoaded', function() {
     initNavigation();
+    initMobileMenu(); // 初始化移动端菜单
     initScrollEffects();
     initAnimations();
     initCommonForms();
@@ -1603,4 +1604,79 @@ function initFavorites() {
     
     // 更新现有的收藏按钮状态
     updateFavoriteButtons();
+}
+
+// 移动端菜单功能
+function initMobileMenu() {
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const navbar = document.getElementById('navbar');
+    
+    if (!mobileMenuToggle || !navbar) return;
+    
+    // 添加点击事件监听器
+    mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+    
+    // 点击导航链接时关闭菜单
+    const navLinks = navbar.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.addEventListener('click', closeMobileMenu);
+    });
+    
+    // 点击页面其他地方时关闭菜单
+    document.addEventListener('click', function(e) {
+        if (!navbar.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+            closeMobileMenu();
+        }
+    });
+    
+    // 窗口大小改变时处理菜单状态
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+            closeMobileMenu();
+        }
+    });
+}
+
+// 切换移动端菜单
+function toggleMobileMenu() {
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const navbar = document.getElementById('navbar');
+    
+    if (!mobileMenuToggle || !navbar) return;
+    
+    const isActive = mobileMenuToggle.classList.contains('active');
+    
+    if (isActive) {
+        closeMobileMenu();
+    } else {
+        openMobileMenu();
+    }
+}
+
+// 打开移动端菜单
+function openMobileMenu() {
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const navbar = document.getElementById('navbar');
+    
+    if (!mobileMenuToggle || !navbar) return;
+    
+    mobileMenuToggle.classList.add('active');
+    navbar.classList.add('mobile-active');
+    
+    // 防止滚动穿透
+    document.body.style.overflow = 'hidden';
+}
+
+// 关闭移动端菜单
+function closeMobileMenu() {
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const navbar = document.getElementById('navbar');
+    
+    if (!mobileMenuToggle || !navbar) return;
+    
+    mobileMenuToggle.classList.remove('active');
+    navbar.classList.remove('mobile-active');
+    
+    // 恢复滚动
+    document.body.style.overflow = '';
 } 
